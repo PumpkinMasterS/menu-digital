@@ -1,0 +1,45 @@
+# ============================================
+# ifthenpay - Configuração de Pagamentos
+# ============================================
+# 
+# COPIE estas linhas para o seu backend/.env
+# e substitua pelos valores do backoffice
+#
+# Backoffice: https://backoffice.ifthenpay.com
+#
+# ============================================
+
+# 1. Multibanco - Entidade (5 dígitos)
+# Onde encontrar: Menu → Multibanco → Coluna "Entidade"
+# Exemplo: 11249
+IFTHENPAY_MULTIBANCO_ENTIDADE=COLE_AQUI_SUA_ENTIDADE
+
+# 2. Multibanco - SubEntidade (3 dígitos)
+# Onde encontrar: Menu → Multibanco → Coluna "SubEntidade"
+# Exemplo: 001
+IFTHENPAY_MULTIBANCO_SUBENTIDADE=COLE_AQUI_SUA_SUBENTIDADE
+
+# 3. MB WAY Key
+# Onde encontrar: Menu → MB WAY → "Chave MB WAY" ou "API Key"
+# Exemplo: ABC-123456
+IFTHENPAY_MBWAY_KEY=COLE_AQUI_SUA_MBWAY_KEY
+
+# 4. Backoffice Key (API)
+# Onde encontrar: Menu → Configurações → API → "Backoffice Key"
+# Exemplo: abc123def456ghi789jkl012mno345pqr678
+IFTHENPAY_BACKOFFICE_KEY=COLE_AQUI_SUA_BACKOFFICE_KEY
+
+# 5. Anti-Phishing Key (Segurança)
+# Onde encontrar: Menu → Configurações → Callbacks → "Chave Anti-Phishing"
+# Exemplo: xyz789abc123def456
+IFTHENPAY_ANTI_PHISHING_KEY=COLE_AQUI_SUA_ANTIPHISHING_KEY
+
+# 6. Modo Sandbox (true=testes, false=produção)
+IFTHENPAY_SANDBOX=true
+
+# ============================================
+# INSTRUÇÕES COMPLETAS:
+# Ver arquivo: COMECE-AQUI-IFTHENPAY.md
+# Ver arquivo: docs/IFTHENPAY-CONFIG.md
+# ============================================
+

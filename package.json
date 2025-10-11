@@ -1,0 +1,11 @@
+{
+  "name": "menu-digital",
+  "version": "1.0.0",
+  "description": "Menu Digital - Hamburgueria (Portugal)",
+  "scripts": {
+    "setup": "node setup-env.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.0"
+  }
+}
