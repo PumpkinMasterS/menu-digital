@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>Connect AI - Intelligent Educational Platform</title>
+    <meta name="title" content="Connect AI - Intelligent Educational Platform" />
+    <meta name="description" content="Advanced educational platform powered by AI with WhatsApp integration. Manage schools, students, content, and provide intelligent tutoring assistance." />
+    <meta name="keywords" content="education, AI, artificial intelligence, WhatsApp, learning, school management, tutoring, students, teachers" />
+    <meta name="author" content="Connect AI Team" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Connect AI - Intelligent Educational Platform" />
+    <meta property="og:description" content="Advanced educational platform powered by AI with WhatsApp integration. Manage schools, students, content, and provide intelligent tutoring assistance." />
+    <meta property="og:image" content="/favicon.svg" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="Connect AI" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Connect AI - Intelligent Educational Platform" />
+    <meta name="twitter:description" content="Advanced educational platform powered by AI with WhatsApp integration." />
+    <meta name="twitter:image" content="/favicon.svg" />
+    
+    <!-- Educational Favicon and App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2025" />
+    <link rel="icon" type="image/x-icon" href="/favicon.svg?v=2025" />
+    <link rel="apple-touch-icon" href="/favicon.svg?v=2025" />
+    <link rel="manifest" href="/site.webmanifest?v=2025" />
+    
+    <!-- Theme and App Configuration -->
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="msapplication-TileColor" content="#2563eb" />
+    
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    
+    <!-- Performance Hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    
+    <!-- Critical CSS will be loaded separately -->
+    <link rel="stylesheet" href="/src/loading.css" />
+  </head>
+
+  <body>
+    <!-- Loading screen -->
+    <div class="loading-screen">
+      <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- Main application root -->
+    <div id="root"></div>
+    
+    <!-- Scripts -->
+    <script>
+      // Force favicon refresh and remove old Lovable references
+      (function() {
+        // Remove existing favicon links
+        const existingFavicons = document.querySelectorAll('link[rel*="icon"]');
+        existingFavicons.forEach(link => link.remove());
+        
+        // Add fresh favicon
+        const favicon = document.createElement('link');
+        favicon.rel = 'icon';
+        favicon.type = 'image/svg+xml';
+        favicon.href = '/favicon.svg?v=' + new Date().getTime();
+        document.head.appendChild(favicon);
+        
+        console.log('🎓 Connect AI favicon refreshed');
+      })();
+      
+      // Apply theme immediately to prevent flash
+      (function() {
+        const storedTheme = localStorage.getItem('connect-ai-theme') || 'system';
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const actualTheme = storedTheme === 'system' ? (systemPrefersDark ? 'dark' : 'light') : storedTheme;
+        
+        document.documentElement.classList.remove('light', 'dark');
+        document.documentElement.classList.add(actualTheme);
+        console.log('🎓 Connect AI theme applied:', actualTheme);
+      })();
+      
+      // Remove loading screen once the page is loaded
+      window.addEventListener('load', function() {
+        document.body.classList.add('loaded');
+      });
+      
+      // Basic error handling
+      window.addEventListener('error', function(e) {
+        console.error('Connect AI application error:', e.error);
+      });
+      
+      // Handle unhandled promise rejections
+      window.addEventListener('unhandledrejection', function(e) {
+        console.error('Connect AI unhandled promise rejection:', e.reason);
+      });
+    </script>
+    
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

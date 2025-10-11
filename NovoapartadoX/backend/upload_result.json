@@ -1,0 +1,54 @@
+{
+  "start": "2025-10-04T20:12:57.188Z",
+  "baseUrl": "http://127.0.0.1:4000",
+  "health": true,
+  "adminToken": true,
+  "model": {
+    "id": "68e17fca27f24fe6c96ac261",
+    "payload": {
+      "name": "Modelo Teste 1759608778040",
+      "email": "modelo.1759608778040@site.test",
+      "phone": "+351900000001",
+      "category": "fashion",
+      "bio": "Perfil de teste gerado pelo script."
+    }
+  },
+  "jsonUpload": {
+    "ok": true,
+    "status": 200,
+    "data": {
+      "success": true,
+      "message": "Fotos uploadadas com sucesso",
+      "photos": [
+        {
+          "url": "/uploads/models/68e17fca27f24fe6c96ac261/photo_0_1759608778264.jpg",
+          "thumbnail": "/uploads/models/68e17fca27f24fe6c96ac261/thumb_0_1759608778264.jpg",
+          "isPrimary": true,
+          "uploadedAt": "2025-10-04T20:12:58.264Z"
+        }
+      ]
+    }
+  },
+  "multipartUpload": {
+    "ok": true,
+    "status": 200,
+    "data": {
+      "message": "Fotos adicionadas com sucesso",
+      "photos": [
+        {
+          "url": "/uploads/photos-1759608778338-535004336.png",
+          "thumbnail": "/uploads/photos-1759608778338-535004336.png",
+          "isPrimary": false,
+          "uploadedAt": "2025-10-04T20:13:00.785Z"
+        },
+        {
+          "url": "/uploads/photos-1759608778340-798325134.png",
+          "thumbnail": "/uploads/photos-1759608778340-798325134.png",
+          "isPrimary": false,
+          "uploadedAt": "2025-10-04T20:13:00.785Z"
+        }
+      ]
+    }
+  },
+  "end": "2025-10-04T20:13:00.835Z"
+}

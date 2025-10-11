@@ -1,0 +1,16 @@
+﻿{
+    "ok":  true,
+    "tokenLength":  227,
+    "upload":  {
+                   "url":  "http://localhost:4000/uploads/1758142359613_test_upload3.png",
+                   "status":  200,
+                   "length":  120,
+                   "contentType":  "image/png"
+               },
+    "listing":  {
+                    "id":  "68cb20887d82920d9498e388",
+                    "status":  201,
+                    "raw":  "{\"photos\":[],\"verified\":false,\"_id\":\"68cb20887d82920d9498e388\",\"createdAt\":\"2025-09-17T20:56:40.295Z\",\"__v\":0}"
+                },
+    "summary":  "Login OK; Upload público OK; Listing criado com status 201 e id 68cb20887d82920d9498e388"
+}

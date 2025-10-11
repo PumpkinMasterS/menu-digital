@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "815491836975",
+    "project_id": "sabor-portugues-app",
+    "storage_bucket": "sabor-portugues-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815491836975:android:abc123def456",
+        "android_client_info": {
+          "package_name": "com.comituga.saborportugues"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815491836975-android-temp-client-id.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.comituga.saborportugues",
+            "certificate_hash": "9316b6da68b5f4025b7d750d5926d42dc589cf4c"
+          }
+        },
+        {
+          "client_id": "815491836975-0d3b655ed1ss7kfdbtvhh4ftq7m72fi4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDummyKeyForTesting123456789"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815491836975-0d3b655ed1ss7kfdbtvhh4ftq7m72fi4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaborPortuguês - iOS</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin: 0;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .welcome-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .message {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            color: #555555;
+        }
+        .confirm-button {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 30px auto;
+            padding: 18px 30px;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            transition: transform 0.2s ease;
+        }
+        .confirm-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+        .features {
+            background-color: #fff9f6;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #FF6B35;
+        }
+        .features h3 {
+            color: #FF6B35;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .feature-list li {
+            padding: 8px 0;
+            font-size: 15px;
+            color: #666666;
+        }
+        .feature-list li:before {
+            content: "✓";
+            color: #FF6B35;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .device-info {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 40px;
+            font-size: 13px;
+            color: #888888;
+        }
+        .device-info p {
+            margin: 5px 0;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 25px;
+            text-align: center;
+            font-size: 13px;
+            color: #888888;
+        }
+        .social-links {
+            margin: 15px 0;
+        }
+        .social-links a {
+            display: inline-block;
+            margin: 0 8px;
+            color: #FF6B35;
+            text-decoration: none;
+        }
+        .ios-icon {
+            width: 60px;
+            height: 60px;
+            margin: 10px auto 20px;
+            display: block;
+        }
+        /* iOS specific styles */
+        .apple-style {
+            font-weight: 300;
+        }
+        .ios-button {
+            border-radius: 22px;
+            font-weight: 500;
+            letter-spacing: -0.2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">SaborPortuguês</div>
+            <p class="subtitle">Sabores autênticos à distância de um toque</p>
+        </div>
+        <div class="content">
+            <img src="https://www.apple.com/v/ios/ios-17/a/images/overview/ios17_logo__bk2in1mlvzpy_large.png" alt="iOS Icon" class="ios-icon">
+            
+            <div class="welcome-text apple-style">
+                Confirma a tua conta iOS 🍏
+            </div>
+
+            <div class="message apple-style">
+                <p>Olá {{params.USER_EMAIL}},</p>
+                <p>Obrigado por escolheres o SaborPortuguês no teu dispositivo Apple! Para completares o teu registo e começares a explorar os melhores restaurantes portugueses, por favor confirma a tua conta tocando no botão abaixo.</p>
+            </div>
+
+            <a href="{{params.IOS_LINK}}" class="confirm-button ios-button">
+                Confirmar Agora
+            </a>
+
+            <div class="features">
+                <h3 class="apple-style">O que te espera no SaborPortuguês:</h3>
+                <ul class="feature-list">
+                    <li>Comida portuguesa autêntica dos melhores restaurantes</li>
+                    <li>Entregas rápidas à tua porta</li>
+                    <li>Menus exclusivos e promoções especiais</li>
+                    <li>Experiência otimizada para iOS</li>
+                </ul>
+            </div>
+
+            <div class="device-info">
+                <p><strong>Informação do dispositivo:</strong></p>
+                <p>Dispositivo: {{params.DEVICE_TYPE}}</p>
+                <p>Localização: {{params.COUNTRY}}</p>
+                <p>Data: {{params.TIMESTAMP}}</p>
+                <p><small>Se não foste tu que tentaste criar esta conta, podes ignorar este email.</small></p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="social-links">
+                <a href="https://facebook.com/">Facebook</a> | 
+                <a href="https://instagram.com/">Instagram</a> | 
+                <a href="https://comituga.eu">Website</a>
+            </div>
+            <p>&copy; 2025 SaborPortuguês - Todos os direitos reservados</p>
+            <p><small>Email gerado automaticamente. Por favor não respondas.</small></p>
+        </div>
+    </div>
+</body>
+</html> 

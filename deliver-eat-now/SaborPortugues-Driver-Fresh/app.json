@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "SaborPortuguês Driver",
+    "slug": "saborportugues-driver",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "plugins": [
+      "expo-dev-client"
+    ],
+    "splash": {
+      "image": "./assets/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.saborportugues.driver"
+    },
+    "android": {
+      "package": "com.saborportugues.driver"
+    },
+    "web": {
+      "favicon": "./assets/icon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d3b053c1-d215-440f-89e4-98dfe6e952c5"
+      }
+    },
+    "owner": "whiswher"
+  }
+}

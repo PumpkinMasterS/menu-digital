@@ -1,0 +1,28 @@
+﻿{
+    "listingId":  "68cb0de6120176b8e7eac8b2",
+    "created":  {
+                    "name":  "Anuncio Teste 2025-09-17 20:37:10",
+                    "phone":  "+351900000000",
+                    "city":  "Lisboa",
+                    "photos":  [
+
+                               ],
+                    "verified":  true,
+                    "_id":  "68cb0de6120176b8e7eac8b2",
+                    "createdAt":  "2025-09-17T19:37:10.908Z",
+                    "__v":  0
+                },
+    "tracked":  {
+                    "call":  null,
+                    "view":  null,
+                    "click":  null
+                },
+    "summary_today":  null,
+    "summary_last4":  null,
+    "upload":  null,
+    "uploadUrl":  null,
+    "uploadPing":  {
+                       "contentType":  null,
+                       "status":  0
+                   }
+}

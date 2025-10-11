@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  educonnect-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: educonnect-ai
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - educonnect-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.educonnect.rule=Host(`your-domain.com`)"
+      - "traefik.http.routers.educonnect.tls=true"
+      - "traefik.http.routers.educonnect.tls.certresolver=letsencrypt"
+
+  # Optional: Reverse proxy with SSL
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"  # Traefik dashboard
+    command:
+      - --api.dashboard=true
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+      - --certificatesresolvers.letsencrypt.acme.email=your-email@domain.com
+      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./letsencrypt:/letsencrypt
+    networks:
+      - educonnect-network
+    profiles:
+      - production
+
+  # Supabase CLI container para deploy de edge functions
+  supabase-cli:
+    image: supabase/cli:latest
+    volumes:
+      - .:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    working_dir: /workspace
+    environment:
+      - SUPABASE_ACCESS_TOKEN=${SUPABASE_ACCESS_TOKEN}
+      - SUPABASE_DB_PASSWORD=${SUPABASE_DB_PASSWORD}
+      - SUPABASE_PROJECT_ID=${SUPABASE_PROJECT_ID}
+    networks:
+      - supabase_network
+    profiles:
+      - supabase
+
+  # Supabase local development (opcional)
+  supabase-local:
+    image: supabase/cli:latest
+    ports:
+      - "54321:54321"  # Studio
+      - "54322:5432"   # Database
+      - "54323:8000"   # API Gateway
+      - "54324:8443"   # Edge Functions
+    volumes:
+      - .:/workspace
+      - supabase_db_data:/var/lib/postgresql/data
+    working_dir: /workspace
+    command: supabase start
+    profiles:
+      - local
+
+networks:
+  educonnect-network:
+    driver: bridge
+  supabase_network:
+    driver: bridge
+
+volumes:
+  letsencrypt:
+  supabase_db_data: 

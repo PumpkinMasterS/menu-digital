@@ -1,0 +1,78 @@
+# Projeto NovoapartadoX - Requisitos e Plano Inicial
+
+## Objetivo
+Plataforma de listagens com área pública (conteúdos por cidade) e área reservada para modelos e admin.
+
+## Escopos
+- Público: Home Lisboa/Porto, listagens em grid, ficha simples.
+- Admin: login, CRUD completo de anúncios, utilizadores, fotos, moderação, estatísticas.
+- Modelo: login, gestão do próprio perfil/fotos, estatísticas próprias.
+
+## Dados Principais
+- Listing: { name, phone, city, photos[], verified, createdAt, updatedAt, ownerModelId? }
+- Model (user): { name, email, role: 'model'|'admin', passwordHash, avatar?, stats }
+- Stats: views, clicks, calls, leads (por intervalo de datas)
+
+## Autenticação
+- JWT (access), roles: admin, model.
+- Endpoints: /auth/login (admin: email+password), /auth/me
+- Seed de admin via variáveis de ambiente ADMIN_EMAIL/ADMIN_PASSWORD (fallback DEV: admin@site.test/admin123)
+
+## Upload de Imagens
+- Início: upload local (pasta /uploads) via Multer. Campo: photos[].
+- Limites: 5MB por ficheiro. Tipos permitidos: image/jpeg, image/png, image/webp.
+- Futuro: CDN/Cloud (Cloudinary/S3).
+
+## MongoDB
+- Local por omissão: mongodb://127.0.0.1:27017/novoapartadox
+- Compass para gestão inicial.
+
+## API Inicial
+- GET /api/health
+- GET /api/listings?city=Lisboa
+- POST /api/listings (admin)
+- GET /api/models
+- POST /api/admin/users (admin)
+- POST /api/upload (admin)
+- /api/stats/track, /api/admin/stats-summary (admin)
+
+## UI/UX
+- Mobile: 1 coluna, imagem ~70vh, info por baixo.
+- Desktop: grid auto-fill, cartões.
+
+## Estado Atual (E2E  - {data})
+- Servidores: frontend (Vite) OK em http://localhost:5174, backend OK em http://localhost:4000
+
+- Login/roles: admin faz login com email+password; modelos não têm login no MVP.
+- Política atual: apenas admin cria contas de modelo, faz upload e publica anúncios (modelos não têm estes botões/rotas no frontend; backend exige auth('admin')).
+- Upload: disponível na Área Reservada; ficheiros servidos em /uploads/... (limites e tipos aplicados)
+- Stats: tracking via /api/stats/track; painel admin mostra séries e totais.
+
+## Últimas Validações
+- [x] Endpoints admin-only: POST /api/listings, POST /api/upload, POST /api/admin/users requerem Authorization com role=admin.
+- [x] UI: botão "Criar Anúncio" e widgets (Upload/ModelAccountForm) apenas visíveis para admin; rota /criar protegida por RequireAdmin.
+- [ ] Logout força /reservada a pedir login
+- [x] Login model oculta StatsPanel/StatsSimulator (não visíveis sem role admin)
+- [ ] "Ver Contacto" incrementa stats e aparece no painel (admin)
+- [ ] Logs backend/frontend sem erros
+
+### Resultados da validação API (agora)
+- POST /api/admin/users com token de model => 403 Forbidden (esperado)
+- POST /api/admin/users com token de admin => 201 Created (esperado)
+- POST /api/listings com token de model => 403 Forbidden (esperado)
+- POST /api/listings com token de admin => 201 Created (esperado)
+- GET /api/models => OK (mock se DB desligado)
+
+## Próximas Ações (curto prazo)
+- Estabilizar E2E (corrigir qualquer falha do checklist)
+- Robustez upload (ux mensagens, múltiplos ficheiros)
+
+## Riscos/Bloqueios
+- Sem DB: admin mock depende de ADMIN_EMAIL/ADMIN_PASSWORD (DEV)
+- Falhas intermitentes de UI automation (ok validar manualmente no browser)
+
+## Próximas Etapas
+1) Ligar MongoDB local e compor seeds via Compass.
+2) Implementar upload (Multer) e servir /uploads.
+3) Autenticação (JWT) + roles e área reservada.
+4) Páginas protegidas no frontend..

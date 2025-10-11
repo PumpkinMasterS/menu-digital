@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>SaborPortuguês - Redirect</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .status {
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .debug-info {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            text-align: left;
+            word-break: break-all;
+        }
+        .manual-options {
+            display: none;
+            margin-top: 30px;
+        }
+        .button {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin: 10px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .timestamp {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="timestamp">v2.0 - Cache Busted - <?php echo date('H:i:s'); ?>js_timestamp</div>
+    
+    <div class="container">
+        <div class="logo">SaborPortuguês</div>
+        
+        <div id="status-message" class="status">🔄 A processar login...</div>
+        
+        <div id="spinner" class="spinner"></div>
+        
+        <div id="manual-options" class="manual-options">
+            <p>Não conseguimos abrir automaticamente?</p>
+            <a href="#" id="manual-app-link" class="button">📱 Abrir App</a>
+            <a href="https://comituga.eu" class="button">🌐 Ir para Web</a>
+        </div>
+        
+        <div id="debug-info" class="debug-info"></div>
+    </div>
+
+    <script>
+        // CACHE BUST DETECTION
+        const urlParams = new URLSearchParams(window.location.search);
+        const isCacheBusted = urlParams.get('cb') === 'true' || urlParams.get('v');
+        const version = isCacheBusted ? 'v3.0-CACHE-BUSTED' : 'v2.0';
+        
+        // Add timestamp to force reload
+        console.log(`📱 SaborPortuguês Redirect Page ${version} - ` + new Date().toLocaleTimeString());
+        
+        // EXTREME DEBUG: Show everything step by step
+        const fullUrl = window.location.href;
+        const hash = window.location.hash;
+        const search = window.location.search;
+        
+        document.getElementById('debug-info').innerHTML = 
+            `<p><strong>🔍 VERSION: ${version}</strong></p>` +
+            '<p><strong>🔍 URL COMPLETA:</strong></p>' +
+            '<p style="font-size: 10px; word-break: break-all;">' + fullUrl + '</p>' +
+            '<p><strong>🔍 HASH:</strong> ' + hash + '</p>' +
+            '<p><strong>🔍 SEARCH:</strong> ' + search + '</p>' +
+            (isCacheBusted ? '<p style="color: #ccffcc;"><strong>✅ CACHE BUSTED!</strong></p>' : '<p style="color: #ffcccc;"><strong>❌ OLD CACHE</strong></p>');
+        
+        console.log(`🔍 EXTREME DEBUG ${version}: Initial URL Info`);
+        console.log('Full URL:', fullUrl);
+        console.log('Hash raw:', hash);
+        console.log('Search raw:', search);
+        console.log('Cache busted:', isCacheBusted);
+
+        // Device detection
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+        
+        function isAndroid() {
+            return /Android/i.test(navigator.userAgent);
+        }
+        
+        function isIOS() {
+            return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        }
+
+        // Redirect logic
+        function attemptRedirect() {
+            // FIX: Remove # from start if present for parsing
+            const hashString = hash.startsWith('#') ? hash.substring(1) : hash;
+            
+            console.log(`🔍 DEBUG ${version}: Hash string processed for parsing:`, hashString);
+
+            // Check for errors first
+            let hasError = false;
+            let errorType = '';
+            let errorCode = '';
+            let errorDesc = '';
+            
+            if (hashString.includes('error=')) {
+                hasError = true;
+                const errorMatch = hashString.match(/error=([^&]+)/);
+                errorType = errorMatch ? errorMatch[1] : '';
+                
+                const errorCodeMatch = hashString.match(/error_code=([^&]+)/);
+                errorCode = errorCodeMatch ? errorCodeMatch[1] : '';
+                
+                const errorDescMatch = hashString.match(/error_description=([^&]*)/);
+                errorDesc = errorDescMatch ? errorDescMatch[1] : '';
+                
+                console.log(`🚨 ERROR DETECTED ${version}:`, { errorType, errorCode, errorDesc });
+            }
+            
+            // Try token parsing - QUERY PARAMS FIRST (Brevo), then HASH (Supabase)
+            let token = null;
+            let type = 'magiclink'; // Default type
+
+            if (!hasError) {
+                // 🔥 PRIORITY 1: Check query params FIRST (Brevo uses this)
+                if (search) {
+                    const queryParams = new URLSearchParams(search);
+                    token = queryParams.get('token') || queryParams.get('access_token') || queryParams.get('token_hash');
+                    type = queryParams.get('type') || type;
+                    if (token) {
+                        console.log(`🔍 BREVO QUERY PARAMS ${version}: Token found:`, token.substring(0, 20) + '...');
+                        console.log(`🔍 BREVO detected - using query param token`);
+                    } else {
+                        console.log(`🔍 QUERY PARAMS ${version}: Token not found.`);
+                    }
+                }
+                
+                // 🔥 PRIORITY 2: Only try hash if no query token found (Supabase native)
+                if (!token && hashString) {
+                    const accessTokenMatch = hashString.match(/access_token=([^&]+)/);
+                    if (accessTokenMatch && accessTokenMatch[1]) {
+                        token = accessTokenMatch[1];
+                        console.log(`🔍 SUPABASE HASH ${version}: Found access_token via regex:`, token.substring(0, 20) + '...');
+                    } else {
+                        console.log(`🔍 SUPABASE HASH ${version}: access_token not found via regex in hash.`);
+                        
+                        // Try other token names in hash
+                        const tokenMatch = hashString.match(/token=([^&]+)/);
+                        const tokenHashMatch = hashString.match(/token_hash=([^&]+)/);
+                        
+                        if (tokenMatch && tokenMatch[1]) {
+                            token = tokenMatch[1];
+                            console.log(`🔍 HASH PARSING ${version}: Found token via regex:`, token.substring(0, 20) + '...');
+                        } else if (tokenHashMatch && tokenHashMatch[1]) {
+                            token = tokenHashMatch[1];
+                            console.log(`🔍 HASH PARSING ${version}: Found token_hash via regex:`, token.substring(0, 20) + '...');
+                        }
+                    }
+
+                    // Get type from hash if not found in query
+                    const urlParams = new URLSearchParams(search);
+                    if (!urlParams.get('type')) {
+                        const typeMatch = hashString.match(/type=([^&]+)/);
+                        if (typeMatch && typeMatch[1]) {
+                            type = typeMatch[1];
+                            console.log(`🔍 HASH PARSING ${version}: Found type via regex:`, type);
+                        }
+                    }
+                }
+            }
+
+            console.log(`🔍 FINAL PARSING RESULT ${version}: Token:`, token ? token.substring(0, 20) + '...' : 'NOT_FOUND', 'Type:', type);
+            
+            // Update status on page
+            document.getElementById('debug-info').innerHTML += 
+                `<p style="margin-top: 15px;"><strong>🔍 RESULTADO ${version}:</strong></p>`;
+                
+            if (hasError) {
+                document.getElementById('debug-info').innerHTML += 
+                    '<p style="color: #ffcccc;"><strong>❌ ERRO DO SUPABASE:</strong></p>' +
+                    '<p><strong>Tipo:</strong> ' + errorType + '</p>' +
+                    '<p><strong>Código:</strong> ' + errorCode + '</p>' +
+                    '<p><strong>Solução:</strong> ' + 
+                    (errorCode === 'otp_expired' ? 
+                        'Link expirou! Volta à app e envia NOVO email.' :
+                        'Erro desconhecido. Tenta novamente.') + '</p>';
+                        
+                document.getElementById('status-message').innerHTML = 
+                    '<strong>❌ ERRO:</strong> ' + 
+                    (errorCode === 'otp_expired' ? 'Link expirou!' : 'Erro no link');
+                        
+                document.getElementById('spinner').style.display = 'none';
+                document.getElementById('manual-options').style.display = 'block';
+                
+                // Update manual options for error case
+                document.querySelector('#manual-options p').textContent = 
+                    errorCode === 'otp_expired' ? 
+                    'Link expirou! Volta à app para enviar novo email.' :
+                    'Erro no link. Volta à app para tentar novamente.';
+                return;
+            }
+            
+            document.getElementById('debug-info').innerHTML += 
+                '<p>Token encontrado: ' + (!!token ? '✅ SIM' : '❌ NÃO') + '</p>' +
+                (token ? '<p>Token length: ' + token.length + '</p>' : '') +
+                '<p>Type: ' + type + '</p>' +
+                (token ? '<p>Token starts with: ' + token.substring(0, 10) + '...</p>' : '');
+                
+            if (!token) {
+                document.getElementById('status-message').innerHTML = '<strong>❌ FALHA:</strong> Token não encontrado!';
+                document.getElementById('debug-info').innerHTML += '<p style="color: #ffcccc;"><strong>❌ FALHA: Token não encontrado!</strong></p>';
+                document.getElementById('spinner').style.display = 'none';
+                document.getElementById('manual-options').style.display = 'block';
+                return;
+            }
+            
+            document.getElementById('status-message').innerHTML = '<strong>✅ SUCESSO:</strong> Token encontrado!';
+            document.getElementById('debug-info').innerHTML += '<p style="color: #ccffcc;"><strong>✅ SUCESSO: Token encontrado!</strong></p>';
+            document.getElementById('debug-info').innerHTML += '<p style="color: #ccffcc;">🚀 A redirecionar para app...</p>';
+
+            let deepLink;
+            let fallbackLink;
+            
+            const isDevelopment = window.location.hostname === 'localhost' || 
+                                window.location.hostname === '127.0.0.1' ||
+                                window.location.hostname.includes('192.168') ||
+                                window.location.hostname.includes('10.');
+
+            if (isAndroid()) {
+                // Primary: Custom scheme with access_token (Supabase JWT format)
+                deepLink = `saborportugues://confirm?access_token=${token}&type=${type}`;
+                
+                // Development fallback: Try to detect Expo dev server
+                if (isDevelopment) {
+                    fallbackLink = `exp://10.69.147.195:8083/--/confirm?access_token=${token}&type=${type}`;
+                    console.log('🧪 Development mode detected, will try Expo scheme as fallback');
+                }
+            } else if (isIOS()) {
+                deepLink = `saborportugues://confirm?access_token=${token}&type=${type}`;
+            } else {
+                // Web fallback
+                deepLink = `https://comituga.eu/auth/confirm?access_token=${token}&type=${type}`;
+            }
+
+            console.log('🔗 Attempting redirect to:', deepLink);
+            if (fallbackLink) {
+                console.log('🔗 Fallback available:', fallbackLink);
+            }
+            
+            // Set manual link
+            document.getElementById('manual-app-link').href = deepLink;
+
+            // Attempt automatic redirect
+            if (isMobile()) {
+                console.log('📱 Attempting to open mobile app...');
+                document.getElementById('status-message').innerHTML = '<strong>🚀 A abrir app...</strong>';
+                
+                window.location.href = deepLink;
+                
+                if (fallbackLink) {
+                    setTimeout(() => {
+                        console.log('🔄 Trying fallback link for development...');
+                        window.location.href = fallbackLink;
+                    }, 2000);
+                }
+                
+                setTimeout(() => {
+                    document.getElementById('status-message').innerHTML = '<strong>📱 App não abriu?</strong>';
+                    document.getElementById('manual-options').style.display = 'block';
+                    
+                    if (fallbackLink) {
+                        const manualLink = document.getElementById('manual-app-link');
+                        manualLink.onclick = function(e) {
+                            e.preventDefault();
+                            console.log('👆 Manual click: trying primary link...');
+                            window.location.href = deepLink;
+                            setTimeout(() => {
+                                console.log('👆 Manual click: trying fallback link...');
+                                window.location.href = fallbackLink;
+                            }, 1000);
+                        };
+                    }
+                }, 4000);
+            } else {
+                setTimeout(() => {
+                    window.location.href = deepLink;
+                }, 1000);
+            }
+        }
+
+        // Start redirect process after showing debug info
+        setTimeout(() => {
+            attemptRedirect();
+        }, 1000);
+
+        // Replace timestamp
+        document.querySelector('.timestamp').innerHTML = 
+            `${version} - Cache Detection - ` + new Date().toLocaleTimeString();
+
+        console.log(`📱 SaborPortuguês Redirect Page ${version} Initialized - ` + new Date().toLocaleTimeString());
+    </script>
+</body>
+</html> 
+22 de julho de 2025 23:13:17
+
+
+

@@ -1,0 +1,330 @@
+{
+  "startUrl": "http://localhost:5174/",
+  "paths": [
+    "/lisboa",
+    "/porto"
+  ],
+  "timestamp": "2025-09-25T14:06:18.730Z",
+  "reports": [
+    {
+      "viewport": "iPhone SE (320)",
+      "path": "/lisboa",
+      "measurements": {
+        "viewportWidth": 320,
+        "overflowX": false,
+        "header": {
+          "height": 127.1875,
+          "width": 320,
+          "paddingBlock": "0px 0px",
+          "borderBottom": "1px"
+        },
+        "nav": {
+          "width": 320,
+          "paddingInline": "10px 10px",
+          "justifyContent": "space-between",
+          "alignItems": "center"
+        },
+        "widths": {
+          "brandW": 131.609375,
+          "navLinksW": 0,
+          "actionsW": 156,
+          "sumContent": 307.609375,
+          "available": 320
+        },
+        "wrapRisk": false,
+        "offenders": []
+      },
+      "issues": [
+        "Altura do header elevada: ~127px (alvo <= 56-64px)."
+      ]
+    },
+    {
+      "viewport": "iPhone 12/13 (375x812)",
+      "path": "/lisboa",
+      "measurements": {
+        "viewportWidth": 375,
+        "overflowX": false,
+        "header": {
+          "height": 79.1875,
+          "width": 375,
+          "paddingBlock": "0px 0px",
+          "borderBottom": "1px"
+        },
+        "nav": {
+          "width": 375,
+          "paddingInline": "10px 10px",
+          "justifyContent": "space-between",
+          "alignItems": "center"
+        },
+        "widths": {
+          "brandW": 131.609375,
+          "navLinksW": 0,
+          "actionsW": 156,
+          "sumContent": 307.609375,
+          "available": 375
+        },
+        "wrapRisk": false,
+        "offenders": []
+      },
+      "issues": [
+        "Altura do header elevada: ~79px (alvo <= 56-64px)."
+      ]
+    },
+    {
+      "viewport": "iPhone 11 Pro Max (414x896)",
+      "path": "/lisboa",
+      "measurements": {
+        "viewportWidth": 414,
+        "overflowX": false,
+        "header": {
+          "height": 79.1875,
+          "width": 414,
+          "paddingBlock": "0px 0px",
+          "borderBottom": "1px"
+        },
+        "nav": {
+          "width": 414,
+          "paddingInline": "10px 10px",
+          "justifyContent": "space-between",
+          "alignItems": "center"
+        },
+        "widths": {
+          "brandW": 131.609375,
+          "navLinksW": 0,
+          "actionsW": 156,
+          "sumContent": 307.609375,
+          "available": 414
+        },
+        "wrapRisk": false,
+        "offenders": []
+      },
+      "issues": [
+        "Altura do header elevada: ~79px (alvo <= 56-64px)."
+      ]
+    },
+    {
+      "viewport": "Tablet (768)",
+      "path": "/lisboa",
+      "measurements": {
+        "viewportWidth": 768,
+        "overflowX": false,
+        "header": {
+          "height": 79.1875,
+          "width": 768,
+          "paddingBlock": "0px 0px",
+          "borderBottom": "1px"
+        },
+        "nav": {
+          "width": 768,
+          "paddingInline": "12px 12px",
+          "justifyContent": "space-between",
+          "alignItems": "center"
+        },
+        "widths": {
+          "brandW": 131.609375,
+          "navLinksW": 0,
+          "actionsW": 163,
+          "sumContent": 318.609375,
+          "available": 768
+        },
+        "wrapRisk": false,
+        "offenders": []
+      },
+      "issues": [
+        "Altura do header elevada: ~79px (alvo <= 56-64px)."
+      ]
+    },
+    {
+      "viewport": "Desktop (1440x900)",
+      "path": "/lisboa",
+      "measurements": {
+        "viewportWidth": 1440,
+        "overflowX": false,
+        "header": {
+          "height": 87.1875,
+          "width": 1440,
+          "paddingBlock": "0px 0px",
+          "borderBottom": "1px"
+        },
+        "nav": {
+          "width": 1280,
+          "paddingInline": "16px 16px",
+          "justifyContent": "space-between",
+          "alignItems": "center"
+        },
+        "widths": {
+          "brandW": 157.921875,
+          "navLinksW": 241,
+          "actionsW": 187,
+          "sumContent": 617.921875,
+          "available": 1280
+        },
+        "wrapRisk": false,
+        "offenders": []
+      },
+      "issues": [
+        "Altura do header elevada: ~87px (alvo <= 56-64px)."
+      ]
+    },
+    {
+      "viewport": "iPhone SE (320)",
+      "path": "/porto",
+      "measurements": {
+        "viewportWidth": 320,
+        "overflowX": false,
+        "header": {
+          "height": 127.1875,
+          "width": 320,
+          "paddingBlock": "0px 0px",
+          "borderBottom": "1px"
+        },
+        "nav": {
+          "width": 320,
+          "paddingInline": "10px 10px",
+          "justifyContent": "space-between",
+          "alignItems": "center"
+        },
+        "widths": {
+          "brandW": 131.609375,
+          "navLinksW": 0,
+          "actionsW": 156,
+          "sumContent": 307.609375,
+          "available": 320
+        },
+        "wrapRisk": false,
+        "offenders": []
+      },
+      "issues": [
+        "Altura do header elevada: ~127px (alvo <= 56-64px)."
+      ]
+    },
+    {
+      "viewport": "iPhone 12/13 (375x812)",
+      "path": "/porto",
+      "measurements": {
+        "viewportWidth": 375,
+        "overflowX": false,
+        "header": {
+          "height": 79.1875,
+          "width": 375,
+          "paddingBlock": "0px 0px",
+          "borderBottom": "1px"
+        },
+        "nav": {
+          "width": 375,
+          "paddingInline": "10px 10px",
+          "justifyContent": "space-between",
+          "alignItems": "center"
+        },
+        "widths": {
+          "brandW": 131.609375,
+          "navLinksW": 0,
+          "actionsW": 156,
+          "sumContent": 307.609375,
+          "available": 375
+        },
+        "wrapRisk": false,
+        "offenders": []
+      },
+      "issues": [
+        "Altura do header elevada: ~79px (alvo <= 56-64px)."
+      ]
+    },
+    {
+      "viewport": "iPhone 11 Pro Max (414x896)",
+      "path": "/porto",
+      "measurements": {
+        "viewportWidth": 414,
+        "overflowX": false,
+        "header": {
+          "height": 79.1875,
+          "width": 414,
+          "paddingBlock": "0px 0px",
+          "borderBottom": "1px"
+        },
+        "nav": {
+          "width": 414,
+          "paddingInline": "10px 10px",
+          "justifyContent": "space-between",
+          "alignItems": "center"
+        },
+        "widths": {
+          "brandW": 131.609375,
+          "navLinksW": 0,
+          "actionsW": 156,
+          "sumContent": 307.609375,
+          "available": 414
+        },
+        "wrapRisk": false,
+        "offenders": []
+      },
+      "issues": [
+        "Altura do header elevada: ~79px (alvo <= 56-64px)."
+      ]
+    },
+    {
+      "viewport": "Tablet (768)",
+      "path": "/porto",
+      "measurements": {
+        "viewportWidth": 768,
+        "overflowX": false,
+        "header": {
+          "height": 79.1875,
+          "width": 768,
+          "paddingBlock": "0px 0px",
+          "borderBottom": "1px"
+        },
+        "nav": {
+          "width": 768,
+          "paddingInline": "12px 12px",
+          "justifyContent": "space-between",
+          "alignItems": "center"
+        },
+        "widths": {
+          "brandW": 131.609375,
+          "navLinksW": 0,
+          "actionsW": 163,
+          "sumContent": 318.609375,
+          "available": 768
+        },
+        "wrapRisk": false,
+        "offenders": []
+      },
+      "issues": [
+        "Altura do header elevada: ~79px (alvo <= 56-64px)."
+      ]
+    },
+    {
+      "viewport": "Desktop (1440x900)",
+      "path": "/porto",
+      "measurements": {
+        "viewportWidth": 1440,
+        "overflowX": false,
+        "header": {
+          "height": 87.1875,
+          "width": 1440,
+          "paddingBlock": "0px 0px",
+          "borderBottom": "1px"
+        },
+        "nav": {
+          "width": 1280,
+          "paddingInline": "16px 16px",
+          "justifyContent": "space-between",
+          "alignItems": "center"
+        },
+        "widths": {
+          "brandW": 157.921875,
+          "navLinksW": 241,
+          "actionsW": 187,
+          "sumContent": 617.921875,
+          "available": 1280
+        },
+        "wrapRisk": false,
+        "offenders": []
+      },
+      "issues": [
+        "Altura do header elevada: ~87px (alvo <= 56-64px)."
+      ]
+    }
+  ]
+}

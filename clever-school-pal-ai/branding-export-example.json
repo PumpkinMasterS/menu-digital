@@ -1,0 +1,16 @@
+{
+  "school_name": "Escola Secundária Dom Pedro",
+  "branding": {
+    "colors": {
+      "primary": "#7c3aed",
+      "secondary": "#6d28d9",
+      "accent": "#ec4899",
+      "background": "#ffffff",
+      "text": "#1f2937"
+    },
+    "logo_url": "/storage/v1/object/public/schools/default/logo.png",
+    "favicon_url": null
+  },
+  "exported_at": "2025-06-21T22:49:56.596Z",
+  "version": "2.0.0"
+}

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="520" viewBox="0 0 520 520" fill="none">
+  <defs>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#0f1b3d" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <rect x="110" y="40" rx="36" ry="36" width="300" height="440" fill="#ffffff" stroke="#e6ebff" stroke-width="2"/>
+    <rect x="110" y="80" width="300" height="56" rx="12" fill="#354e7a"/>
+    <rect x="240" y="52" width="40" height="6" rx="3" fill="#dfe6ff"/>
+    <circle cx="295" cy="55" r="5" fill="#dfe6ff"/>
+    <text x="260" y="117" text-anchor="middle" fill="#eaf1ff" font-family="Segoe UI, Arial" font-size="18">ConnectAI</text>
+
+    <!-- Chat bubbles -->
+    <rect x="140" y="170" rx="12" ry="12" width="210" height="42" fill="#eaf1ff"/>
+    <text x="150" y="196" fill="#1b2a4d" font-family="Segoe UI, Arial" font-size="14">Olá! Como te posso ajudar hoje?</text>
+
+    <rect x="254" y="224" rx="12" ry="12" width="146" height="40" fill="#8DE39B"/>
+    <text x="264" y="248" fill="#0f1b3d" font-family="Segoe UI, Arial" font-size="14">Quero ajuda a estudar!</text>
+
+    <rect x="140" y="276" rx="12" ry="12" width="260" height="42" fill="#eaf1ff"/>
+    <text x="150" y="300" fill="#1b2a4d" font-family="Segoe UI, Arial" font-size="14">Posso criar um plano simples para hoje.</text>
+  </g>
+</svg>

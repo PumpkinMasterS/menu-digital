@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo ao SaborPortuguês</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin: 0;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .welcome-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .message {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            color: #555555;
+        }
+        .confirm-button {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 30px auto;
+            padding: 18px 30px;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            transition: transform 0.2s ease;
+        }
+        .confirm-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+        .features {
+            background-color: #fff9f6;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #FF6B35;
+        }
+        .features h3 {
+            color: #FF6B35;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .feature-list li {
+            padding: 8px 0;
+            font-size: 15px;
+            color: #666666;
+            position: relative;
+            padding-left: 25px;
+        }
+        .feature-list li:before {
+            content: "🇵🇹";
+            position: absolute;
+            left: 0;
+            top: 8px;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #e9ecef;
+        }
+        .footer-text {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 15px;
+        }
+        .social-links {
+            margin: 20px 0;
+        }
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #FF6B35, transparent);
+            margin: 30px 0;
+        }
+        .support-box {
+            background-color: #e3f2fd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .support-box h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        .device-info {
+            font-size: 12px;
+            color: #999999;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                border-radius: 8px;
+            }
+            .content {
+                padding: 30px 20px;
+            }
+            .header {
+                padding: 30px 20px;
+            }
+            .logo {
+                font-size: 24px;
+            }
+            .welcome-text {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">SaborPortuguês</div>
+            <p class="subtitle">Sabores autênticos de Portugal</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <h1 class="welcome-text">🎉 Bem-vindo à família!</h1>
+            
+            <p class="message">
+                Obrigado por te juntares ao <strong>SaborPortuguês</strong>! Estamos muito contentes por te teres na nossa comunidade de amantes da gastronomia portuguesa.
+            </p>
+
+            <p class="message">
+                Para completares o teu registo e começares a saborear o melhor de Portugal, confirma o teu email clicando no botão abaixo:
+            </p>
+
+            <!-- Confirmation Button -->
+            <a href="{{params.CONFIRMATION_URL}}" class="confirm-button">
+                ✓ Confirmar Email
+            </a>
+
+            <div class="divider"></div>
+
+            <!-- Features Section -->
+            <div class="features">
+                <h3>🍽️ O que te espera no SaborPortuguês:</h3>
+                <ul class="feature-list">
+                    <li>Pratos tradicionais portugueses autênticos</li>
+                    <li>Entrega rápida na tua porta</li>
+                    <li>Restaurantes locais verificados</li>
+                    <li>Encomendas fáceis e seguras</li>
+                    <li>Suporte dedicado em português</li>
+                </ul>
+            </div>
+
+            <!-- Support Box -->
+            <div class="support-box">
+                <h4>💬 Precisas de Ajuda?</h4>
+                <p style="margin: 0; font-size: 14px; color: #1976d2;">
+                    A nossa equipa está sempre pronta para te ajudar!<br>
+                    Contacta-nos: <strong>admin@comituga.eu</strong>
+                </p>
+            </div>
+
+            <!-- Device Info (for security) -->
+            <div class="device-info">
+                <strong>Informações de Segurança:</strong><br>
+                Este pedido foi feito a partir de: {{params.DEVICE_TYPE}} | {{params.COUNTRY}} | IP: {{params.IP_ADDRESS}}<br>
+                Se não foste tu, ignora este email e contacta-nos imediatamente.
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p class="footer-text">
+                <strong>SaborPortuguês</strong> - A melhor comida portuguesa na tua mesa
+            </p>
+            
+            <div class="social-links">
+                <a href="https://comituga.eu">Website</a> |
+                <a href="mailto:admin@comituga.eu">Suporte</a> |
+                <a href="https://comituga.eu/privacy">Privacidade</a>
+            </div>
+            
+            <p style="font-size: 12px; color: #999999; margin: 15px 0 0 0;">
+                © 2025 SaborPortuguês. Todos os direitos reservados.<br>
+                Se não conseguires clicar no botão, copia e cola este link no teu browser:<br>
+                <span style="word-break: break-all; color: #FF6B35;">{{params.CONFIRMATION_URL}}</span>
+            </p>
+        </div>
+    </div>
+</body>
+</html> 

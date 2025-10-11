@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font: 600 20px Inter, Arial; fill: #111 }
+    .label { font: 500 14px Inter, Arial; fill: #333 }
+    .note { font: 12px Inter, Arial; fill: #666 }
+    .box { fill: #fff; stroke: #e5e7eb; stroke-width: 2 }
+    .header { fill: #fff0f4; stroke: #f3d1dc }
+    .card { fill: #f8fafc; stroke: #e5e7eb }
+    .image { fill: #e9ecef; stroke: #dee2e6 }
+    .chip { fill: #ffe3ec; stroke: #ffc2d1 }
+  </style>
+  <!-- Título -->
+  <text x="30" y="40" class="title">Wireframe Geral - Acompanhantes Rosa</text>
+
+  <!-- Coluna Esquerda: Mobile -->
+  <text x="30" y="80" class="label">Mobile (≤480px) - Home Lisboa</text>
+  <!-- Ecrã -->
+  <rect x="30" y="90" width="320" height="640" rx="24" class="box"/>
+  <!-- Header -->
+  <rect x="30" y="90" width="320" height="56" class="header"/>
+  <text x="46" y="123" class="label">🌷 Acompanhantes Rosa</text>
+  <!-- Navegação secundária escondida no mobile (botões) -->
+  <rect x="280" y="104" width="54" height="28" rx="8" class="chip"/>
+  <text x="287" y="123" class="note">Menu</text>
+  <!-- Conteúdo: 1 coluna com foto grande (~70vh) -->
+  <rect x="42" y="160" width="296" height="420" rx="14" class="box"/>
+  <rect x="42" y="160" width="296" height="380" rx="14" class="image"/>
+  <text x="54" y="560" class="label">Maria Luísa ✓ • Lisboa • 925795572</text>
+  <!-- Footer -->
+  <rect x="30" y="710" width="320" height="20" class="box"/>
+  <text x="46" y="725" class="note">© Acompanhantes Rosa</text>
+
+  <!-- Coluna Central: Desktop -->
+  <text x="420" y="80" class="label">Desktop (≥1024px) - Home Lisboa</text>
+  <rect x="420" y="90" width="680" height="640" rx="12" class="box"/>
+  <!-- Header desktop -->
+  <rect x="420" y="90" width="680" height="56" class="header"/>
+  <text x="436" y="123" class="label">🌷 Acompanhantes Rosa</text>
+  <rect x="900" y="102" width="80" height="28" rx="8" class="chip"/>
+  <text x="908" y="121" class="note">Lisboa</text>
+  <rect x="985" y="102" width="100" height="28" rx="8" class="chip"/>
+  <text x="995" y="121" class="note">Área Reservada</text>
+  <!-- Grid de cartões (auto-fill) -->
+  <g>
+    <rect x="436" y="160" width="210" height="220" rx="12" class="card"/>
+    <rect x="436" y="160" width="210" height="150" rx="12" class="image"/>
+    <text x="446" y="325" class="note">Nome • Cidade • Telefone</text>
+
+    <rect x="656" y="160" width="210" height="220" rx="12" class="card"/>
+    <rect x="656" y="160" width="210" height="150" rx="12" class="image"/>
+
+    <rect x="876" y="160" width="210" height="220" rx="12" class="card"/>
+    <rect x="876" y="160" width="210" height="150" rx="12" class="image"/>
+  </g>
+
+  <!-- Coluna Direita: Área Reservada / Admin -->
+  <text x="30" y="800" class="label">Notas</text>
+  <text x="30" y="825" class="note">• Mobile: 1 coluna, foto ocupa ~70vh, info por baixo. • Desktop: grid auto-fill 3 colunas.</text>
+  <text x="30" y="845" class="note">• Botões principais: Criar Anúncio, Área Reservada. • Admin terá login com controlo total.</text>
+
+  <!-- Painéis admin / modelo (simplificados) -->
+  <text x="1110" y="80" class="label" text-anchor="end">Área Reservada (Admin / Modelo)</text>
+  <rect x="1060" y="90" width="100" height="640" rx="12" class="box"/>
+  <text x="1110" y="120" class="note" text-anchor="end">Login → Dashboard</text>
+  <text x="1110" y="140" class="note" text-anchor="end">Admin: Listagens, Modelos, Stats</text>
+  <text x="1110" y="160" class="note" text-anchor="end">Modelo: Perfil, Fotos, Estatísticas</text>
+</svg>

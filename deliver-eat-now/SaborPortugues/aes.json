@@ -1,0 +1,11 @@
+@"
+{
+  "build": {
+    "production": {
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  }
+}
+"@ | Out-File -Encoding UTF8 eas.json

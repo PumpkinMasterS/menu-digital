@@ -1,0 +1,9 @@
+--- O que é fotossíntese? ---
+ERROR: The remote server returned an error: (500) Internal Server Error.
+Response body: {"error":"Erro interno no serviço de busca"}
+--- Notícias sobre IA generativa ---
+ERROR: The remote server returned an error: (500) Internal Server Error.
+Response body: {"error":"Erro interno no serviço de busca"}
+--- tautochrone ---
+cached=True source=cache results=5
+Títulos: Wormed | Problema matemÃ¡tico | Tautochrone curve

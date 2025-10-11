@@ -1,0 +1,408 @@
+/* Connect AI - Application Styles */
+
+/* Global app container */
+#root {
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Application layout */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content area */
+.main-content {
+  flex: 1;
+  padding: clamp(0.75rem, 2vw, 1.25rem);
+  overflow-y: auto;
+  width: 100%;
+}
+
+/* Enhanced Sidebar Hover Effects */
+[data-sidebar="menu-button"] {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+[data-sidebar="menu-button"]:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+[data-sidebar="menu-button"]:hover svg {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+[data-sidebar="menu-button"]:active {
+  transform: translateX(2px) scale(0.98);
+}
+
+/* Ripple effect on click */
+[data-sidebar="menu-button"]::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+  pointer-events: none;
+}
+
+[data-sidebar="menu-button"]:active::before {
+  width: 100px;
+  height: 100px;
+}
+
+/* Sidebar group labels hover */
+[data-sidebar="group-label"] {
+  transition: color 0.2s ease;
+}
+
+[data-sidebar="group-label"]:hover {
+  color: hsl(var(--primary));
+}
+
+/* Enhanced sidebar container */
+[data-sidebar="sidebar"] {
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Menu item container hover effects - fixed */
+[data-sidebar="menu-item"] {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+[data-sidebar="menu-item"]:hover {
+  background: linear-gradient(90deg, transparent 0%, rgba(var(--primary-rgb, 59, 130, 246), 0.05) 100%);
+}
+
+/* Active state enhancements */
+[data-sidebar="menu-button"][data-active="true"] {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-foreground)) 100%);
+  color: hsl(var(--primary-foreground));
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+[data-sidebar="menu-button"][data-active="true"] svg {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Tooltip enhancements for collapsed state */
+[data-sidebar="sidebar"][data-state="collapsed"] [data-sidebar="menu-button"]:hover {
+  transform: translateX(4px);
+  z-index: 10;
+}
+
+/* Smooth icon transitions */
+[data-sidebar="menu-button"] svg {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+}
+
+/* Prevent text overflow and layout issues */
+[data-sidebar="menu-button"] {
+  min-height: 2rem;
+  box-sizing: border-box;
+}
+
+[data-sidebar="menu-button"] span {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Focus states */
+[data-sidebar="menu-button"]:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  transform: translateX(2px);
+}
+
+/* Sidebar trigger hover */
+[data-sidebar="trigger"]:hover {
+  background: hsl(var(--accent));
+  transform: scale(1.1);
+  transition: all 0.2s ease;
+}
+
+/* Staggered animation for menu items - reduced */
+[data-sidebar="menu-item"]:nth-child(1) { animation-delay: 0.05s; }
+[data-sidebar="menu-item"]:nth-child(2) { animation-delay: 0.1s; }
+[data-sidebar="menu-item"]:nth-child(3) { animation-delay: 0.15s; }
+[data-sidebar="menu-item"]:nth-child(4) { animation-delay: 0.2s; }
+[data-sidebar="menu-item"]:nth-child(5) { animation-delay: 0.25s; }
+[data-sidebar="menu-item"]:nth-child(6) { animation-delay: 0.3s; }
+[data-sidebar="menu-item"]:nth-child(7) { animation-delay: 0.35s; }
+[data-sidebar="menu-item"]:nth-child(8) { animation-delay: 0.4s; }
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+[data-sidebar="menu-item"] {
+  animation: slideInFromLeft 0.3s ease-out both;
+}
+
+/* Glow effect on hover */
+[data-sidebar="menu-button"]:hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Enhanced group sections */
+[data-sidebar="group"] {
+  transition: all 0.3s ease;
+}
+
+[data-sidebar="group"]:hover {
+  background: rgba(var(--primary-rgb, 59, 130, 246), 0.02);
+  border-radius: 8px;
+  padding: 4px;
+  margin: 2px 0;
+}
+
+/* Pulse effect for active items */
+[data-sidebar="menu-button"][data-active="true"] {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 4px 16px rgba(var(--primary-rgb, 59, 130, 246), 0.3);
+  }
+}
+
+/* Smooth text transitions - fixed */
+[data-sidebar="menu-button"] span {
+  transition: all 0.2s ease;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+[data-sidebar="menu-button"]:hover span {
+  font-weight: 500;
+}
+
+/* Icon bounce on hover - simplified */
+@keyframes iconBounce {
+  0%, 100% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1.1) translateY(-1px);
+  }
+}
+
+[data-sidebar="menu-button"]:hover svg {
+  animation: iconBounce 0.4s ease;
+}
+
+/* Page transitions */
+.page-transition {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading states */
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid hsl(var(--muted));
+  border-top: 2px solid hsl(var(--primary));
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Educational UI specific styles */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stats-card {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.stats-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Educational content styles */
+
+/* Espaçamento vertical padrão entre seções diretas do conteúdo */
+.main-content > section:not(:first-child) {
+  margin-top: clamp(0.75rem, 2.5vw, 1.5rem);
+}
+
+.content-card {
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: hsl(var(--card));
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.content-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Form styles */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .main-content {
+    /* Mantém padding ligeiramente menor em telas pequenas, respeitando clamp padrão */
+    padding: 0.75rem;
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .form-container {
+    padding: 1rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .page-transition,
+  .fade-in,
+  .loading-spinner {
+    animation: none;
+  }
+  
+  .content-card {
+    transition: none;
+  }
+}
+
+/* Focus styles for better accessibility */
+*:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .sidebar,
+  .header-nav,
+  .action-buttons {
+    display: none;
+  }
+  
+  .main-content {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/* EduConnect AI brand colors and utilities */
+.brand-primary {
+  color: hsl(var(--primary));
+}
+
+.brand-secondary {
+  color: hsl(var(--secondary));
+}
+
+.text-gradient {
+  background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

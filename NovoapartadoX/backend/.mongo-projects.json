@@ -1,0 +1,27 @@
+{
+  "projects": {
+    "novoapartadox_prod": {
+      "name": "Produção - NovoApartadoX",
+      "database": "novoapartadox_prod",
+      "uri": "mongodb+srv://whiswher_db_user:KgvXln6lckWmgGgB@cluster0.nrsrh8h.mongodb.net/novoapartadox_prod",
+      "description": "Ambiente de produção principal",
+      "createdAt": "2025-09-18T09:35:20.333Z"
+    },
+    "novoapartadox_dev": {
+      "name": "Desenvolvimento - NovoApartadoX",
+      "database": "novoapartadox_dev",
+      "uri": "mongodb+srv://whiswher_db_user:KgvXln6lckWmgGgB@cluster0.nrsrh8h.mongodb.net/novoapartadox_dev",
+      "description": "Ambiente de desenvolvimento",
+      "createdAt": "2025-09-18T09:35:20.335Z"
+    },
+    "novoapartadox_test": {
+      "name": "Teste - NovoApartadoX",
+      "database": "novoapartadox_test",
+      "uri": "mongodb+srv://whiswher_db_user:KgvXln6lckWmgGgB@cluster0.nrsrh8h.mongodb.net/novoapartadox_test",
+      "description": "Ambiente de testes",
+      "createdAt": "2025-09-18T09:35:20.335Z"
+    }
+  },
+  "currentProject": "novoapartadox_prod",
+  "updatedAt": "2025-10-08T18:51:20.527Z"
+}

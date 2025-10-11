@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="pt-PT" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Educação Inclusiva com IA Personalizada | Connect AI</title>
+  <meta name="description" content="Descubra mentoria inclusiva com IA para alunos com NEE. Apoio 24h via WhatsApp, Discord ou chat, validado por professores. Teste grátis e transforme o aprendizado!" />
+  
+  <!-- Security Headers -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com; frame-ancestors 'none';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+  
+  <!-- HTTPS Upgrade -->
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="keywords" content="educação IA, mentoria inclusiva, apoio NEE, IA pedagógica, aprendizado personalizado" />
+  
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID', {
+      anonymize_ip: true,
+      cookie_flags: 'SameSite=Strict;Secure'
+    });
+  </script>
+  <!-- Open Graph for social sharing -->
+  <meta property="og:title" content="Educação Inclusiva com IA Personalizada | Connect AI" />
+  <meta property="og:description" content="Mentoria inclusiva com IA para alunos com NEE. Apoio 24h validado por professores." />
+  <meta property="og:image" content="/assets/connectai-logo.svg" />
+  <meta property="og:url" content="https://your-site-url.com" />  <!-- Substitua pela URL real -->
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+  <meta name="color-scheme" content="light dark" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Connect AI",
+    "url": "https://your-site-url.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://your-site-url.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Connect AI",
+    "url": "https://your-site-url.com",
+    "logo": "https://your-site-url.com/assets/connectai-logo.svg",
+    "description": "Mentoria inclusiva com IA para alunos com NEE. Apoio 24h via WhatsApp, Discord ou chat, validado por professores.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "PT"  // Ajuste conforme localização
+    }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Saltar para o conteúdo</a>
+  <!-- HEADER -->
+  <header class="header" id="topo">
+    <div class="container header__inner">
+      <a href="#topo" class="brand">
+        <img src="./assets/connectai-logo.svg" alt="Connect AI" class="brand__logo" loading="eager" />
+        <span class="brand__name">Connect AI</span>
+      </a>
+      <div class="header__actions">
+        <nav class="nav" role="navigation" aria-label="Navegação principal">
+          <button class="nav__toggle" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu de navegação">☰</button>
+          <ul id="menu" class="nav__list">
+            <li><a href="#planos">Planos &amp; Preços</a></li>
+            <li><a href="#" data-modal="contact">Contacto</a></li>
+            <li><a class="btn btn--brand" href="#login">Entrar na Plataforma</a></li>
+          </ul>
+        </nav>
+        <button class="theme-toggle" aria-label="Alternar entre modo claro e escuro" title="Alternar tema" type="button" aria-pressed="false"><span aria-hidden="true">🌙</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="sobre" aria-label="Mentoria Digital com Propósito">
+    <div class="container hero__grid">
+      <div class="hero__left">
+        <h1 class="hero__title">Educação Inteligente com IA Inclusiva e personalizada</h1>
+        <p class="hero__subtitle">Criado por professores. Testado em sala de aula. Apoio 24h via WhatsApp ou Chat.</p>
+        <div class="hero__cta">
+          <a class="btn btn--accent" href="#como-funciona">Quero Saber Mais</a>
+        </div>
+        <p class="hero__note">Feito no terreno. Pronto para mudar vidas.</p>
+      </div>
+      <div class="hero__right">
+        <img src="./assets/phone-mockup.svg" alt="Mockup da app com conversa de IA" class="hero__mockup" loading="lazy" decoding="async" />
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section class="section" id="como-funciona" aria-labelledby="como-funciona-title">
+    <div class="container">
+      <h2 id="como-funciona-title" class="section__title">Como o Connect AI ajuda os alunos com NEE?</h2>
+      <div class="features">
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="8" width="40" height="28" rx="4" stroke="currentColor" stroke-width="2"/><path d="M10 14h28M10 20h16" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3>IA Inclusiva</h3>
+          <p>Ajusta-se ao ritmo, linguagem e estilo de cada aluno.</p>
+        </article>
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 10h32v28H8z" stroke="currentColor" stroke-width="2"/><path d="M14 16h20M14 22h20M14 28h12" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3>Conteúdo Validado</h3>
+          <p>Tudo revisto e aprovado pelas direções pedagógicas.</p>
+        </article>
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="2"/><path d="M24 16v9l6 3" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3>Apoio em Tempo Real</h3>
+          <p>Respostas imediatas, todos os dias, em canais acessíveis.</p>
+        </article>
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 32c4-6 12-10 16-10s12 4 16 10" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="16" r="6" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3>Linguagem Adaptada</h3>
+          <p>Comunicação clara e empática, pensada para NEE/PEA.</p>
+        </article>
+      </div>
+
+      <!-- Vídeo opcional (placeholder) -->
+      <div class="video-placeholder" role="img" aria-label="Vídeo explicativo (em breve)">
+        <span>Vídeo explicativo (em breve)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACTO -->
+  <section class="section section--alt" id="impacto" aria-labelledby="impacto-title">
+    <div class="container">
+      <h2 id="impacto-title" class="section__title">Impacto até agora</h2>
+      <div class="stats">
+        <div class="stat"><div class="stat__number">1.000+</div><div class="stat__label">alunos apoiados</div></div>
+        <div class="stat"><div class="stat__number">50+</div><div class="stat__label">escolas interessadas</div></div>
+        <div class="stat"><div class="stat__number">95%</div><div class="stat__label">maior autonomia e satisfação</div></div>
+        <div class="stat"><div class="stat__number">60%</div><div class="stat__label">melhoria no rendimento</div></div>
+      </div>
+      <div class="mini-chart" aria-hidden="true">
+        <svg viewBox="0 0 600 160" xmlns="http://www.w3.org/2000/svg" role="img">
+          <defs>
+            <linearGradient id="grad" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="var(--brand)" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="var(--brand)" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <polyline fill="url(#grad)" stroke="var(--brand)" stroke-width="3" points="0,130 80,120 140,110 220,95 300,85 360,70 420,55 500,45 600,40 600,160 0,160"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTEMUNHOS -->
+  <section class="section" id="testemunhos" aria-labelledby="testemunhos-title">
+    <div class="container">
+      <h2 id="testemunhos-title" class="section__title">O que dizem os professores</h2>
+      <div class="slider" data-autoplay="true" role="region" aria-label="Carrossel de testemunhos" aria-live="polite" tabindex="0">
+        <div class="slides">
+          <figure class="slide is-active">
+            <blockquote>“O Connect AI é um apoio real para quem mais precisa. Nunca vi o meu aluno tão motivado.”</blockquote>
+            <figcaption>Professora de TIC — Ensino Profissional</figcaption>
+          </figure>
+          <figure class="slide">
+            <blockquote>“Apoio consistente e com empatia. As rotinas de estudo melhoraram muito.”</blockquote>
+            <figcaption>Coordenador Pedagógico — 3.º Ciclo</figcaption>
+          </figure>
+          <figure class="slide">
+            <blockquote>“Ferramenta segura e com supervisão pedagógica. Recomendo.”</blockquote>
+            <figcaption>Direção — Agrupamento Escolar</figcaption>
+          </figure>
+        </div>
+        <div class="slider__controls">
+          <button class="slider__prev" aria-label="Testemunho anterior">‹</button>
+          <div class="slider__dots" role="tablist" aria-label="Navegação de testemunhos"></div>
+          <button class="slider__next" aria-label="Próximo testemunho">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOVAS SECÇÕES -->
+  <section class="section section--trust" id="seguranca" aria-labelledby="seguranca-title">
+    <div class="container">
+      <h2 id="seguranca-title" class="section__title">Tecnologia & Segurança</h2>
+      <div class="features features--3">
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22v-6a12 12 0 0124 0v6" stroke="currentColor" stroke-width="2"/><rect x="8" y="22" width="32" height="18" rx="3" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3>Segurança de Dados</h3>
+          <p>Encriptação ponta‑a‑ponta e armazenamento seguro.</p>
+        </article>
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 6l16 6v10c0 9.941-7.163 18-16 20-8.837-2-16-10.059-16-20V12l16-6z" stroke="currentColor" stroke-width="2"/><path d="M18 26l4 4 8-8" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3>Autenticação Forte</h3>
+          <p>Perfis separados e 2FA (TOTP) para docentes e alunos.</p>
+        </article>
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="10" width="32" height="28" rx="4" stroke="currentColor" stroke-width="2"/><path d="M14 18h20M14 24h16M14 30h10" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3>Conformidade RGPD</h3>
+          <p>Processamento de dados alinhado com normas europeias.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="planos" aria-labelledby="planos-title">
+    <div class="container">
+      <h2 id="planos-title" class="section__title">Planos & Preços</h2>
+      <div class="pricing__grid">
+        <article class="plan">
+          <h3>Piloto Gratuito</h3>
+          <p class="plan__desc">Para escolas testarem numa turma.</p>
+          <ul class="plan__list">
+            <li>Até 1 turma</li>
+            <li>WhatsApp / Discord</li>
+            <li>Conteúdos validados</li>
+          </ul>
+          <a class="btn btn--accent plan__cta" href="#" data-modal="contact">Quero Saber Mais</a>
+        </article>
+  
+        <article class="plan plan--featured" aria-label="Plano recomendado">
+          <span class="badge">Recomendado</span>
+          <h3>Licença Escolar</h3>
+          <p class="plan__desc">Implementação completa na escola.</p>
+          <ul class="plan__list">
+            <li>Alunos ilimitados</li>
+            <li>Supervisão pedagógica</li>
+            <li>Painel para docentes</li>
+            <li>Relatórios e segurança</li>
+          </ul>
+          <a class="btn btn--brand plan__cta" href="#" data-modal="contact">Contactar</a>
+        </article>
+  
+        <article class="plan">
+          <h3>Parceria Municipal</h3>
+          <p class="plan__desc">Escala e impacto regional.</p>
+          <ul class="plan__list">
+            <li>Integração com políticas públicas</li>
+            <li>Formação certificada</li>
+            <li>Suporte e métricas</li>
+          </ul>
+          <a class="btn btn--brand plan__cta" href="#" data-modal="contact">Saber Mais</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="faq" aria-labelledby="faq-title">
+    <div class="container">
+      <h2 id="faq-title" class="section__title">Perguntas Frequentes</h2>
+      <div class="faq">
+        <details class="faq__item">
+          <summary>Os alunos ficam dependentes do bot?</summary>
+          <p>O Connect AI promove autonomia com rotinas, metas e feedback claro.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Quem supervisiona os conteúdos?</summary>
+          <p>As direções pedagógicas validam e atualizam o banco de conteúdos.</p>
+        </details>
+        <details class="faq__item">
+          <summary>É necessária internet?</summary>
+          <p>Sim, mas funciona em redes móveis e apps leves como WhatsApp e Discord.</p>
+        </details>
+        <details class="faq__item">
+          <summary>E se houver abusos pelos alunos?</summary>
+          <p>Há moderação ativa, logs de uso e alertas para docentes/encarregados.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="demo" aria-labelledby="demo-title">
+    <div class="container">
+      <h2 id="demo-title" class="section__title">Experimente o Connect AI</h2>
+      <div class="demo__box">
+        <div class="chat" aria-live="polite">
+          <div class="msg msg--ai">Olá! Como te posso ajudar hoje?</div>
+          <div class="msg msg--user">Quero ajuda a estudar!</div>
+          <div class="msg msg--ai">Posso criar um plano simples para hoje.</div>
+        </div>
+        <form id="demo-form" class="demo__form" aria-label="Enviar mensagem de teste">
+          <label for="demo-input" class="sr-only">Sua pergunta para o Connect AI</label>
+          <input id="demo-input" class="demo__input" type="text" name="q" placeholder="Pergunta ao Connect AI" autocomplete="off" aria-describedby="demo-note" />
+          <button class="btn btn--brand" type="submit" aria-label="Enviar pergunta para demonstração">Enviar</button>
+        </form>
+        <p id="demo-note" class="demo__note">Conteúdo com banco de imagens e textos validados pela escola.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGIN -->
+  <section class="section section--alt" id="login" aria-labelledby="login-title">
+    <div class="container login">
+      <div class="login__box">
+        <h2 id="login-title" class="section__title">Já usa o Connect AI?</h2>
+        <p class="login__note">A autenticação será feita na nossa webapp. Por agora, este botão é apenas um placeholder.</p>
+        <a class="btn btn--brand btn--placeholder" href="#" data-placeholder="true" aria-disabled="true" role="button">Entrar na Plataforma (em breve) →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA ESCOLAS -->
+  <section class="section cta" id="contacto" aria-label="Chamada para ação">
+    <div class="container cta__inner">
+      <div class="cta__text">
+        <h2>Quer trazer o Connect AI para a sua escola?</h2>
+        <p>Fale com a nossa equipa: <a href="mailto:contacto@connectai.pt">contacto@connectai.pt</a></p>
+      </div>
+      <a class="btn btn--accent btn--lg" href="#" data-modal="contact">Quero ser Contactado →</a>
+    </div>
+  </section>
+
+  <!-- MODAL TEMPLATES (hidden initially) -->
+  <template id="contact-modal-template">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Fale com a nossa equipa</h2>
+        <button class="modal-close" aria-label="Fechar">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="contact-form" class="form" aria-label="Formulário de contacto">
+          <div class="form__row">
+            <label for="contact-name">Nome
+              <input id="contact-name" type="text" name="name" autocomplete="name" required aria-required="true" />
+            </label>
+          </div>
+          <div class="form__row">
+            <label for="contact-email">Email
+              <input id="contact-email" type="email" name="email" autocomplete="email" required aria-required="true" />
+            </label>
+          </div>
+          <div class="form__row">
+            <label for="contact-message">Mensagem
+              <textarea id="contact-message" name="message" rows="4" required aria-required="true"></textarea>
+            </label>
+          </div>
+          <button class="btn btn--brand" type="submit" aria-describedby="contact-note">Enviar</button>
+          <p class="legal__note">Ao enviar, abriremos o seu gestor de email com a mensagem preenchida.</p>
+        </form>
+      </div>
+    </div>
+  </template>
+
+  <template id="terms-modal-template">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Termos e Condições</h2>
+        <button class="modal-close" aria-label="Fechar">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Última atualização:</strong> <span id="terms-date">Setembro 2025</span>. Estes Termos regem o uso do serviço Connect AI ("Serviço"). Ao utilizar o Serviço, aceita estes Termos.</p>
+        
+        <h3>1. Objeto</h3>
+        <p>O Connect AI é uma plataforma de apoio educativo com IA para alunos e escolas, com conteúdos validados por equipas pedagógicas.</p>
+        
+        <h3>2. Elegibilidade</h3>
+        <p>O Serviço destina-se a escolas, docentes, encarregados de educação e alunos. Utilizadores com menos de 16 anos apenas podem usar o Serviço com consentimento dos encarregados de educação e sob supervisão escolar.</p>
+        
+        <h3>3. Conta e Acesso</h3>
+        <ul>
+          <li>As credenciais são pessoais e intransmissíveis.</li>
+          <li>Poderá existir autenticação de dois fatores (2FA) para perfis docentes e administrativos.</li>
+          <li>A escola poderá gerir permissões e perfis dos seus utilizadores.</li>
+        </ul>
+        
+        <h3>4. Utilização Aceitável</h3>
+        <ul>
+          <li>Proibido publicar conteúdos ilegais, discriminatórios ou que violem direitos de terceiros.</li>
+          <li>É vedada a engenharia inversa, scraping massivo ou tentativa de contornar controlos de segurança.</li>
+          <li>O Serviço não deve ser usado para avaliação substitutiva não autorizada ou fraude académica.</li>
+        </ul>
+        
+        <h3>5. Propriedade Intelectual</h3>
+        <p>Todo o software, marcas e materiais do Serviço são propriedade do Connect AI ou dos seus licenciantes. É concedida uma licença limitada, não exclusiva e revogável para uso conforme estes Termos.</p>
+        
+        <h3>6. Conteúdos</h3>
+        <p>Os conteúdos pedagógicos são validados por equipas pedagógicas. O Utilizador é responsável pelos conteúdos que submete, garantindo que não violam a lei ou direitos de terceiros.</p>
+        
+        <h3>7. Proteção de Dados e Segurança</h3>
+        <p>Aplicam-se as práticas descritas na Política de Privacidade, incluindo medidas técnicas e organizativas alinhadas com o RGPD.</p>
+        
+        <h3>8. Planos, Preços e Pagamentos</h3>
+        <p>Planos e preços podem variar por escola e âmbito de implementação. Salvo indicação em contrário, taxas são faturadas à entidade contratante (escola/município). Impostos aplicáveis poderão ser adicionados.</p>
+        
+        <h3>9. Suspensão e Encerramento</h3>
+        <p>Poderemos suspender ou encerrar o acesso em caso de violação destes Termos, risco de segurança ou por exigência legal.</p>
+        
+        <h3>10. Garantias e Responsabilidade</h3>
+        <p>O Serviço é prestado «tal como está». Não garantimos que seja isento de erros. Na máxima medida permitida por lei, a responsabilidade do Connect AI será limitada ao montante pago nos 12 meses anteriores à reclamação aplicável.</p>
+        
+        <h3>11. Alterações</h3>
+        <p>Poderemos atualizar estes Termos. Notificaremos a escola e, quando aplicável, os utilizadores. A continuação do uso após a atualização implica aceitação.</p>
+        
+        <h3>12. Lei Aplicável e Foro</h3>
+        <p>Estes Termos regem-se pela lei portuguesa. Para resolução de litígios, é competente o foro da comarca de Lisboa, sem prejuízo das normas imperativas de proteção do consumidor.</p>
+        
+        <p class="legal__note">Este documento é um modelo geral e poderá ser ajustado conforme as necessidades específicas da sua escola.</p>
+      </div>
+    </div>
+  </template>
+
+  <template id="privacy-modal-template">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Política de Privacidade</h2>
+        <button class="modal-close" aria-label="Fechar">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Última atualização:</strong> <span id="privacy-date">Setembro 2025</span>. Esta Política descreve como tratamos dados pessoais no âmbito do Connect AI, em conformidade com o RGPD.</p>
+        
+        <h3>1. Responsável pelo Tratamento</h3>
+        <p>O responsável pelo tratamento é a entidade operadora do Connect AI. Quando contratado por escolas, estas poderão atuar como responsáveis conjuntas ou independentes, consoante o caso.</p>
+        
+        <h3>2. Dados que Tratamos</h3>
+        <ul>
+          <li>Dados de conta: nome, email institucional, perfil (aluno/docente), turma/escola.</li>
+          <li>Dados de utilização: mensagens trocadas com a IA, logs técnicos, métricas de desempenho.</li>
+          <li>Metadados: dispositivo, navegador, endereços IP anonimizados, idioma.</li>
+          <li>Contactos de suporte: pedidos enviados por email/chat.</li>
+        </ul>
+        
+        <h3>3. Finalidades e Fundamentos</h3>
+        <ul>
+          <li>Prestação do Serviço e suporte (execução de contrato).</li>
+          <li>Segurança, prevenção de abuso e melhoria do produto (interesse legítimo).</li>
+          <li>Cumprimento de obrigações legais (por ex., proteção de menores, auditoria).</li>
+          <li>Comunicações informativas e consentidas (consentimento, quando aplicável).</li>
+        </ul>
+        
+        <h3>4. Conservação</h3>
+        <p>Conservamos dados pelo período necessário às finalidades indicadas ou conforme exigido por lei. Registos de chat para fins pedagógicos poderão ter prazos definidos pela escola.</p>
+        
+        <h3>5. Partilha com Terceiros</h3>
+        <p>Poderemos recorrer a subcontratantes (processadores) para alojamento, métricas e envio de comunicações, com acordos de tratamento de dados adequados. Não vendemos dados pessoais.</p>
+        
+        <h3>6. Transferências Internacionais</h3>
+        <p>Quando houver transferências para fora do EEE, aplicamos salvaguardas adequadas (por ex., Cláusulas Contratuais‑Tipo).</p>
+        
+        <h3>7. Direitos dos Titulares</h3>
+        <p>Nos termos do RGPD, tem direito de acesso, retificação, apagamento, limitação, oposição e portabilidade. Pode exercer direitos através de <a href="mailto:contacto@connectai.pt">contacto@connectai.pt</a> ou junto da sua escola.</p>
+        
+        <h3>8. Menores</h3>
+        <p>Utilizadores com menos de 16 anos necessitam de consentimento do encarregado de educação e uso supervisionado pela escola. Conteúdos e interações são moderados.</p>
+        
+        <h3>9. Segurança</h3>
+        <p>Adotamos medidas técnicas e organizativas apropriadas, incluindo encriptação em trânsito, controlo de acessos e registos de atividade.</p>
+        
+        <h3>10. Cookies e Tecnologias Semelhantes</h3>
+        <p>Poderemos usar cookies estritamente necessários e, mediante consentimento, analíticos. As preferências podem ser geridas no navegador. (Banner/gestor de consentimento poderá ser apresentado quando aplicável.)</p>
+        
+        <h3>11. Contacto</h3>
+        <p>Para dúvidas sobre esta Política, contacte <a href="mailto:contacto@connectai.pt">contacto@connectai.pt</a>. Tem ainda o direito de apresentar reclamação à CNPD.</p>
+        
+        <h3>12. Alterações</h3>
+        <p>Poderemos atualizar esta Política. A versão mais recente estará sempre disponível nesta página.</p>
+        
+        <p class="legal__note">Esta Política é genérica e poderá ser adaptada ao contexto específico da sua escola.</p>
+      </div>
+    </div>
+  </template>
+
+  <!-- MODAL OVERLAY (hidden) -->
+  <div class="modal-overlay" id="modal-overlay" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-body">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modal-title"></h2>
+          <button class="modal-close" aria-label="Fechar">&times;</button>
+        </div>
+        <div class="modal-body" id="modal-body" tabindex="0"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <img src="./assets/connectai-logo.svg" alt="Connect AI" class="brand__logo" loading="lazy" />
+        <p>Connect AI — Educação com Alma Digital.</p>
+      </div>
+      <nav class="footer__links" aria-label="Links úteis">
+        <a href="#" data-modal="terms">Termos e Condições</a>
+        <a href="#" data-modal="privacy">Política de Privacidade</a>
+        <a href="#">Acessibilidade</a>
+      </nav>
+    </div>
+    <div class="container footer__copy">© <span id="year"></span> Connect AI. Todos os direitos reservados.</div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Voltar ao topo" title="Voltar ao topo da página">↑</button>
+
+  <script src="./script.min.js"></script>
+</body>
+</html>

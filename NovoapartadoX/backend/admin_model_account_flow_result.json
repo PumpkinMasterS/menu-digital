@@ -1,0 +1,47 @@
+{
+  "start": "2025-09-30T18:31:23.113Z",
+  "base": "http://localhost:4000",
+  "adminLogin": {
+    "status": 200,
+    "ok": true
+  },
+  "createdUser": {
+    "status": 201,
+    "ok": true,
+    "id": "68dc21fd8e213cdb3247ad20"
+  },
+  "modelLogin": {
+    "status": 200,
+    "ok": true
+  },
+  "passwordChange": {
+    "status": 200,
+    "ok": true
+  },
+  "createdModel": {
+    "status": 201,
+    "ok": true,
+    "id": "68dc22008e213cdb3247ad2e"
+  },
+  "modelToggles": {
+    "inactive": true,
+    "active": true,
+    "verified": true,
+    "unverified": true
+  },
+  "createdListing": {
+    "status": 201,
+    "ok": true,
+    "id": "68dc22008e213cdb3247ad3e"
+  },
+  "listingToggles": {
+    "activate": true,
+    "deactivate": true,
+    "verify": true,
+    "unverify": true,
+    "feature": true,
+    "unfeature": true
+  },
+  "cleanup": {},
+  "end": "2025-09-30T18:31:29.366Z"
+}

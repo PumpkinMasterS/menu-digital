@@ -1,0 +1,22 @@
+{
+  "url": "http://127.0.0.1:5174/lisboa",
+  "timestamp": "2025-09-25T12:24:55.724Z",
+  "reports": [
+    {
+      "viewport": "iPhone SE (320)",
+      "error": "net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5174/lisboa"
+    },
+    {
+      "viewport": "iPhone 12/13 (375)",
+      "error": "net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5174/lisboa"
+    },
+    {
+      "viewport": "iPhone 11 Pro Max (414)",
+      "error": "net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5174/lisboa"
+    },
+    {
+      "viewport": "Tablet (768)",
+      "error": "net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5174/lisboa"
+    }
+  ]
+}

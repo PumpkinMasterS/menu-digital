@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaborPortuguês - Web</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin: 0;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .welcome-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .message {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            color: #555555;
+        }
+        .confirm-button {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 30px auto;
+            padding: 18px 30px;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            transition: transform 0.2s ease;
+        }
+        .confirm-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+        .features {
+            background-color: #fff9f6;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #FF6B35;
+        }
+        .features h3 {
+            color: #FF6B35;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .feature-list li {
+            padding: 8px 0;
+            font-size: 15px;
+            color: #666666;
+        }
+        .feature-list li:before {
+            content: "✓";
+            color: #FF6B35;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .device-info {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 40px;
+            font-size: 13px;
+            color: #888888;
+        }
+        .device-info p {
+            margin: 5px 0;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 25px;
+            text-align: center;
+            font-size: 13px;
+            color: #888888;
+        }
+        .social-links {
+            margin: 15px 0;
+        }
+        .social-links a {
+            display: inline-block;
+            margin: 0 8px;
+            color: #FF6B35;
+            text-decoration: none;
+        }
+        .web-icon {
+            width: 60px;
+            height: 60px;
+            margin: 10px auto 20px;
+            display: block;
+        }
+        /* Web specific styles */
+        .web-style {
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .browser-frame {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+        .browser-top {
+            background: #f1f1f1;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        .browser-dot {
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 4px;
+        }
+        .browser-dot-red { background-color: #FF6B35; }
+        .browser-dot-yellow { background-color: #F7931E; }
+        .browser-dot-green { background-color: #5cb85c; }
+        .browser-address {
+            display: inline-block;
+            background: white;
+            width: 80%;
+            height: 14px;
+            border-radius: 10px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">SaborPortuguês</div>
+            <p class="subtitle">Sabores autênticos online</p>
+        </div>
+        <div class="content">
+            <img src="https://cdn-icons-png.flaticon.com/512/281/281089.png" alt="Web Icon" class="web-icon">
+            
+            <div class="welcome-text">
+                Confirma a tua conta Web 💻
+            </div>
+
+            <div class="browser-frame">
+                <div class="browser-top">
+                    <div class="browser-dot browser-dot-red"></div>
+                    <div class="browser-dot browser-dot-yellow"></div>
+                    <div class="browser-dot browser-dot-green"></div>
+                    <div class="browser-address"></div>
+                </div>
+                <div style="padding: 15px; text-align: center;">
+                    <p style="color: #FF6B35; font-size: 18px;">SaborPortuguês Website</p>
+                </div>
+            </div>
+
+            <div class="message web-style">
+                <p>Olá {{params.USER_EMAIL}},</p>
+                <p>Obrigado por escolheres o SaborPortuguês! Para completares o teu registo e começares a explorar os melhores restaurantes portugueses no teu navegador, por favor confirma a tua conta clicando no botão abaixo.</p>
+            </div>
+
+            <a href="{{params.WEB_LINK}}" class="confirm-button">
+                Confirmar Conta
+            </a>
+
+            <div class="features web-style">
+                <h3>O que te espera no SaborPortuguês:</h3>
+                <ul class="feature-list">
+                    <li>Comida portuguesa autêntica dos melhores restaurantes</li>
+                    <li>Entregas rápidas à tua porta</li>
+                    <li>Menus exclusivos e promoções especiais</li>
+                    <li>Interface otimizada para navegadores web</li>
+                </ul>
+            </div>
+
+            <div class="device-info">
+                <p><strong>Informação do acesso:</strong></p>
+                <p>Plataforma: {{params.DEVICE_TYPE}}</p>
+                <p>Navegador: Web</p>
+                <p>Localização: {{params.COUNTRY}}</p>
+                <p>Data: {{params.TIMESTAMP}}</p>
+                <p><small>Se não foste tu que tentaste criar esta conta, podes ignorar este email.</small></p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="social-links">
+                <a href="https://facebook.com/">Facebook</a> | 
+                <a href="https://instagram.com/">Instagram</a> | 
+                <a href="https://comituga.eu">Website</a>
+            </div>
+            <p>&copy; 2025 SaborPortuguês - Todos os direitos reservados</p>
+            <p><small>Email gerado automaticamente. Por favor não respondas.</small></p>
+        </div>
+    </div>
+</body>
+</html> 

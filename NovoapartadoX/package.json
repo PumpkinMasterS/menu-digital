@@ -1,0 +1,12 @@
+{
+  "name": "novoapartadox",
+  "private": true,
+  "scripts": {
+    "dev:all": "node scripts/dev-all.js",
+    "e2e:upload20": "node scripts/e2e-run.js",
+    "report": "npx playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.1"
+  }
+}
