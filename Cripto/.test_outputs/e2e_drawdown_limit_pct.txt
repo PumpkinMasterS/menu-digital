@@ -1,0 +1,2 @@
+﻿set_limit_pct_1_base_100: -1 Unable to connect to the remote server
+enqueue_after_pct_limit: -1 Unable to connect to the remote server

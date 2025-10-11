@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "name": "dedup-test",
+  "effectiveAt": "2025-09-24T12:06:15.392Z",
+  "timeframes": ["1m", "3m"],
+  "symbols": ["BTCUSDT"],
+  "risk": {
+    "maxConcurrentSignals": 1,
+    "rrMin": 1.5,
+    "killSwitch": false,
+    "cooldownSeconds": 0
+  },
+  "precedence": ["1m", "3m"]
+}

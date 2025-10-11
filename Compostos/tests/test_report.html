@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Testes - Compostos System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background-color: #2c3e50; color: white; padding: 20px; border-radius: 5px; }
+        .summary { display: flex; justify-content: space-between; margin: 20px 0; }
+        .summary-item { text-align: center; }
+        .pass { color: #27ae60; }
+        .fail { color: #e74c3c; }
+        .error { color: #f39c12; }
+        .test-result { margin: 10px 0; padding: 15px; border-left: 4px solid #ddd; }
+        .test-pass { border-left-color: #27ae60; }
+        .test-fail { border-left-color: #e74c3c; }
+        .test-error { border-left-color: #f39c12; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Relatório de Testes - Compostos System</h1>
+        <p>Data: 2025-10-08T20:12:17.928198</p>
+    </div>
+    
+    <div class="summary">
+        <div class="summary-item">
+            <h3>Total de Testes</h3>
+            <h2>13</h2>
+        </div>
+        <div class="summary-item">
+            <h3>Passaram</h3>
+            <h2 class="pass">1</h2>
+        </div>
+        <div class="summary-item">
+            <h3>Falharam</h3>
+            <h2 class="fail">12</h2>
+        </div>
+        <div class="summary-item">
+            <h3>Taxa de Sucesso</h3>
+            <h2>7.69%</h2>
+        </div>
+    </div>
+    
+    <h2>Ambiente de Teste</h2>
+    <table>
+        <tr><th>Configuração</th><th>Valor</th></tr>
+        <tr><td>API URL</td><td>http://localhost:5000/api</td></tr>
+        <tr><td>Usuário Teste</td><td>test@example.com</td></tr>
+        <tr><td>Robô Teste</td><td>Test Robot</td></tr>
+    </table>
+    
+    <h2>Resultados Detalhados</h2>
+
+    <div class="test-result test-pass">
+        <h3>test_health_check</h3>
+        <p><strong>Status:</strong> <span class="pass">PASS</span></p>
+        <p><strong>Mensagem:</strong> Teste executado com sucesso</p>
+    </div>
+
+    <div class="test-result test-fail">
+        <h3>test_user_registration</h3>
+        <p><strong>Status:</strong> <span class="fail">FAIL</span></p>
+        <p><strong>Mensagem:</strong> Teste falhou</p>
+    </div>
+
+    <div class="test-result test-fail">
+        <h3>test_user_login</h3>
+        <p><strong>Status:</strong> <span class="fail">FAIL</span></p>
+        <p><strong>Mensagem:</strong> Teste falhou</p>
+    </div>
+
+    <div class="test-result test-fail">
+        <h3>test_get_robots</h3>
+        <p><strong>Status:</strong> <span class="fail">FAIL</span></p>
+        <p><strong>Mensagem:</strong> Teste falhou</p>
+    </div>
+
+    <div class="test-result test-fail">
+        <h3>test_crypto_transfer_network_info</h3>
+        <p><strong>Status:</strong> <span class="fail">FAIL</span></p>
+        <p><strong>Mensagem:</strong> Teste falhou</p>
+    </div>
+
+    <div class="test-result test-fail">
+        <h3>test_crypto_transfer_tokens</h3>
+        <p><strong>Status:</strong> <span class="fail">FAIL</span></p>
+        <p><strong>Mensagem:</strong> Teste falhou</p>
+    </div>
+
+    <div class="test-result test-fail">
+        <h3>test_create_investment</h3>
+        <p><strong>Status:</strong> <span class="fail">FAIL</span></p>
+        <p><strong>Mensagem:</strong> Teste falhou</p>
+    </div>
+
+    <div class="test-result test-fail">
+        <h3>test_get_user_investments</h3>
+        <p><strong>Status:</strong> <span class="fail">FAIL</span></p>
+        <p><strong>Mensagem:</strong> Teste falhou</p>
+    </div>
+
+    <div class="test-result test-fail">
+        <h3>test_referral_system</h3>
+        <p><strong>Status:</strong> <span class="fail">FAIL</span></p>
+        <p><strong>Mensagem:</strong> Teste falhou</p>
+    </div>
+
+    <div class="test-result test-fail">
+        <h3>test_ranks_system</h3>
+        <p><strong>Status:</strong> <span class="fail">FAIL</span></p>
+        <p><strong>Mensagem:</strong> Teste falhou</p>
+    </div>
+
+    <div class="test-result test-fail">
+        <h3>test_tasks_system</h3>
+        <p><strong>Status:</strong> <span class="fail">FAIL</span></p>
+        <p><strong>Mensagem:</strong> Teste falhou</p>
+    </div>
+
+    <div class="test-result test-fail">
+        <h3>test_dashboard_stats</h3>
+        <p><strong>Status:</strong> <span class="fail">FAIL</span></p>
+        <p><strong>Mensagem:</strong> Teste falhou</p>
+    </div>
+
+    <div class="test-result test-fail">
+        <h3>test_admin_functions</h3>
+        <p><strong>Status:</strong> <span class="fail">FAIL</span></p>
+        <p><strong>Mensagem:</strong> Teste falhou</p>
+    </div>
+
+</body>
+</html>

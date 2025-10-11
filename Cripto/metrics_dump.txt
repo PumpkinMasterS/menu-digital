@@ -1,0 +1,1272 @@
+# HELP signals_enqueued_total Total de sinais enfileirados
+# TYPE signals_enqueued_total counter
+signals_enqueued_total{symbol="BTCUSDT",timeframe="1m"} 172
+signals_enqueued_total{symbol="ETHUSDT",timeframe="1m"} 154
+signals_enqueued_total{symbol="SOLUSDT",timeframe="1m"} 4
+signals_enqueued_total{symbol="BTCUSDT,ETHUSDT,SOLUSDT",timeframe="1m"} 12
+signals_enqueued_total{symbol="BTCUSDT,BTCUSDT",timeframe="1m"} 16
+
+# HELP signals_processed_total Total de sinais processados por status
+# TYPE signals_processed_total counter
+signals_processed_total{timeframe="1m",status="ok"} 128
+signals_processed_total{timeframe="1m",status="dedup"} 0
+signals_processed_total{timeframe="1m",status="blocked_precedence"} 0
+signals_processed_total{timeframe="1m",status="cooldown"} 1
+signals_processed_total{timeframe="1m",status="killswitch"} 0
+signals_processed_total{timeframe="1m",status="max_concurrent"} 2
+signals_processed_total{timeframe="3m",status="ok"} 0
+signals_processed_total{timeframe="3m",status="dedup"} 0
+signals_processed_total{timeframe="3m",status="blocked_precedence"} 0
+signals_processed_total{timeframe="3m",status="cooldown"} 0
+signals_processed_total{timeframe="3m",status="killswitch"} 0
+signals_processed_total{timeframe="3m",status="max_concurrent"} 0
+signals_processed_total{timeframe="5m",status="ok"} 0
+signals_processed_total{timeframe="5m",status="dedup"} 0
+signals_processed_total{timeframe="5m",status="blocked_precedence"} 0
+signals_processed_total{timeframe="5m",status="cooldown"} 0
+signals_processed_total{timeframe="5m",status="killswitch"} 0
+signals_processed_total{timeframe="5m",status="max_concurrent"} 0
+signals_processed_total{timeframe="10m",status="ok"} 0
+signals_processed_total{timeframe="10m",status="dedup"} 0
+signals_processed_total{timeframe="10m",status="blocked_precedence"} 0
+signals_processed_total{timeframe="10m",status="cooldown"} 0
+signals_processed_total{timeframe="10m",status="killswitch"} 0
+signals_processed_total{timeframe="10m",status="max_concurrent"} 0
+signals_processed_total{timeframe="15m",status="ok"} 0
+signals_processed_total{timeframe="15m",status="dedup"} 0
+signals_processed_total{timeframe="15m",status="blocked_precedence"} 0
+signals_processed_total{timeframe="15m",status="cooldown"} 0
+signals_processed_total{timeframe="15m",status="killswitch"} 0
+signals_processed_total{timeframe="15m",status="max_concurrent"} 0
+signals_processed_total{timeframe="1h",status="ok"} 0
+signals_processed_total{timeframe="1h",status="dedup"} 0
+signals_processed_total{timeframe="1h",status="blocked_precedence"} 0
+signals_processed_total{timeframe="1h",status="cooldown"} 0
+signals_processed_total{timeframe="1h",status="killswitch"} 0
+signals_processed_total{timeframe="1h",status="max_concurrent"} 0
+signals_processed_total{timeframe="4h",status="ok"} 0
+signals_processed_total{timeframe="4h",status="dedup"} 0
+signals_processed_total{timeframe="4h",status="blocked_precedence"} 0
+signals_processed_total{timeframe="4h",status="cooldown"} 0
+signals_processed_total{timeframe="4h",status="killswitch"} 0
+signals_processed_total{timeframe="4h",status="max_concurrent"} 0
+
+# HELP post_close_latency_ms Latência em ms do fechamento do candle até processamento do sinal
+# TYPE post_close_latency_ms histogram
+post_close_latency_ms_bucket{le="50",timeframe="1m"} 3
+post_close_latency_ms_bucket{le="100",timeframe="1m"} 3
+post_close_latency_ms_bucket{le="200",timeframe="1m"} 3
+post_close_latency_ms_bucket{le="300",timeframe="1m"} 4
+post_close_latency_ms_bucket{le="500",timeframe="1m"} 5
+post_close_latency_ms_bucket{le="800",timeframe="1m"} 5
+post_close_latency_ms_bucket{le="1000",timeframe="1m"} 5
+post_close_latency_ms_bucket{le="2000",timeframe="1m"} 6
+post_close_latency_ms_bucket{le="5000",timeframe="1m"} 12
+post_close_latency_ms_bucket{le="+Inf",timeframe="1m"} 129
+post_close_latency_ms_sum{timeframe="1m"} 4919226
+post_close_latency_ms_count{timeframe="1m"} 129
+post_close_latency_ms_bucket{le="50",timeframe="3m"} 1
+post_close_latency_ms_bucket{le="100",timeframe="3m"} 1
+post_close_latency_ms_bucket{le="200",timeframe="3m"} 1
+post_close_latency_ms_bucket{le="300",timeframe="3m"} 1
+post_close_latency_ms_bucket{le="500",timeframe="3m"} 1
+post_close_latency_ms_bucket{le="800",timeframe="3m"} 1
+post_close_latency_ms_bucket{le="1000",timeframe="3m"} 1
+post_close_latency_ms_bucket{le="2000",timeframe="3m"} 1
+post_close_latency_ms_bucket{le="5000",timeframe="3m"} 1
+post_close_latency_ms_bucket{le="+Inf",timeframe="3m"} 1
+post_close_latency_ms_sum{timeframe="3m"} 0
+post_close_latency_ms_count{timeframe="3m"} 1
+post_close_latency_ms_bucket{le="50",timeframe="5m"} 1
+post_close_latency_ms_bucket{le="100",timeframe="5m"} 1
+post_close_latency_ms_bucket{le="200",timeframe="5m"} 1
+post_close_latency_ms_bucket{le="300",timeframe="5m"} 1
+post_close_latency_ms_bucket{le="500",timeframe="5m"} 1
+post_close_latency_ms_bucket{le="800",timeframe="5m"} 1
+post_close_latency_ms_bucket{le="1000",timeframe="5m"} 1
+post_close_latency_ms_bucket{le="2000",timeframe="5m"} 1
+post_close_latency_ms_bucket{le="5000",timeframe="5m"} 1
+post_close_latency_ms_bucket{le="+Inf",timeframe="5m"} 1
+post_close_latency_ms_sum{timeframe="5m"} 0
+post_close_latency_ms_count{timeframe="5m"} 1
+post_close_latency_ms_bucket{le="50",timeframe="10m"} 1
+post_close_latency_ms_bucket{le="100",timeframe="10m"} 1
+post_close_latency_ms_bucket{le="200",timeframe="10m"} 1
+post_close_latency_ms_bucket{le="300",timeframe="10m"} 1
+post_close_latency_ms_bucket{le="500",timeframe="10m"} 1
+post_close_latency_ms_bucket{le="800",timeframe="10m"} 1
+post_close_latency_ms_bucket{le="1000",timeframe="10m"} 1
+post_close_latency_ms_bucket{le="2000",timeframe="10m"} 1
+post_close_latency_ms_bucket{le="5000",timeframe="10m"} 1
+post_close_latency_ms_bucket{le="+Inf",timeframe="10m"} 1
+post_close_latency_ms_sum{timeframe="10m"} 0
+post_close_latency_ms_count{timeframe="10m"} 1
+post_close_latency_ms_bucket{le="50",timeframe="15m"} 1
+post_close_latency_ms_bucket{le="100",timeframe="15m"} 1
+post_close_latency_ms_bucket{le="200",timeframe="15m"} 1
+post_close_latency_ms_bucket{le="300",timeframe="15m"} 1
+post_close_latency_ms_bucket{le="500",timeframe="15m"} 1
+post_close_latency_ms_bucket{le="800",timeframe="15m"} 1
+post_close_latency_ms_bucket{le="1000",timeframe="15m"} 1
+post_close_latency_ms_bucket{le="2000",timeframe="15m"} 1
+post_close_latency_ms_bucket{le="5000",timeframe="15m"} 1
+post_close_latency_ms_bucket{le="+Inf",timeframe="15m"} 1
+post_close_latency_ms_sum{timeframe="15m"} 0
+post_close_latency_ms_count{timeframe="15m"} 1
+post_close_latency_ms_bucket{le="50",timeframe="1h"} 1
+post_close_latency_ms_bucket{le="100",timeframe="1h"} 1
+post_close_latency_ms_bucket{le="200",timeframe="1h"} 1
+post_close_latency_ms_bucket{le="300",timeframe="1h"} 1
+post_close_latency_ms_bucket{le="500",timeframe="1h"} 1
+post_close_latency_ms_bucket{le="800",timeframe="1h"} 1
+post_close_latency_ms_bucket{le="1000",timeframe="1h"} 1
+post_close_latency_ms_bucket{le="2000",timeframe="1h"} 1
+post_close_latency_ms_bucket{le="5000",timeframe="1h"} 1
+post_close_latency_ms_bucket{le="+Inf",timeframe="1h"} 1
+post_close_latency_ms_sum{timeframe="1h"} 0
+post_close_latency_ms_count{timeframe="1h"} 1
+post_close_latency_ms_bucket{le="50",timeframe="4h"} 1
+post_close_latency_ms_bucket{le="100",timeframe="4h"} 1
+post_close_latency_ms_bucket{le="200",timeframe="4h"} 1
+post_close_latency_ms_bucket{le="300",timeframe="4h"} 1
+post_close_latency_ms_bucket{le="500",timeframe="4h"} 1
+post_close_latency_ms_bucket{le="800",timeframe="4h"} 1
+post_close_latency_ms_bucket{le="1000",timeframe="4h"} 1
+post_close_latency_ms_bucket{le="2000",timeframe="4h"} 1
+post_close_latency_ms_bucket{le="5000",timeframe="4h"} 1
+post_close_latency_ms_bucket{le="+Inf",timeframe="4h"} 1
+post_close_latency_ms_sum{timeframe="4h"} 0
+post_close_latency_ms_count{timeframe="4h"} 1
+
+# HELP signals_queue_ready Disponibilidade da fila de sinais (1=ready, 0=unavailable)
+# TYPE signals_queue_ready gauge
+signals_queue_ready 1
+
+# HELP redis_ready Disponibilidade do Redis (1=ready, 0=unavailable)
+# TYPE redis_ready gauge
+redis_ready 1
+
+# HELP signals_queue_jobs Contagem de jobs na fila de sinais por estado
+# TYPE signals_queue_jobs gauge
+signals_queue_jobs{state="waiting"} 0
+signals_queue_jobs{state="active"} 0
+signals_queue_jobs{state="delayed"} 0
+signals_queue_jobs{state="completed"} 1000
+signals_queue_jobs{state="failed"} 0
+signals_queue_jobs{state="paused"} 0
+
+# HELP trades_count_total Contagem de trades por resultado
+# TYPE trades_count_total counter
+trades_count_total{symbol="BTCUSDT",timeframe="1m",outcome="win"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="1m",outcome="loss"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="1m",outcome="breakeven"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="1m",outcome="win"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="1m",outcome="loss"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="1m",outcome="breakeven"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="3m",outcome="win"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="3m",outcome="loss"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="3m",outcome="breakeven"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="3m",outcome="win"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="3m",outcome="loss"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="3m",outcome="breakeven"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="5m",outcome="win"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="5m",outcome="loss"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="5m",outcome="breakeven"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="5m",outcome="win"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="5m",outcome="loss"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="5m",outcome="breakeven"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="10m",outcome="win"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="10m",outcome="loss"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="10m",outcome="breakeven"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="10m",outcome="win"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="10m",outcome="loss"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="10m",outcome="breakeven"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="15m",outcome="win"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="15m",outcome="loss"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="15m",outcome="breakeven"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="15m",outcome="win"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="15m",outcome="loss"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="15m",outcome="breakeven"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="1h",outcome="win"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="1h",outcome="loss"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="1h",outcome="breakeven"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="1h",outcome="win"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="1h",outcome="loss"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="1h",outcome="breakeven"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="4h",outcome="win"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="4h",outcome="loss"} 0
+trades_count_total{symbol="BTCUSDT",timeframe="4h",outcome="breakeven"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="4h",outcome="win"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="4h",outcome="loss"} 0
+trades_count_total{symbol="ETHUSDT",timeframe="4h",outcome="breakeven"} 0
+
+# HELP trades_rr_ratio Distribuição de R:R por trade
+# TYPE trades_rr_ratio histogram
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="1m",outcome="win"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="1m",outcome="loss"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="1m",outcome="breakeven"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="1m",outcome="win"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="1m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="1m",outcome="loss"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="1m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="1m",outcome="breakeven"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="1m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="3m",outcome="win"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="3m",outcome="loss"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="3m",outcome="breakeven"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="3m",outcome="win"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="3m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="3m",outcome="loss"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="3m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="3m",outcome="breakeven"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="3m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="5m",outcome="win"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="5m",outcome="loss"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="5m",outcome="breakeven"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="5m",outcome="win"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="5m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="5m",outcome="loss"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="5m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="5m",outcome="breakeven"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="5m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="10m",outcome="win"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="10m",outcome="loss"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="10m",outcome="breakeven"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="10m",outcome="win"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="10m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="10m",outcome="loss"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="10m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="10m",outcome="breakeven"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="10m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="15m",outcome="win"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="15m",outcome="loss"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="15m",outcome="breakeven"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="15m",outcome="win"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="15m",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="15m",outcome="loss"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="15m",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="15m",outcome="breakeven"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="15m",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="1h",outcome="win"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="1h",outcome="loss"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="1h",outcome="breakeven"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="1h",outcome="win"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="1h",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="1h",outcome="loss"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="1h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="1h",outcome="breakeven"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="1h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="4h",outcome="win"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="4h",outcome="loss"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="BTCUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="BTCUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1",symbol="BTCUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="BTCUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="2",symbol="BTCUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="3",symbol="BTCUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="5",symbol="BTCUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="8",symbol="BTCUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="13",symbol="BTCUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="BTCUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_sum{symbol="BTCUSDT",timeframe="4h",outcome="breakeven"} 0
+trades_rr_ratio_count{symbol="BTCUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="4h",outcome="win"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="4h",outcome="win"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="4h",outcome="loss"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="4h",outcome="loss"} 1
+trades_rr_ratio_bucket{le="0.2",symbol="ETHUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="0.5",symbol="ETHUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1",symbol="ETHUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="1.5",symbol="ETHUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="2",symbol="ETHUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="3",symbol="ETHUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="5",symbol="ETHUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="8",symbol="ETHUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="13",symbol="ETHUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_bucket{le="+Inf",symbol="ETHUSDT",timeframe="4h",outcome="breakeven"} 1
+trades_rr_ratio_sum{symbol="ETHUSDT",timeframe="4h",outcome="breakeven"} 0
+trades_rr_ratio_count{symbol="ETHUSDT",timeframe="4h",outcome="breakeven"} 1
+
+# HELP trades_mae_r MAE por trade em múltiplos de R
+# TYPE trades_mae_r histogram
+trades_mae_r_bucket{le="0.1",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="0.2",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="0.5",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="1",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="1.5",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="2",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="3",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="5",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="+Inf",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mae_r_sum{symbol="BTCUSDT",timeframe="1m"} 0
+trades_mae_r_count{symbol="BTCUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="0.1",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="0.2",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="0.5",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="1",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="1.5",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="2",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="3",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="5",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="+Inf",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mae_r_sum{symbol="ETHUSDT",timeframe="1m"} 0
+trades_mae_r_count{symbol="ETHUSDT",timeframe="1m"} 1
+trades_mae_r_bucket{le="0.1",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="0.2",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="0.5",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="1",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="1.5",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="2",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="3",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="5",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="+Inf",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mae_r_sum{symbol="BTCUSDT",timeframe="3m"} 0
+trades_mae_r_count{symbol="BTCUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="0.1",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="0.2",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="0.5",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="1",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="1.5",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="2",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="3",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="5",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="+Inf",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mae_r_sum{symbol="ETHUSDT",timeframe="3m"} 0
+trades_mae_r_count{symbol="ETHUSDT",timeframe="3m"} 1
+trades_mae_r_bucket{le="0.1",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="0.2",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="0.5",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="1",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="1.5",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="2",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="3",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="5",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="+Inf",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mae_r_sum{symbol="BTCUSDT",timeframe="5m"} 0
+trades_mae_r_count{symbol="BTCUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="0.1",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="0.2",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="0.5",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="1",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="1.5",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="2",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="3",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="5",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="+Inf",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mae_r_sum{symbol="ETHUSDT",timeframe="5m"} 0
+trades_mae_r_count{symbol="ETHUSDT",timeframe="5m"} 1
+trades_mae_r_bucket{le="0.1",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="0.2",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="0.5",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="1",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="1.5",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="2",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="3",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="5",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="+Inf",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mae_r_sum{symbol="BTCUSDT",timeframe="10m"} 0
+trades_mae_r_count{symbol="BTCUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="0.1",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="0.2",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="0.5",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="1",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="1.5",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="2",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="3",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="5",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="+Inf",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mae_r_sum{symbol="ETHUSDT",timeframe="10m"} 0
+trades_mae_r_count{symbol="ETHUSDT",timeframe="10m"} 1
+trades_mae_r_bucket{le="0.1",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="0.2",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="0.5",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="1",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="1.5",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="2",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="3",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="5",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="+Inf",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mae_r_sum{symbol="BTCUSDT",timeframe="15m"} 0
+trades_mae_r_count{symbol="BTCUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="0.1",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="0.2",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="0.5",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="1",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="1.5",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="2",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="3",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="5",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="+Inf",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mae_r_sum{symbol="ETHUSDT",timeframe="15m"} 0
+trades_mae_r_count{symbol="ETHUSDT",timeframe="15m"} 1
+trades_mae_r_bucket{le="0.1",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="0.2",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="0.5",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="1",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="1.5",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="2",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="3",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="5",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="+Inf",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mae_r_sum{symbol="BTCUSDT",timeframe="1h"} 0
+trades_mae_r_count{symbol="BTCUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="0.1",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="0.2",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="0.5",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="1",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="1.5",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="2",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="3",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="5",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="+Inf",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mae_r_sum{symbol="ETHUSDT",timeframe="1h"} 0
+trades_mae_r_count{symbol="ETHUSDT",timeframe="1h"} 1
+trades_mae_r_bucket{le="0.1",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="0.2",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="0.5",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="1",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="1.5",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="2",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="3",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="5",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="+Inf",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mae_r_sum{symbol="BTCUSDT",timeframe="4h"} 0
+trades_mae_r_count{symbol="BTCUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="0.1",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="0.2",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="0.5",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="1",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="1.5",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="2",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="3",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="5",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mae_r_bucket{le="+Inf",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mae_r_sum{symbol="ETHUSDT",timeframe="4h"} 0
+trades_mae_r_count{symbol="ETHUSDT",timeframe="4h"} 1
+
+# HELP trades_mfe_r MFE por trade em múltiplos de R
+# TYPE trades_mfe_r histogram
+trades_mfe_r_bucket{le="0.1",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="0.2",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="0.5",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="1",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="1.5",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="2",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="3",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="5",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="8",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="+Inf",symbol="BTCUSDT",timeframe="1m"} 1
+trades_mfe_r_sum{symbol="BTCUSDT",timeframe="1m"} 0
+trades_mfe_r_count{symbol="BTCUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="0.1",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="0.2",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="0.5",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="1",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="1.5",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="2",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="3",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="5",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="8",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="+Inf",symbol="ETHUSDT",timeframe="1m"} 1
+trades_mfe_r_sum{symbol="ETHUSDT",timeframe="1m"} 0
+trades_mfe_r_count{symbol="ETHUSDT",timeframe="1m"} 1
+trades_mfe_r_bucket{le="0.1",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="0.2",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="0.5",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="1",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="1.5",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="2",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="3",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="5",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="8",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="+Inf",symbol="BTCUSDT",timeframe="3m"} 1
+trades_mfe_r_sum{symbol="BTCUSDT",timeframe="3m"} 0
+trades_mfe_r_count{symbol="BTCUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="0.1",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="0.2",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="0.5",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="1",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="1.5",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="2",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="3",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="5",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="8",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="+Inf",symbol="ETHUSDT",timeframe="3m"} 1
+trades_mfe_r_sum{symbol="ETHUSDT",timeframe="3m"} 0
+trades_mfe_r_count{symbol="ETHUSDT",timeframe="3m"} 1
+trades_mfe_r_bucket{le="0.1",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="0.2",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="0.5",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="1",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="1.5",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="2",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="3",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="5",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="8",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="+Inf",symbol="BTCUSDT",timeframe="5m"} 1
+trades_mfe_r_sum{symbol="BTCUSDT",timeframe="5m"} 0
+trades_mfe_r_count{symbol="BTCUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="0.1",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="0.2",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="0.5",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="1",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="1.5",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="2",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="3",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="5",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="8",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="+Inf",symbol="ETHUSDT",timeframe="5m"} 1
+trades_mfe_r_sum{symbol="ETHUSDT",timeframe="5m"} 0
+trades_mfe_r_count{symbol="ETHUSDT",timeframe="5m"} 1
+trades_mfe_r_bucket{le="0.1",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="0.2",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="0.5",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="1",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="1.5",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="2",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="3",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="5",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="8",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="+Inf",symbol="BTCUSDT",timeframe="10m"} 1
+trades_mfe_r_sum{symbol="BTCUSDT",timeframe="10m"} 0
+trades_mfe_r_count{symbol="BTCUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="0.1",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="0.2",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="0.5",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="1",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="1.5",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="2",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="3",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="5",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="8",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="+Inf",symbol="ETHUSDT",timeframe="10m"} 1
+trades_mfe_r_sum{symbol="ETHUSDT",timeframe="10m"} 0
+trades_mfe_r_count{symbol="ETHUSDT",timeframe="10m"} 1
+trades_mfe_r_bucket{le="0.1",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="0.2",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="0.5",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="1",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="1.5",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="2",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="3",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="5",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="8",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="+Inf",symbol="BTCUSDT",timeframe="15m"} 1
+trades_mfe_r_sum{symbol="BTCUSDT",timeframe="15m"} 0
+trades_mfe_r_count{symbol="BTCUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="0.1",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="0.2",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="0.5",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="1",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="1.5",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="2",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="3",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="5",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="8",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="+Inf",symbol="ETHUSDT",timeframe="15m"} 1
+trades_mfe_r_sum{symbol="ETHUSDT",timeframe="15m"} 0
+trades_mfe_r_count{symbol="ETHUSDT",timeframe="15m"} 1
+trades_mfe_r_bucket{le="0.1",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="0.2",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="0.5",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="1",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="1.5",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="2",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="3",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="5",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="8",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="+Inf",symbol="BTCUSDT",timeframe="1h"} 1
+trades_mfe_r_sum{symbol="BTCUSDT",timeframe="1h"} 0
+trades_mfe_r_count{symbol="BTCUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="0.1",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="0.2",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="0.5",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="1",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="1.5",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="2",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="3",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="5",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="8",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="+Inf",symbol="ETHUSDT",timeframe="1h"} 1
+trades_mfe_r_sum{symbol="ETHUSDT",timeframe="1h"} 0
+trades_mfe_r_count{symbol="ETHUSDT",timeframe="1h"} 1
+trades_mfe_r_bucket{le="0.1",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="0.2",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="0.5",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="1",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="1.5",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="2",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="3",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="5",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="8",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="+Inf",symbol="BTCUSDT",timeframe="4h"} 1
+trades_mfe_r_sum{symbol="BTCUSDT",timeframe="4h"} 0
+trades_mfe_r_count{symbol="BTCUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="0.1",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="0.2",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="0.5",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="1",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="1.5",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="2",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="3",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="5",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="8",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mfe_r_bucket{le="+Inf",symbol="ETHUSDT",timeframe="4h"} 1
+trades_mfe_r_sum{symbol="ETHUSDT",timeframe="4h"} 0
+trades_mfe_r_count{symbol="ETHUSDT",timeframe="4h"} 1
+
+# HELP trades_realized_pnl_wins_usd_total PNL realizado (USD) acumulado em trades vencedores
+# TYPE trades_realized_pnl_wins_usd_total counter
+trades_realized_pnl_wins_usd_total{symbol="BTCUSDT",timeframe="1m"} 0
+trades_realized_pnl_wins_usd_total{symbol="ETHUSDT",timeframe="1m"} 0
+trades_realized_pnl_wins_usd_total{symbol="BTCUSDT",timeframe="3m"} 0
+trades_realized_pnl_wins_usd_total{symbol="ETHUSDT",timeframe="3m"} 0
+trades_realized_pnl_wins_usd_total{symbol="BTCUSDT",timeframe="5m"} 0
+trades_realized_pnl_wins_usd_total{symbol="ETHUSDT",timeframe="5m"} 0
+trades_realized_pnl_wins_usd_total{symbol="BTCUSDT",timeframe="10m"} 0
+trades_realized_pnl_wins_usd_total{symbol="ETHUSDT",timeframe="10m"} 0
+trades_realized_pnl_wins_usd_total{symbol="BTCUSDT",timeframe="15m"} 0
+trades_realized_pnl_wins_usd_total{symbol="ETHUSDT",timeframe="15m"} 0
+trades_realized_pnl_wins_usd_total{symbol="BTCUSDT",timeframe="1h"} 0
+trades_realized_pnl_wins_usd_total{symbol="ETHUSDT",timeframe="1h"} 0
+trades_realized_pnl_wins_usd_total{symbol="BTCUSDT",timeframe="4h"} 0
+trades_realized_pnl_wins_usd_total{symbol="ETHUSDT",timeframe="4h"} 0
+
+# HELP trades_realized_pnl_losses_usd_total PNL realizado (USD) acumulado em trades perdedores (valor absoluto)
+# TYPE trades_realized_pnl_losses_usd_total counter
+trades_realized_pnl_losses_usd_total{symbol="BTCUSDT",timeframe="1m"} 0
+trades_realized_pnl_losses_usd_total{symbol="ETHUSDT",timeframe="1m"} 0
+trades_realized_pnl_losses_usd_total{symbol="BTCUSDT",timeframe="3m"} 0
+trades_realized_pnl_losses_usd_total{symbol="ETHUSDT",timeframe="3m"} 0
+trades_realized_pnl_losses_usd_total{symbol="BTCUSDT",timeframe="5m"} 0
+trades_realized_pnl_losses_usd_total{symbol="ETHUSDT",timeframe="5m"} 0
+trades_realized_pnl_losses_usd_total{symbol="BTCUSDT",timeframe="10m"} 0
+trades_realized_pnl_losses_usd_total{symbol="ETHUSDT",timeframe="10m"} 0
+trades_realized_pnl_losses_usd_total{symbol="BTCUSDT",timeframe="15m"} 0
+trades_realized_pnl_losses_usd_total{symbol="ETHUSDT",timeframe="15m"} 0
+trades_realized_pnl_losses_usd_total{symbol="BTCUSDT",timeframe="1h"} 0
+trades_realized_pnl_losses_usd_total{symbol="ETHUSDT",timeframe="1h"} 0
+trades_realized_pnl_losses_usd_total{symbol="BTCUSDT",timeframe="4h"} 0
+trades_realized_pnl_losses_usd_total{symbol="ETHUSDT",timeframe="4h"} 0
+
+# HELP risk_blocks_total Total de bloqueios por política de risco
+# TYPE risk_blocks_total counter
+
+# HELP risk_killswitch_active Estado do kill switch de risco (1=ativo, 0=inativo)
+# TYPE risk_killswitch_active gauge
+risk_killswitch_active 0
+
+# HELP risk_daily_drawdown_usd PnL acumulado no dia (USD, negativo indica drawdown)
+# TYPE risk_daily_drawdown_usd gauge
+risk_daily_drawdown_usd 0
+
+# HELP risk_daily_drawdown_limit_usd Limite de drawdown diário em USD (se configurado)
+# TYPE risk_daily_drawdown_limit_usd gauge
+risk_daily_drawdown_limit_usd 10
+
+# HELP risk_daily_drawdown_symbol_usd PnL acumulado no dia por símbolo (USD, negativo indica drawdown)
+# TYPE risk_daily_drawdown_symbol_usd gauge
+risk_daily_drawdown_symbol_usd{symbol="BTCUSDT"} 0
+risk_daily_drawdown_symbol_usd{symbol="ETHUSDT"} 0
+
+# HELP risk_daily_drawdown_symbol_limit_usd Limite de drawdown diário por símbolo em USD (se configurado)
+# TYPE risk_daily_drawdown_symbol_limit_usd gauge
+risk_daily_drawdown_symbol_limit_usd{symbol="BTCUSDT"} 0
+risk_daily_drawdown_symbol_limit_usd{symbol="ETHUSDT"} 0
+
+# HELP process_cpu_user_seconds_total Total user CPU time spent in seconds.
+# TYPE process_cpu_user_seconds_total counter
+process_cpu_user_seconds_total 7.547
+
+# HELP process_cpu_system_seconds_total Total system CPU time spent in seconds.
+# TYPE process_cpu_system_seconds_total counter
+process_cpu_system_seconds_total 2
+
+# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE process_cpu_seconds_total counter
+process_cpu_seconds_total 9.546999999999999
+
+# HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds 1758879584
+
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes 82198528
+
+# HELP nodejs_eventloop_lag_seconds Lag of event loop in seconds.
+# TYPE nodejs_eventloop_lag_seconds gauge
+nodejs_eventloop_lag_seconds 0.008835
+
+# HELP nodejs_eventloop_lag_min_seconds The minimum recorded event loop delay.
+# TYPE nodejs_eventloop_lag_min_seconds gauge
+nodejs_eventloop_lag_min_seconds 0.000026624
+
+# HELP nodejs_eventloop_lag_max_seconds The maximum recorded event loop delay.
+# TYPE nodejs_eventloop_lag_max_seconds gauge
+nodejs_eventloop_lag_max_seconds 0.204079103
+
+# HELP nodejs_eventloop_lag_mean_seconds The mean of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_mean_seconds gauge
+nodejs_eventloop_lag_mean_seconds 0.015835798597122495
+
+# HELP nodejs_eventloop_lag_stddev_seconds The standard deviation of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_stddev_seconds gauge
+nodejs_eventloop_lag_stddev_seconds 0.0037454280896110827
+
+# HELP nodejs_eventloop_lag_p50_seconds The 50th percentile of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_p50_seconds gauge
+nodejs_eventloop_lag_p50_seconds 0.015450111
+
+# HELP nodejs_eventloop_lag_p90_seconds The 90th percentile of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_p90_seconds gauge
+nodejs_eventloop_lag_p90_seconds 0.016064511
+
+# HELP nodejs_eventloop_lag_p99_seconds The 99th percentile of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_p99_seconds gauge
+nodejs_eventloop_lag_p99_seconds 0.025395199
+
+# HELP nodejs_active_resources Number of active resources that are currently keeping the event loop alive, grouped by async resource type.
+# TYPE nodejs_active_resources gauge
+nodejs_active_resources{type="FSReqCallback"} 1
+nodejs_active_resources{type="TTYWrap"} 2
+nodejs_active_resources{type="TCPServerWrap"} 1
+nodejs_active_resources{type="TCPSocketWrap"} 5
+nodejs_active_resources{type="Timeout"} 3
+nodejs_active_resources{type="Immediate"} 1
+
+# HELP nodejs_active_resources_total Total number of active resources.
+# TYPE nodejs_active_resources_total gauge
+nodejs_active_resources_total 13
+
+# HELP nodejs_active_handles Number of active libuv handles grouped by handle type. Every handle type is C++ class name.
+# TYPE nodejs_active_handles gauge
+nodejs_active_handles{type="WriteStream"} 2
+nodejs_active_handles{type="Server"} 1
+nodejs_active_handles{type="Socket"} 5
+
+# HELP nodejs_active_handles_total Total number of active handles.
+# TYPE nodejs_active_handles_total gauge
+nodejs_active_handles_total 8
+
+# HELP nodejs_active_requests Number of active libuv requests grouped by request type. Every request type is C++ class name.
+# TYPE nodejs_active_requests gauge
+nodejs_active_requests{type="FSReqCallback"} 1
+
+# HELP nodejs_active_requests_total Total number of active requests.
+# TYPE nodejs_active_requests_total gauge
+nodejs_active_requests_total 1
+
+# HELP nodejs_heap_size_total_bytes Process heap size from Node.js in bytes.
+# TYPE nodejs_heap_size_total_bytes gauge
+nodejs_heap_size_total_bytes 27312128
+
+# HELP nodejs_heap_size_used_bytes Process heap size used from Node.js in bytes.
+# TYPE nodejs_heap_size_used_bytes gauge
+nodejs_heap_size_used_bytes 22591848
+
+# HELP nodejs_external_memory_bytes Node.js external memory size in bytes.
+# TYPE nodejs_external_memory_bytes gauge
+nodejs_external_memory_bytes 2910098
+
+# HELP nodejs_heap_space_size_total_bytes Process heap space size total from Node.js in bytes.
+# TYPE nodejs_heap_space_size_total_bytes gauge
+nodejs_heap_space_size_total_bytes{space="read_only"} 0
+nodejs_heap_space_size_total_bytes{space="new"} 1048576
+nodejs_heap_space_size_total_bytes{space="old"} 18898944
+nodejs_heap_space_size_total_bytes{space="code"} 2883584
+nodejs_heap_space_size_total_bytes{space="shared"} 0
+nodejs_heap_space_size_total_bytes{space="trusted"} 3690496
+nodejs_heap_space_size_total_bytes{space="shared_trusted"} 0
+nodejs_heap_space_size_total_bytes{space="new_large_object"} 0
+nodejs_heap_space_size_total_bytes{space="large_object"} 790528
+nodejs_heap_space_size_total_bytes{space="code_large_object"} 0
+nodejs_heap_space_size_total_bytes{space="shared_large_object"} 0
+nodejs_heap_space_size_total_bytes{space="shared_trusted_large_object"} 0
+nodejs_heap_space_size_total_bytes{space="trusted_large_object"} 0
+
+# HELP nodejs_heap_space_size_used_bytes Process heap space size used from Node.js in bytes.
+# TYPE nodejs_heap_space_size_used_bytes gauge
+nodejs_heap_space_size_used_bytes{space="read_only"} 0
+nodejs_heap_space_size_used_bytes{space="new"} 560504
+nodejs_heap_space_size_used_bytes{space="old"} 15527200
+nodejs_heap_space_size_used_bytes{space="code"} 2435392
+nodejs_heap_space_size_used_bytes{space="shared"} 0
+nodejs_heap_space_size_used_bytes{space="trusted"} 3286696
+nodejs_heap_space_size_used_bytes{space="shared_trusted"} 0
+nodejs_heap_space_size_used_bytes{space="new_large_object"} 0
+nodejs_heap_space_size_used_bytes{space="large_object"} 785864
+nodejs_heap_space_size_used_bytes{space="code_large_object"} 0
+nodejs_heap_space_size_used_bytes{space="shared_large_object"} 0
+nodejs_heap_space_size_used_bytes{space="shared_trusted_large_object"} 0
+nodejs_heap_space_size_used_bytes{space="trusted_large_object"} 0
+
+# HELP nodejs_heap_space_size_available_bytes Process heap space size available from Node.js in bytes.
+# TYPE nodejs_heap_space_size_available_bytes gauge
+nodejs_heap_space_size_available_bytes{space="read_only"} 0
+nodejs_heap_space_size_available_bytes{space="new"} 488008
+nodejs_heap_space_size_available_bytes{space="old"} 3315720
+nodejs_heap_space_size_available_bytes{space="code"} 447840
+nodejs_heap_space_size_available_bytes{space="shared"} 0
+nodejs_heap_space_size_available_bytes{space="trusted"} 403024
+nodejs_heap_space_size_available_bytes{space="shared_trusted"} 0
+nodejs_heap_space_size_available_bytes{space="new_large_object"} 1048576
+nodejs_heap_space_size_available_bytes{space="large_object"} 0
+nodejs_heap_space_size_available_bytes{space="code_large_object"} 0
+nodejs_heap_space_size_available_bytes{space="shared_large_object"} 0
+nodejs_heap_space_size_available_bytes{space="shared_trusted_large_object"} 0
+nodejs_heap_space_size_available_bytes{space="trusted_large_object"} 0
+
+# HELP nodejs_version_info Node.js version info.
+# TYPE nodejs_version_info gauge
+nodejs_version_info{version="v24.4.1",major="24",minor="4",patch="1"} 1
+
+# HELP nodejs_gc_duration_seconds Garbage collection duration by kind, one of major, minor, incremental or weakcb.
+# TYPE nodejs_gc_duration_seconds histogram
+nodejs_gc_duration_seconds_bucket{le="0.001",kind="minor"} 137
+nodejs_gc_duration_seconds_bucket{le="0.01",kind="minor"} 144
+nodejs_gc_duration_seconds_bucket{le="0.1",kind="minor"} 144
+nodejs_gc_duration_seconds_bucket{le="1",kind="minor"} 144
+nodejs_gc_duration_seconds_bucket{le="2",kind="minor"} 144
+nodejs_gc_duration_seconds_bucket{le="5",kind="minor"} 144
+nodejs_gc_duration_seconds_bucket{le="+Inf",kind="minor"} 144
+nodejs_gc_duration_seconds_sum{kind="minor"} 0.08217689976096153
+nodejs_gc_duration_seconds_count{kind="minor"} 144
+nodejs_gc_duration_seconds_bucket{le="0.001",kind="incremental"} 2
+nodejs_gc_duration_seconds_bucket{le="0.01",kind="incremental"} 3
+nodejs_gc_duration_seconds_bucket{le="0.1",kind="incremental"} 3
+nodejs_gc_duration_seconds_bucket{le="1",kind="incremental"} 3
+nodejs_gc_duration_seconds_bucket{le="2",kind="incremental"} 3
+nodejs_gc_duration_seconds_bucket{le="5",kind="incremental"} 3
+nodejs_gc_duration_seconds_bucket{le="+Inf",kind="incremental"} 3
+nodejs_gc_duration_seconds_sum{kind="incremental"} 0.008110499978065492
+nodejs_gc_duration_seconds_count{kind="incremental"} 3
+nodejs_gc_duration_seconds_bucket{le="0.001",kind="major"} 0
+nodejs_gc_duration_seconds_bucket{le="0.01",kind="major"} 3
+nodejs_gc_duration_seconds_bucket{le="0.1",kind="major"} 3
+nodejs_gc_duration_seconds_bucket{le="1",kind="major"} 3
+nodejs_gc_duration_seconds_bucket{le="2",kind="major"} 3
+nodejs_gc_duration_seconds_bucket{le="5",kind="major"} 3
+nodejs_gc_duration_seconds_bucket{le="+Inf",kind="major"} 3
+nodejs_gc_duration_seconds_sum{kind="major"} 0.016480699986219406
+nodejs_gc_duration_seconds_count{kind="major"} 3

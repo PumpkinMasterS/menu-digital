@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="3200" viewBox="0 0 1400 3200">
+  <style>
+    .section { fill: none; stroke: #B9BDC7; stroke-width: 2; }
+    .title { font: 700 26px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; fill: #1F2937; }
+    .label { font: 500 18px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; fill: #374151; }
+    .small { font: 400 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; fill: #4B5563; }
+    .chip { fill: #F3F4F6; stroke: #E5E7EB; rx: 8; }
+    .badge { fill: #EEF2FF; stroke: #E0E7FF; rx: 8; }
+    .cta { fill: #111827; stroke: #111827; rx: 8; }
+    .ctaText { font: 600 16px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; fill: #FFFFFF; }
+    .muted { fill: #9CA3AF; }
+  </style>
+
+  <!-- Header -->
+  <rect class="section" x="60" y="40" width="1280" height="80"/>
+  <text class="label" x="80" y="90">Header — Logo “Lança Digital” | Navigation: Services · Process · Plans · Portfolio · FAQ · Contact | Toggle PT/EN | CTA “Request a Quote”</text>
+
+  <!-- Hero -->
+  <rect class="section" x="60" y="140" width="1280" height="420"/>
+  <text class="title" x="80" y="200">Professional landing pages in Portugal — from €100</text>
+  <text class="label" x="80" y="240">Conversion‑oriented landing pages, with SEO and content aligned with your audience. We also build institutional websites (multi‑page).</text>
+  <rect class="cta" x="80" y="270" width="220" height="44"/>
+  <text class="ctaText" x="100" y="298">Request a Quote</text>
+  <text class="small" x="80" y="330">Note: Starter version with 1 essential section. For larger projects, see Pro and Performance plans.</text>
+  <rect class="badge" x="80" y="350" width="230" height="30"/>
+  <text class="small" x="90" y="370">Average delivery: 1–2 weeks</text>
+  <rect class="badge" x="320" y="350" width="170" height="30"/>
+  <text class="small" x="330" y="370">Built in Portugal</text>
+  <text class="small" x="80" y="390">What is a landing page? (see FAQ)</text>
+  <rect class="chip" x="900" y="200" width="380" height="280"/>
+  <text class="muted small" x="1010" y="340">Mockup/Image</text>
+
+  <!-- Social Proof -->
+  <rect class="section" x="60" y="580" width="1280" height="200"/>
+  <text class="label" x="80" y="620">Social Proof — “+X projects” · “5★ rating” · Client logos (placeholders)</text>
+  <rect class="chip" x="80" y="640" width="170" height="100"/>
+  <rect class="chip" x="260" y="640" width="170" height="100"/>
+  <rect class="chip" x="440" y="640" width="170" height="100"/>
+  <rect class="chip" x="620" y="640" width="170" height="100"/>
+  <rect class="chip" x="800" y="640" width="170" height="100"/>
+  <rect class="chip" x="980" y="640" width="170" height="100"/>
+
+  <!-- Services -->
+  <rect class="section" x="60" y="800" width="1280" height="420"/>
+  <text class="title" x="80" y="840">Services (Landing Page + add‑ons)</text>
+  <rect class="chip" x="80" y="860" width="380" height="140"/>
+  <text class="label" x="100" y="900">Landing Pages</text>
+  <text class="small" x="100" y="920">Campaigns and lead generation</text>
+
+  <rect class="chip" x="500" y="860" width="380" height="140"/>
+  <text class="label" x="520" y="900">Copywriting</text>
+  <text class="small" x="520" y="920">Clear, action‑oriented text</text>
+
+  <rect class="chip" x="920" y="860" width="380" height="140"/>
+  <text class="label" x="940" y="900">On‑page SEO</text>
+  <text class="small" x="940" y="920">Structure, meta tags and performance</text>
+
+  <rect class="chip" x="80" y="1020" width="380" height="140"/>
+  <text class="label" x="100" y="1060">Integrations</text>
+  <text class="small" x="100" y="1080">Analytics, Pixel, CRM, WhatsApp</text>
+
+  <rect class="chip" x="500" y="1020" width="380" height="140"/>
+  <text class="label" x="520" y="1060">Design/UI</text>
+  <text class="small" x="520" y="1080">Consistent with your brand</text>
+
+  <rect class="chip" x="920" y="1020" width="380" height="140"/>
+  <text class="label" x="940" y="1060">Institutional websites (multi‑page)</text>
+  <text class="small" x="940" y="1080">3–5 pages, navigation, services/about, contact · price on request</text>
+
+  <!-- Process -->
+  <rect class="section" x="60" y="1240" width="1280" height="260"/>
+  <text class="title" x="80" y="1280">Process (5 steps)</text>
+  <rect class="chip" x="80" y="1300" width="230" height="160"/>
+  <text class="label" x="95" y="1340">1. Discovery</text>
+  <rect class="chip" x="320" y="1300" width="230" height="160"/>
+  <text class="label" x="335" y="1340">2. Content & Photography</text>
+  <rect class="chip" x="560" y="1300" width="230" height="160"/>
+  <text class="label" x="575" y="1340">3. Design</text>
+  <rect class="chip" x="800" y="1300" width="230" height="160"/>
+  <text class="label" x="815" y="1340">4. Development</text>
+  <rect class="chip" x="1040" y="1300" width="230" height="160"/>
+  <text class="label" x="1055" y="1340">5. Launch & Measurement</text>
+
+  <!-- Plans -->
+  <rect class="section" x="60" y="1520" width="1280" height="360"/>
+  <text class="title" x="80" y="1560">Plans (prices from — VAT excluded)</text>
+  <rect class="chip" x="80" y="1580" width="380" height="260"/>
+  <text class="label" x="100" y="1620">Starter — from €100</text>
+  <text class="small" x="100" y="1640">1 section + 1 CTA · base SEO · 1 revision · 3–5 days</text>
+
+  <rect class="chip" x="510" y="1580" width="380" height="260"/>
+  <text class="label" x="530" y="1620">Pro — from €250</text>
+  <text class="small" x="530" y="1640">3–5 sections · light custom design · integrations · 2 revisions · 1–2 weeks</text>
+
+  <rect class="chip" x="940" y="1580" width="380" height="260"/>
+  <text class="label" x="960" y="1620">Performance — from €350</text>
+  <text class="small" x="960" y="1640">5–7 sections · enhanced SEO · tracking · optional A/B · 2–3 revisions · 2–3 weeks</text>
+  <text class="small" x="80" y="1840">Note: Prices exclude VAT. Indicative values; final proposal depends on requirements and content.</text>
+  <text class="small" x="80" y="1860">Website projects (multi‑page): price on request.</text>
+
+  <!-- Portfolio -->
+  <rect class="section" x="60" y="1900" width="1280" height="360"/>
+  <text class="title" x="80" y="1940">Portfolio/Examples (placeholders)</text>
+  <rect class="chip" x="80" y="1960" width="380" height="140"/>
+  <rect class="chip" x="500" y="1960" width="380" height="140"/>
+  <rect class="chip" x="920" y="1960" width="380" height="140"/>
+  <rect class="chip" x="80" y="2110" width="380" height="140"/>
+  <rect class="chip" x="500" y="2110" width="380" height="140"/>
+  <rect class="chip" x="920" y="2110" width="380" height="140"/>
+
+  <!-- FAQ -->
+  <rect class="section" x="60" y="2300" width="1280" height="260"/>
+  <text class="title" x="80" y="2340">FAQ (6 items)</text>
+  <text class="small" x="80" y="2358">Includes: What is a landing page and how is it different from a website?</text>
+  <rect class="chip" x="80" y="2360" width="380" height="180"/>
+  <rect class="chip" x="500" y="2360" width="380" height="180"/>
+  <rect class="chip" x="920" y="2360" width="380" height="180"/>
+
+  <!-- Contact -->
+  <rect class="section" x="60" y="2580" width="1280" height="360"/>
+  <text class="title" x="80" y="2620">Contact / Request</text>
+  <rect class="chip" x="80" y="2640" width="580" height="280"/>
+  <text class="label" x="100" y="2680">Quick request (Name, Email, Message, GDPR)</text>
+  <rect class="chip" x="760" y="2640" width="580" height="280"/>
+  <text class="label" x="780" y="2680">Full request (Goal, Timeline, Budget, etc.)</text>
+  <text class="small" x="80" y="2920">Email: contacto@lancadigital.pt · WhatsApp/Phone: [placeholder]</text>
+
+  <!-- Final CTA -->
+  <rect class="section" x="60" y="2960" width="1280" height="120"/>
+  <text class="label" x="80" y="3000">Final CTA: “Ready to launch your new landing page?”</text>
+  <rect class="cta" x="80" y="3020" width="230" height="44"/>
+  <text class="ctaText" x="100" y="3048">Request a Quote</text>
+
+  <!-- Footer -->
+  <rect class="section" x="60" y="3100" width="1280" height="80"/>
+  <text class="small" x="80" y="3150">Lança Digital · VAT [•] · contacto@lancadigital.pt · Privacy Policy · Terms · Socials</text>
+
+  <!-- Note: Mobile (summary on the top right) -->
+  <text class="small" x="1080" y="120">Mobile (stack): compact header, hero, social proof, services (1 column), plans carousel, 1‑column forms</text>
+</svg>

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "name": "frontend-defaults",
+  "effectiveAt": "2025-09-25T12:00:00Z",
+  "timeframes": ["1m","3m","5m","10m","15m","1h","4h"],
+  "symbols": ["BTCUSDT","ETHUSDT"],
+  "risk": {
+    "maxConcurrentSignals": 1,
+    "rrMin": 1.0,
+    "killSwitch": false,
+    "cooldownSeconds": 2
+  },
+  "precedence": ["4h","1h","15m","10m","5m","3m","1m"]
+}

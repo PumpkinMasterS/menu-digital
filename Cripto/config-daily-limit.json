@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "name": "daily-limit-test",
+  "effectiveAt": "2025-09-25T12:00:00Z",
+  "timeframes": ["1m"],
+  "symbols": ["BTCUSDT"],
+  "risk": {
+    "maxConcurrentSignals": 2,
+    "rrMin": 1,
+    "killSwitch": false,
+    "cooldownSeconds": 2,
+    "cooldownCandles": 0,
+    "maxSignalsPerDay": 2
+  },
+  "precedence": ["1m","3m","5m","10m","15m","1h","4h"]
+}

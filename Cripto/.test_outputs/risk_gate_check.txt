@@ -1,0 +1,9 @@
+﻿[stats today] http://localhost:3000/trades/stats?from=2025-09-24T00%3A00%3A00.0000000Z
+{"ok":true,"filters":{"from":"2025-09-24T00:00:00.000Z"},"total":8,"wins":3,"losses":5,"breakevens":0,"winrate":0.375,"avgRR":-0.6783333333333333,"avgMaeR":1.31375,"avgMfeR":0.8500000000000001,"sumPnLUsd":-44.900000000000006,"byOutcome":{"win":58.5,"loss":-103.4,"breakeven":0},"pnlByDay":{"2025-09-24":-44.900000000000006}}
+[risk metrics]
+risk_blocks_total{reason="daily_drawdown"} 2
+risk_killswitch_active 1
+risk_daily_drawdown_usd -44.900000000000006
+risk_daily_drawdown_limit_usd 10
+[enqueue status] 429
+[enqueue body] 

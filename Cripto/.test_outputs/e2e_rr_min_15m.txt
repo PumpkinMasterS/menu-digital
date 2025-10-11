@@ -1,0 +1,2 @@
+﻿signals_processed_total{timeframe="15m",status="ok"} 3
+signals_processed_total{timeframe="15m",status="rr_min"} 3

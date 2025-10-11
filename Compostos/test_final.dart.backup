@@ -1,0 +1,78 @@
+import 'package:dio/dio.dart';
+
+void main() async {
+  print('🚀 Teste final - Requisição básica com Dio');
+  
+  final dio = Dio(BaseOptions(
+    baseUrl: 'http://localhost:5000',
+    connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10),
+  ));
+  
+  // Adicionar interceptor simples para debug
+  dio.interceptors.add(InterceptorsWrapper(
+    onRequest: (options, handler) {
+      print('📤 Request: \${options.method} \${options.path}');
+      print('📤 Headers: \${options.headers}');
+      return handler.next(options);
+    },
+    onResponse: (response, handler) {
+      print('📥 Response: \${response.statusCode}');
+      print('📥 Data type: \${response.data.runtimeType}');
+      return handler.next(response);
+    },
+    onError: (error, handler) {
+      print('❌ Error: \${error.type}');
+      print('❌ Status: \${error.response?.statusCode}');
+      print('❌ Message: \${error.message}');
+      return handler.next(error);
+    },
+  ));
+  
+  try {
+    print('🔧 Fazendo requisição POST...');
+    
+    final response = await dio.post(
+      '/api/auth/login',
+      data: {
+        'email': 'test@example.com',
+        'password': '123456',
+      },
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    );
+    
+    print('✅ Sucesso!');
+    print('Status: \${response.statusCode}');
+    print('Data: \${response.data}');
+    
+    // Verificar estrutura da resposta
+    if (response.data is Map) {
+      final data = response.data as Map;
+      if (data['success'] == true) {
+        print('🎉 Resposta contém success: true');
+        final userData = data['data']['user'];
+        final token = data['data']['token'];
+        print('👤 Usuário: \${userData['email']}');
+        print('🔑 Token: \$token');
+      }
+    }
+    
+  } catch (e) {
+    print('💥 Erro:');
+    print('Tipo: \${e.runtimeType}');
+    print('Mensagem: \${e.toString()}');
+    
+    if (e is DioException) {
+      print('📊 DioException details:');
+      print('Type: \${e.type}');
+      print('Status: \${e.response?.statusCode}');
+      print('Data: \${e.response?.data}');
+      print('Headers: \${e.response?.headers}');
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/schemas/rule-config.schema.json",
+  "title": "RuleConfigV1",
+  "type": "object",
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "effectiveAt": { "type": "string", "format": "date-time" },
+    "timeframes": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["1m","3m","5m","10m","15m","1h","4h"] },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "symbols": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "risk": {
+      "type": "object",
+      "properties": {
+        "maxConcurrentSignals": { "type": "integer", "minimum": 1 },
+        "rrMin": { "type": "number", "minimum": 0 },
+        "killSwitch": { "type": "boolean" },
+        "cooldownSeconds": { "type": "integer", "minimum": 0 },
+        "cooldownCandles": { "type": "integer", "minimum": 0 },
+        "maxSignalsPerDay": { "type": "integer", "minimum": 0 }
+      },
+      "required": ["maxConcurrentSignals","rrMin","killSwitch"],
+      "additionalProperties": false
+    },
+    "precedence": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["1m","3m","5m","10m","15m","1h","4h"] },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": ["schemaVersion","name","effectiveAt","timeframes","symbols","risk"],
+  "additionalProperties": true
+}

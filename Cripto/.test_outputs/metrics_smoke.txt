@@ -1,0 +1,4 @@
+[PASS] GET /healthz - status=200; contentTypeOk=True
+[PASS] GET /metrics - status=200; contentTypeOk=True; signals_enqueued_total=True; signals_processed_total=True
+[PASS] GET /metrics/summary - status=200; contentTypeOk=True; jsonStructureOk=True
+Smoke test completed. Failures: 0

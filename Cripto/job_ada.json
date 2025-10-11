@@ -1,0 +1,7 @@
+{
+  "symbol": "ADAUSDT",
+  "timeframe": "1m",
+  "closeTime": "2025-09-25T19:40:07Z",
+  "idempotencyKey": "ada-1m-194007",
+  "payload": { "signal": "BUY", "price": 0.45 }
+}

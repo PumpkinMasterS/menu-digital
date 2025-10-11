@@ -1,0 +1,131 @@
+import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class DebugApiService {
+  static const String baseUrl = 'http://localhost:5000';
+  
+  late final Dio _dio;
+  
+  DebugApiService() {
+    _dio = Dio(BaseOptions(
+      baseUrl: baseUrl,
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+    ));
+    
+    // Interceptor para adicionar token de autenticação (igual ao original)
+    _dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) async {
+        print('🔍 Interceptor onRequest: \${options.path}');
+        
+        // Adicionar token JWT se disponível
+        final token = await _getToken();
+        print('🔍 Token encontrado: \$token');
+        
+        if (token != null) {
+          options.headers['Authorization'] = 'Bearer \$token';
+          print('🔍 Adicionado Authorization header');
+        }
+        
+        print('🔍 Headers finais: \${options.headers}');
+        return handler.next(options);
+      },
+      onResponse: (response, handler) {
+        print('🔍 Interceptor onResponse: \${response.statusCode}');
+        print('🔍 Response data type: \${response.data.runtimeType}');
+        return handler.next(response);
+      },
+      onError: (error, handler) async {
+        print('🔍 Interceptor onError: \${error.response?.statusCode}');
+        print('🔍 Error type: \${error.type}');
+        
+        // Tratar erros de autenticação
+        if (error.response?.statusCode == 401) {
+          print('🔍 Erro 401 detectado, limpando token...');
+          await _clearToken();
+        }
+        return handler.next(error);
+      },
+    ));
+  }
+  
+  Future<String?> _getToken() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('auth_token');
+      print('🔍 _getToken() retornou: \$token');
+      return token;
+    } catch (e) {
+      print('🔍 _getToken() erro: \$e');
+      return null;
+    }
+  }
+  
+  Future<void> _clearToken() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('auth_token');
+      print('🔍 _clearToken() executado');
+    } catch (e) {
+      print('🔍 _clearToken() erro: \$e');
+    }
+  }
+  
+  Future<Response> post(String path, {dynamic data}) async {
+    print('🚀 POST \$path com dados: \$data');
+    
+    try {
+      final response = await _dio.post(path, data: data);
+      
+      print('✅ POST bem-sucedido');
+      print('Status: \${response.statusCode}');
+      print('Dados tipo: \${response.data.runtimeType}');
+      
+      // Verificar se a resposta é bem-sucedida
+      if (response.statusCode != null && response.statusCode! >= 200 && response.statusCode! < 300) {
+        print('✅ Status code válido (200-299)');
+        return response;
+      } else {
+        print('❌ Status code inválido: \${response.statusCode}');
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          type: DioExceptionType.badResponse,
+        );
+      }
+    } on DioException catch (e) {
+      print('💥 POST erro DioException:');
+      print('Tipo: \${e.type}');
+      print('Status: \${e.response?.statusCode}');
+      print('Mensagem: \${e.message}');
+      print('Dados: \${e.response?.data}');
+      
+      throw Exception('Erro na API: \${e.response?.statusCode} - \${e.response?.data}');
+    }
+  }
+}
+
+void main() async {
+  print('🔧 Iniciando teste de debug do ApiService...');
+  
+  final apiService = DebugApiService();
+  
+  try {
+    final response = await apiService.post(
+      '/api/auth/login',
+      data: {
+        'email': 'test@example.com',
+        'password': '123456',
+      },
+    );
+    
+    print('🎉 Sucesso final!');
+    print('Status: \${response.statusCode}');
+    print('Dados: \${response.data}');
+    
+  } catch (e) {
+    print('💥 Erro final:');
+    print('Tipo: \${e.runtimeType}');
+    print('Mensagem: \${e.toString()}');
+  }
+}

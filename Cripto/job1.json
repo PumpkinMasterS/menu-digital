@@ -1,0 +1,8 @@
+﻿{
+  "symbol": "BTCUSDT",
+  "timeframe": "1m",
+  "closeTime": "2025-09-24T11:05:00Z",
+  "idempotencyKey": "test-dedup-key-001",
+  "payload": {"signal": "BUY", "price": 50000},
+  "jobId": "job-001"
+}

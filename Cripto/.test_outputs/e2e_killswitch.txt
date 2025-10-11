@@ -1,0 +1,5 @@
+﻿reset_killswitch: -1 Unable to connect to the remote server
+enqueue_kill_off: -1 Unable to connect to the remote server
+set_killswitch_on: -1 Unable to connect to the remote server
+enqueue_kill_on: -1 Unable to connect to the remote server
+reset_killswitch_final: -1 Unable to connect to the remote server

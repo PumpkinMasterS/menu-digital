@@ -1,0 +1,82 @@
+{
+  "timestamp": "2025-10-08T16:44:43.192628",
+  "test_type": "Crypto Transfer System",
+  "summary": {
+    "total_tests": 13,
+    "passed": 1,
+    "failed": 12,
+    "success_rate": "7.69%"
+  },
+  "environment": {
+    "api_url": "http://localhost:5000/api",
+    "test_user": "cryptotest@example.com",
+    "test_robot": "Crypto Test Robot"
+  },
+  "results": [
+    {
+      "test": "test_health_check",
+      "status": "PASS",
+      "message": "Teste executado com sucesso"
+    },
+    {
+      "test": "test_user_registration",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_user_login",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_get_network_info",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_get_company_address",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_get_supported_tokens",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_create_robot",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_get_robot_investment_info",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_verify_transfer",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_create_investment",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_get_user_investments",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_check_pending_transfers",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_calculate_daily_returns",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    }
+  ]
+}

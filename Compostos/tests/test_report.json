@@ -1,0 +1,81 @@
+{
+  "timestamp": "2025-10-08T20:12:17.928198",
+  "summary": {
+    "total_tests": 13,
+    "passed": 1,
+    "failed": 12,
+    "success_rate": "7.69%"
+  },
+  "environment": {
+    "api_url": "http://localhost:5000/api",
+    "test_user": "test@example.com",
+    "test_robot": "Test Robot"
+  },
+  "results": [
+    {
+      "test": "test_health_check",
+      "status": "PASS",
+      "message": "Teste executado com sucesso"
+    },
+    {
+      "test": "test_user_registration",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_user_login",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_get_robots",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_crypto_transfer_network_info",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_crypto_transfer_tokens",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_create_investment",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_get_user_investments",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_referral_system",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_ranks_system",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_tasks_system",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_dashboard_stats",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    },
+    {
+      "test": "test_admin_functions",
+      "status": "FAIL",
+      "message": "Teste falhou"
+    }
+  ]
+}
