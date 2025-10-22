@@ -183,17 +183,7 @@ export default function Login() {
             </Box>
           </form>
 
-          <Box mt={4} p={2} bgcolor="grey.50" borderRadius={2}>
-            <Typography variant="caption" color="text.secondary" display="block" mb={1}>
-              <strong>Credenciais de teste:</strong>
-            </Typography>
-            <Typography variant="caption" color="text.secondary" display="block">
-              📧 Email: whiswher@gmail.com
-            </Typography>
-            <Typography variant="caption" color="text.secondary" display="block">
-              🔒 Password: admin1234
-            </Typography>
-          </Box>
+          {/* Credenciais removidas */}
         </CardContent>
       </Card>
     </Box>
