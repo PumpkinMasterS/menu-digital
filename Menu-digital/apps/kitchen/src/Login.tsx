@@ -8,7 +8,7 @@ export default function Login() {
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
   const location = useLocation() as any
-  const from = location.state?.from?.pathname || '/kitchen'
+  const from = location.state?.from?.pathname || '/pedidos'
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -20,19 +20,16 @@ export default function Login() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       })
-      const data = await res.json()
       if (!res.ok) {
-        throw new Error(data?.message || 'Falha no login')
+        const msg = await res.text()
+        throw new Error(msg || 'Credenciais inválidas')
       }
-      const token = data?.token
-      if (token) {
-        window.localStorage.setItem('authToken', token)
-        navigate(from, { replace: true })
-      } else {
-        throw new Error('Resposta sem token')
-      }
+      const data = await res.json()
+      if (!data?.token) throw new Error('Token não recebido')
+      window.localStorage.setItem('authToken', data.token)
+      navigate(from, { replace: true })
     } catch (err: any) {
-      setError(err.message || 'Erro inesperado')
+      setError(err.message || 'Erro ao entrar')
     } finally {
       setLoading(false)
     }
@@ -41,7 +38,7 @@ export default function Login() {
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', fontFamily: 'sans-serif' }}>
       <form onSubmit={handleSubmit} style={{ width: 320, padding: 20, border: '1px solid #ddd', borderRadius: 8, background: '#fff' }}>
-        <h2 style={{ marginTop: 0, marginBottom: 16 }}>Login da Cozinha</h2>
+        <h2 style={{ marginTop: 0, marginBottom: 16 }}>Login de Pedidos</h2>
         {error && <div style={{ color: '#dc3545', marginBottom: 12 }}>{error}</div>}
         <div style={{ marginBottom: 12 }}>
           <label style={{ display: 'block', marginBottom: 6 }}>Email</label>

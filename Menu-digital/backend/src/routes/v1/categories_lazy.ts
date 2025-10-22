@@ -3,6 +3,59 @@ import { z } from 'zod';
 import { getCollection } from '../../lib/db';
 import { ObjectId } from 'mongodb';
 
+// Always use MongoDB Atlas; dev fallbacks removed
+const devMode = false;
+type DevCategory = {
+  id: string;
+  name: string;
+  description?: string;
+  order?: number;
+  parentCategoryId?: string;
+  imageUrl?: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+const DEV_CATEGORIES: DevCategory[] = [
+  {
+    id: 'cat-1',
+    name: 'Hambúrgueres',
+    description: 'Nossos deliciosos hambúrgueres artesanais',
+    order: 1,
+    imageUrl: '/public/images/4e633f91-b772-444b-8091-7242236b5e4a.jpg',
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    id: 'cat-2',
+    name: 'Bebidas',
+    description: 'Refrigerantes, sucos e outras bebidas',
+    order: 2,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    id: 'cat-3',
+    name: 'Acompanhamentos',
+    description: 'Batatas fritas, onion rings e mais',
+    order: 3,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    id: 'cat-4',
+    name: 'Sobremesas',
+    description: 'Doces para finalizar sua refeição',
+    order: 4,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  }
+];
+
 const categoryCreateSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
@@ -67,8 +120,8 @@ export const categoriesRoutes: FastifyPluginAsync = async (app) => {
   // Public: get single category by id (only active)
   app.get('/v1/public/categories/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('categories');
       const { id } = req.params as { id: string };
+      const collection = await getCollection('categories');
       const doc = await collection.findOne({ $or: [{ id }, { _id: new ObjectId(id) }], isActive: true });
       if (!doc) return reply.status(404).send({ error: 'Category not found' });
       return reply.send({
@@ -91,9 +144,9 @@ export const categoriesRoutes: FastifyPluginAsync = async (app) => {
   // Admin: create category
   app.post('/v1/admin/categories', async (req, reply) => {
     try {
-      const collection = await getCollection('categories');
       const parse = categoryCreateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
+      const collection = await getCollection('categories');
       const now = new Date().toISOString();
       const id = new ObjectId().toHexString();
       const doc = { id, ...parse.data, createdAt: now, updatedAt: now };
@@ -108,10 +161,10 @@ export const categoriesRoutes: FastifyPluginAsync = async (app) => {
   // Admin: update category
   app.patch('/v1/admin/categories/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('categories');
       const { id } = req.params as { id: string };
       const parse = categoryUpdateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
+      const collection = await getCollection('categories');
       const now = new Date().toISOString();
       const res = await collection.updateOne(
         { $or: [{ id }, { _id: new ObjectId(id) }] },
@@ -139,8 +192,8 @@ export const categoriesRoutes: FastifyPluginAsync = async (app) => {
   // Admin: delete category (soft delete)
   app.delete('/v1/admin/categories/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('categories');
       const { id } = req.params as { id: string };
+      const collection = await getCollection('categories');
       const now = new Date().toISOString();
       const res = await collection.updateOne(
         { $or: [{ id }, { _id: new ObjectId(id) }] },

@@ -45,15 +45,13 @@ Já existe um arquivo `.env` pré-configurado! Edite se necessário:
 
 ```bash
 # Para MongoDB LOCAL (já configurado):
-MONGODB_URI=mongodb://localhost:27017/menu_digital
+MONGODB_URI=mongodb+srv://SEU_USERNAME:SUA_PASSWORD@cluster.mongodb.net/menu_digital?retryWrites=true&w=majority
 
 # Para MongoDB ATLAS (substitua):
 # MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/menu_digital
 ```
 
-**Credenciais de login já configuradas:**
-- Email: `admin@menu.com`
-- Password: `admin123`
+
 
 ### 3. Inicializar Dados
 
@@ -121,9 +119,7 @@ Abre em: http://localhost:5175
 
 ## 🧪 Testar o Sistema Completo
 
-### 1. Acesse o Admin (http://localhost:5177/login)
-- Email: `admin@menu.com`
-- Password: `admin123`
+
 
 ### 2. Gere QR Code de uma mesa
 1. Vá em "Mesas"
@@ -214,9 +210,7 @@ npm run seed
 
 ### Login não funciona
 
-Use as credenciais do `.env`:
-- Email: `admin@menu.com`  
-- Password: `admin123`
+
 
 Estas funcionam **sem precisar de banco de dados** (modo DEV).
 

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { 
   Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, 
-  TextField, Select, MenuItem, FormControl, InputLabel, Chip
+  TextField, Select, MenuItem, FormControl, InputLabel, Chip, IconButton
 } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { ProductsAPI, uploadImage, apiGet, apiPut } from '../api';
 
 interface Product {
@@ -63,6 +64,21 @@ export default function Products() {
   const handleClose = () => {
     setOpen(false);
     setCurrent(null);
+  };
+
+  const handleDelete = async (prod: Product) => {
+    const id = (prod as any).id || (prod as any)._id;
+    if (!id) {
+      alert('ID do produto não encontrado');
+      return;
+    }
+    if (!confirm('Tem certeza que deseja remover este produto?')) return;
+    try {
+      await ProductsAPI.remove(id);
+      await fetchProducts();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const handleChange = (field: keyof Product, value: any) => {
@@ -127,10 +143,13 @@ export default function Products() {
     {
       field: 'actions',
       headerName: 'Ações',
-      width: 180,
+      width: 220,
       renderCell: (params) => (
         <Box display="flex" gap={1}>
           <Button size="small" variant="outlined" onClick={() => handleOpen(params.row)}>Editar</Button>
+          <IconButton size="small" color="error" onClick={() => handleDelete(params.row)}>
+            <DeleteIcon fontSize="small" />
+          </IconButton>
         </Box>
       ),
     },

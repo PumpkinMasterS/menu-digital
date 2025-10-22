@@ -24,6 +24,97 @@ type DevProduct = {
   updatedAt: string;
 };
 const DEV_PRODUCTS: DevProduct[] = [];
+const DEV_PRODUCTS_PATH = path.join(__dirname, '../../../products.json');
+
+async function loadDevProducts() {
+  try {
+    const content = await fs.readFile(DEV_PRODUCTS_PATH, 'utf-8');
+    const json = JSON.parse(content);
+    const rawItems: any[] = Array.isArray(json) ? json : Array.isArray(json?.items) ? json.items : [];
+    if (rawItems.length > 0) {
+      const now = new Date().toISOString();
+      const mapped: DevProduct[] = rawItems.map((p: any) => ({
+        id: String(p.id ?? p._id ?? `dev-${Date.now()}`),
+        name: String(p.name ?? 'Produto'),
+        description: p.description ?? '',
+        order: typeof p.order === 'number' ? p.order : undefined,
+        categoryId: p.categoryId ?? undefined,
+        imageUrl: p.imageUrl ?? undefined,
+        price: typeof p.price === 'number' ? p.price : undefined,
+        composition: p.composition ?? undefined,
+        station: p.station ?? undefined,
+        stockQuantity: typeof p.stockQuantity === 'number' ? p.stockQuantity : -1,
+        isActive: typeof p.isActive === 'boolean' ? p.isActive : true,
+        createdAt: p.createdAt ?? now,
+        updatedAt: p.updatedAt ?? now,
+      }));
+      DEV_PRODUCTS.splice(0, DEV_PRODUCTS.length, ...mapped);
+    }
+  } catch {
+    // If file missing or invalid, keep current in-memory list
+  }
+}
+
+async function saveDevProducts() {
+  try {
+    const payload = { items: DEV_PRODUCTS, page: 1, limit: Math.max(DEV_PRODUCTS.length, 20), total: DEV_PRODUCTS.length };
+    await fs.writeFile(DEV_PRODUCTS_PATH, JSON.stringify(payload, null, 2), 'utf-8');
+  } catch (err) {
+    // Log through app if available; otherwise ignore
+  }
+}
+
+// Default sample products for DEV mode (if no DB and no local file)
+const DEV_SAMPLE_PRODUCTS: DevProduct[] = [
+  {
+    id: 'prod-1',
+    categoryId: 'cat-1',
+    name: 'Classic Burger',
+    description: 'Hambúrguer clássico com alface, tomate e molho especial',
+    price: 7.5,
+    stockQuantity: -1,
+    imageUrl: undefined,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'prod-2',
+    categoryId: 'cat-1',
+    name: 'Cheese Burger',
+    description: 'Hambúrguer com queijo cheddar derretido',
+    price: 8.5,
+    stockQuantity: -1,
+    imageUrl: undefined,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'prod-3',
+    categoryId: 'cat-1',
+    name: 'Bacon Burger',
+    description: 'Hambúrguer com bacon crocante e molho barbecue',
+    price: 9.5,
+    stockQuantity: -1,
+    imageUrl: undefined,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'prod-4',
+    categoryId: 'cat-2',
+    name: 'Coca-Cola',
+    description: 'Refrigerante gelado',
+    price: 2.5,
+    stockQuantity: -1,
+    imageUrl: undefined,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+];
 
 function sortItems<T extends Record<string, any>>(items: T[], sort: string, dir: 'asc' | 'desc') {
   const factor = dir === 'asc' ? 1 : -1;
@@ -83,6 +174,15 @@ const productUpdateSchema = z.object({
 }).passthrough();
 
 export const productsRoutes: FastifyPluginAsync = async (app) => {
+  // Initialize DEV products persistence when running without DB
+  if (devMode) {
+    await loadDevProducts();
+    if (DEV_PRODUCTS.length === 0) {
+      DEV_PRODUCTS.splice(0, DEV_PRODUCTS.length, ...DEV_SAMPLE_PRODUCTS);
+      await saveDevProducts();
+      app.log.warn('DEV mode: seeded sample products to products.json');
+    }
+  }
   // Public: list active products, optional filter by categoryId
   app.get('/v1/public/products', async (req, reply) => {
     const querySchema = z
@@ -274,6 +374,7 @@ export const productsRoutes: FastifyPluginAsync = async (app) => {
         const id = new ObjectId().toHexString();
         const doc: DevProduct = { id, ...parse.data, createdAt: now, updatedAt: now } as DevProduct;
         DEV_PRODUCTS.push(doc);
+        await saveDevProducts();
         return reply.status(201).send(doc);
       }
       app.log.error(err);
@@ -322,6 +423,7 @@ export const productsRoutes: FastifyPluginAsync = async (app) => {
         const now = new Date().toISOString();
         const updated = { ...DEV_PRODUCTS[idx], ...parse.data, updatedAt: now } as DevProduct;
         DEV_PRODUCTS[idx] = updated;
+        await saveDevProducts();
         return reply.send({
           id: updated.id,
           name: updated.name,
@@ -363,6 +465,7 @@ export const productsRoutes: FastifyPluginAsync = async (app) => {
         if (idx === -1) return reply.status(404).send({ error: 'Product not found' });
         DEV_PRODUCTS[idx].isActive = false;
         DEV_PRODUCTS[idx].updatedAt = new Date().toISOString();
+        await saveDevProducts();
         return reply.status(204).send();
       }
       app.log.error(err);

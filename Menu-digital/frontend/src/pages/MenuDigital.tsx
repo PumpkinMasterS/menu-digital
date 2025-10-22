@@ -67,6 +67,7 @@ const MenuDigital: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | undefined>(undefined);
   const [products, setProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [composition, setComposition] = useState<CompositionResponse | null>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -77,6 +78,13 @@ const MenuDigital: React.FC = () => {
     api.categories()
       .then(setCategories)
       .catch((err) => console.error('Failed to load categories', err));
+  }, []);
+
+  // Carrega todos os produtos para poder ocultar categorias vazias
+  useEffect(() => {
+    api.products(undefined)
+      .then((d) => setAllProducts(d.items ?? []))
+      .catch((err) => console.error('Failed to load products (all)', err));
   }, []);
 
   useEffect(() => {
@@ -150,6 +158,16 @@ const MenuDigital: React.FC = () => {
     }
   };
 
+  const visibleCategories = useMemo(() => {
+    if (!categories.length) return [];
+    const catHasProducts = new Set(
+      allProducts
+        .filter((p) => p.categoryId)
+        .map((p) => String(p.categoryId))
+    );
+    return categories.filter((c) => catHasProducts.has(String(c.id)));
+  }, [categories, allProducts]);
+
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '250px 1fr 300px', gap: 16, padding: 16 }}>
       {/* Categorias */}
@@ -157,7 +175,7 @@ const MenuDigital: React.FC = () => {
         <h2>Categorias</h2>
         <button onClick={() => setSelectedCategoryId(undefined)} style={{ marginBottom: 8 }}>Todas</button>
         <ul>
-          {categories.map((c) => (
+          {visibleCategories.map((c) => (
             <li key={c.id}>
               <button onClick={() => setSelectedCategoryId(c.id)}>{c.name}</button>
             </li>

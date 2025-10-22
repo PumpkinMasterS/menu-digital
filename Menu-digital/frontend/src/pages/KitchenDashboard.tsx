@@ -116,8 +116,31 @@ export default function KitchenDashboard() {
   const pollRef = useRef<number | null>(null)
   const lastPendingIdsRef = useRef<Set<string>>(new Set())
   const lastReadyIdsRef = useRef<Set<string>>(new Set())
+  const [sseConnected, setSseConnected] = useState(false)
+  const reconnectAttemptsRef = useRef(0)
+  const maxReconnectAttemptsRef = useRef(10)
+  const initialReconnectDelayRef = useRef(1000)
+  const maxReconnectDelayRef = useRef(30000)
 
   const API = (import.meta as any).env?.VITE_API_URL || ''
+
+function beep() {
+  if (!soundEnabled) return;
+  try {
+    const Ctx = (window as any).AudioContext || (window as any).webkitAudioContext;
+    if (!Ctx) return;
+    const ctx = new Ctx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = 880;
+    gain.gain.value = 0.15;
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    setTimeout(() => osc.stop(), 120);
+  } catch {}
+}
 
 const loadOrders = async () => {
   setLoading(true);
@@ -308,36 +331,111 @@ const loadOrders = async () => {
   const eventSourceRef = useRef<EventSource | null>(null);
 
   useEffect(() => {
-    if (!useSSE || !autoRefresh || !token) return;
+    if (!useSSE || !autoRefresh || !token) {
+      setSseConnected(false);
+      return;
+    }
 
-    const base = API || '';
-    const es = new EventSource(`${base}/v1/admin/orders/stream?token=${encodeURIComponent(token)}`);
+    let userDisconnected = false;
 
-    es.onmessage = (event) => {
-      try {
-        const change = JSON.parse(event.data);
-        setOrders((prev) => {
-          if (change.operationType === 'insert') {
-            return [change.fullDocument, ...prev];
-          } else if (change.operationType === 'update') {
-            const updated = { ...prev.find((o) => o._id === change.documentKey._id), ...change.updateDescription.updatedFields };
-            return prev.map((o) => o._id === change.documentKey._id ? updated : o);
-          } else if (change.operationType === 'delete') {
-            return prev.filter((o) => o._id !== change.documentKey._id);
+    function connect() {
+      if (eventSourceRef.current) return;
+      
+      const base = API || '';
+      const url = `${base}/v1/admin/orders/stream?token=${encodeURIComponent(token)}&t=${Date.now()}`;
+      const es = new EventSource(url);
+      eventSourceRef.current = es;
+
+      es.onopen = () => {
+        console.log('SSE connected successfully');
+        setSseConnected(true);
+        reconnectAttemptsRef.current = 0;
+        
+        if (pollRef.current) {
+          window.clearInterval(pollRef.current);
+          pollRef.current = null;
+        }
+      };
+
+      es.onerror = (err) => {
+        console.warn('SSE error Event', err);
+        setSseConnected(false);
+        es.close();
+        eventSourceRef.current = null;
+        
+        if (!userDisconnected && reconnectAttemptsRef.current < maxReconnectAttemptsRef.current) {
+          reconnectAttemptsRef.current++;
+          const delay = Math.min(
+            initialReconnectDelayRef.current * Math.pow(2, reconnectAttemptsRef.current - 1) + Math.random() * 1000,
+            maxReconnectDelayRef.current
+          );
+          console.log(`Reconnecting in ${Math.round(delay)}ms (attempt ${reconnectAttemptsRef.current}/${maxReconnectAttemptsRef.current})`);
+          setTimeout(connect, delay);
+        } else if (reconnectAttemptsRef.current >= maxReconnectAttemptsRef.current) {
+          console.error('Max reconnection attempts reached. Falling back to polling.');
+          if (!pollRef.current && autoRefresh) {
+            pollRef.current = window.setInterval(loadOrders, refreshInterval);
           }
-          return prev;
-        });
-      } catch (e) {
-        console.error('SSE error', e);
+        }
+      };
+
+      es.onmessage = (event) => {
+        try {
+          const change = JSON.parse(event.data);
+          setOrders((prev) => {
+            if (change.operationType === 'insert') {
+              const doc = change.fullDocument || {};
+              if (soundEnabled) beep();
+              return [doc, ...prev];
+            } else if (change.operationType === 'update') {
+              const key = change.documentKey?._id || change.documentKey?.id;
+              const updatedFields = change.updateDescription?.updatedFields || {};
+              return prev.map((o) => {
+                if (o._id === key || (o as any).id === key) {
+                  return { ...o, ...updatedFields };
+                }
+                return o;
+              });
+            } else if (change.operationType === 'delete') {
+              const key = change.documentKey?._id || change.documentKey?.id;
+              return prev.filter((o) => o._id !== key && (o as any).id !== key);
+            }
+            return prev;
+          });
+        } catch (e) {
+          console.error('Error processing SSE message:', e);
+        }
+      };
+    }
+
+    function handleOnline() {
+      console.log('Network online; attempting SSE reconnect');
+      reconnectAttemptsRef.current = 0;
+      if (!eventSourceRef.current) connect();
+    }
+    
+    function handleOffline() {
+      console.log('Network offline; SSE may disconnect');
+      setSseConnected(false);
+    }
+    
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    setTimeout(connect, 100);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+      userDisconnected = true;
+      
+      if (eventSourceRef.current) {
+        console.log('Closing SSE connection.');
+        eventSourceRef.current.close();
+        eventSourceRef.current = null;
       }
     };
-
-    eventSourceRef.current = es;
-    return () => {
-      es.close();
-      eventSourceRef.current = null;
-    };
-  }, [useSSE, autoRefresh, token, API]);
+  }, [useSSE, autoRefresh, token, API, soundEnabled, refreshInterval]);
 
   useEffect(() => {
     // iniciar atualização: chamada inicial sempre, intervalo só quando autoRefresh ativo e não SSE
@@ -538,7 +636,19 @@ const loadOrders = async () => {
         <button onClick={loadOrders} disabled={loading} title="Atualiza a lista de pedidos">Atualizar</button>
         <button onClick={() => { setQuery(''); setTableFilter(''); setStatusFilter('all'); setMinMinutes(''); setMaxMinutes('') }} title="Limpa busca, mesa, status e limites de minutos">Limpar filtros</button>
         <button onClick={exportCSV} title="Exporta pedidos filtrados em CSV">Exportar CSV</button>
-        <button onClick={exportJSON} title="Exporta pedidos filtrados em JSON">Exportar JSON</button><button onClick={() => { localStorage.removeItem('authToken'); window.location.href = '/login'; }}>Logout</button>
+        <button onClick={exportJSON} title="Exporta pedidos filtrados em JSON">Exportar JSON</button>
+        <button onClick={() => { localStorage.removeItem('authToken'); window.location.href = '/login'; }}>Logout</button>
+        <span style={{ 
+          padding: '6px 12px', 
+          borderRadius: 20, 
+          background: sseConnected ? '#22c55e' : reconnectAttemptsRef.current > 0 ? '#f59e0b' : '#ef4444', 
+          color: 'white', 
+          fontSize: '12px',
+          fontWeight: '600',
+          display: 'inline-block'
+        }}>
+          {sseConnected ? '● Tempo real' : reconnectAttemptsRef.current > 0 ? '● Reconectando...' : '● Offline'}
+        </span>
         <span style={{ opacity: 0.7 }}>
           Filtrados: {filteredOrders.length} | Pending: {grouped.pending.length} | In progress: {grouped.in_progress.length} | Ready: {grouped.ready.length}
         </span>

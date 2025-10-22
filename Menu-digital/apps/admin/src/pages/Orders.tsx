@@ -18,6 +18,7 @@ interface Order {
   status: OrderStatus;
   total?: number;
   createdAt: string;
+  nif?: string;
 }
 
 const statusConfig = {
@@ -99,6 +100,10 @@ export default function Orders() {
                         {new Date(order.createdAt).toLocaleString('pt-PT')}
                       </Typography>
 
+                      <Typography variant="body2" color="text.secondary" display="block" mb={1}>
+                        NIF: {order.nif || '-'}
+                      </Typography>
+                      
                       <Box mb={1}>
                         {order.items.map((item, idx) => (
                           <Typography key={idx} variant="body2">

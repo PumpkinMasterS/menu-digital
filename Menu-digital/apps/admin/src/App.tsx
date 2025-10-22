@@ -8,6 +8,7 @@ import Tables from './pages/Tables'
 import Orders from './pages/Orders'
 import Modifiers from './pages/Modifiers'
 import Login from './pages/Login'
+import Settings from './pages/Settings'
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
@@ -41,11 +42,13 @@ function Header() {
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
     }}>
-      <Link to="/orders" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>📋 Pedidos</Link>
-      <Link to="/builder" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>🍔 Menu Builder</Link>
-      <Link to="/modifier-builder" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>🎨 Modificadores Pro</Link>
-      <Link to="/categories" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>🏷️ Categorias</Link>
-      <Link to="/tables" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>🪑 Mesas</Link>
+      <Link to="/orders" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>Pedidos</Link>
+      <Link to="/builder" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>Menu Builder</Link>
+      <Link to="/modifier-builder" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>Modificadores Pro</Link>
+      {/* Removido do header por não ser necessário visualmente */}
+      {/* <Link to="/categories" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>Categorias</Link> */}
+      <Link to="/tables" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>Mesas</Link>
+      <Link to="/settings" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>Configurações</Link>
       <button onClick={handleLogout} style={{ 
         marginLeft: 'auto', 
         background: 'rgba(255,255,255,0.2)',
@@ -120,6 +123,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <Tables />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
             </ProtectedRoute>
           }
         />

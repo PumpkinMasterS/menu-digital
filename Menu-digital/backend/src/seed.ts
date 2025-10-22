@@ -1,4 +1,5 @@
 import { MongoClient, ObjectId } from 'mongodb';
+import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -14,6 +15,26 @@ async function seed() {
     
     const db = client.db();
     
+    // Ensure admin user exists (for production bootstrap)
+    const usersCol = db.collection('users');
+    const adminEmail = process.env.ADMIN_SEED_EMAIL || 'whiswher@gmail.com';
+    const adminPassword = process.env.ADMIN_SEED_PASSWORD || 'admin1234';
+    const existingAdmin = await usersCol.findOne({ email: adminEmail });
+    if (!existingAdmin) {
+      console.log(`Creating admin user: ${adminEmail}`);
+      const passwordHash = await bcrypt.hash(adminPassword, 10);
+      await usersCol.insertOne({
+        email: adminEmail,
+        passwordHash,
+        roles: ['admin'],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      });
+      console.log('Admin user created.');
+    } else {
+      console.log('Admin user already exists; skipping.');
+    }
+
     const categoriesCol = db.collection('categories');
     const productsCol = db.collection('products');
     const modifiersCol = db.collection('modifiers');
@@ -21,7 +42,7 @@ async function seed() {
     
     const existingCategories = await categoriesCol.countDocuments();
     if (existingCategories > 0) {
-      console.log('Database already has data. Skipping seed.');
+      console.log('Database already has catalog data. Skipping catalog seed.');
       return;
     }
     

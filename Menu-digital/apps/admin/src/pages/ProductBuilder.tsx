@@ -1,5 +1,194 @@
 import React, { useEffect, useState } from 'react';
 import {
+  DndContext,
+  DragEndEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  arrayMove,
+  verticalListSortingStrategy,
+  horizontalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import {
+  useSortable,
+} from '@dnd-kit/sortable';
+import {
+  CSS,
+} from '@dnd-kit/utilities';
+
+// Componente SortableItem para produtos arrastáveis
+function SortableItem({ id, children }: { id: string; children: React.ReactElement }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 1000 : 1,
+    opacity: isDragging ? 0.8 : 1,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} {...attributes}>
+      {React.cloneElement(children, { 
+        dragHandleProps: listeners,
+        dragAttributes: attributes,
+        isDragging
+      })}
+    </div>
+  );
+}
+
+// Componente SortableCategoryChip para categorias arrastáveis (chips)
+function SortableCategoryChip({ id, children }: { id: string; children: React.ReactElement }) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 1000 : 1,
+  } as React.CSSProperties;
+
+  return (
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+      {children}
+    </div>
+  );
+}
+
+// Componente ProductCard para encapsular a lógica do card de produto
+function ProductCard({ product, index, modifierGroups, handleOpenDialog, dragHandleProps, isDragging }: { 
+  product: Product; 
+  index: number; 
+  modifierGroups: ModifierGroup[]; 
+  handleOpenDialog: (product?: Product) => void;
+  dragHandleProps?: any;
+  isDragging?: boolean;
+}) {
+  const productId = product.id || `product-${index}`;
+  
+  return (
+    <Box
+      sx={{ 
+        // Reduzir tamanho para caber aproximadamente o dobro de cartões
+        width: { xs: '100%', sm: 'calc(33.333% - 12px)', md: 'calc(25% - 12px)', lg: 'calc(20% - 12px)' },
+        minWidth: { xs: '100%', sm: '160px', md: '160px', lg: '160px' },
+        mb: 3
+      }}
+    >
+      <Card 
+        sx={{ 
+          borderRadius: 3,
+          position: 'relative',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          boxShadow: isDragging ? '0 16px 32px rgba(0,0,0,0.2)' : '0 6px 16px rgba(0,0,0,0.12)',
+          transition: isDragging ? 'none' : 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+          overflow: 'hidden',
+          transform: isDragging ? 'scale(1.05)' : 'none',
+          '&:hover': {
+            transform: isDragging ? 'scale(1.05)' : 'translateY(-6px)',
+            boxShadow: isDragging ? '0 16px 32px rgba(0,0,0,0.2)' : '0 12px 28px rgba(0,0,0,0.16)'
+          }
+        }}
+      >
+        <Box sx={{ position: 'absolute', top: 12, left: 12, cursor: 'grab', zIndex: 1, backgroundColor: 'rgba(255,255,255,0.9)', borderRadius: '50%', p: 0.5, boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }} {...dragHandleProps}>
+          <DragIcon sx={{ color: 'grey.700', fontSize: 22 }} />
+        </Box>
+
+        {product.imageUrl ? (
+          <Box
+            sx={{
+              height: 120,
+              backgroundImage: `url(${product.imageUrl.startsWith('http') ? product.imageUrl : `http://localhost:3000${product.imageUrl}`})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              position: 'relative',
+              borderBottom: '1px solid rgba(0,0,0,0.08)'
+            }}
+            onError={(e) => {
+              // Se a imagem não carregar, substitui pelo gradiente
+              e.currentTarget.style.backgroundImage = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            }}
+          >
+            {!product.isActive && (
+              <Chip 
+                label="Inativo" 
+                size="small" 
+                color="error" 
+                sx={{ position: 'absolute', top: 12, right: 12, fontWeight: 'bold' }} 
+              />
+            )}
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              height: 120,
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderBottom: '1px solid rgba(0,0,0,0.08)'
+            }}
+          >
+            {!product.isActive && (
+              <Chip 
+                label="Inativo" 
+                size="small" 
+                color="error" 
+                sx={{ position: 'absolute', top: 12, right: 12, fontWeight: 'bold' }} 
+              />
+            )}
+          </Box>
+        )}
+
+        <CardContent sx={{ p: 2, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+          <Typography variant="h6" fontWeight="bold" gutterBottom sx={{ fontSize: '1rem', lineHeight: 1.25 }}>
+            {product.name}
+          </Typography>
+          {product.description && (
+            <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.9rem', mb: 1.5, lineHeight: 1.4, flexGrow: 1 }}>
+              {product.description.length > 80 ? product.description.substring(0, 80) + '...' : product.description}
+            </Typography>
+          )}
+          <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
+            <Typography variant="h6" color="primary" fontWeight="bold" sx={{ fontSize: '1.2rem' }}>
+              €{product.price?.toFixed(2) || '0.00'}
+            </Typography>
+            <IconButton 
+              size="large" 
+              onClick={() => handleOpenDialog(product)} 
+              color="primary"
+              sx={{ 
+                backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                width: 40,
+                height: 40,
+                '&:hover': {
+                  backgroundColor: 'rgba(102, 126, 234, 0.2)'
+                }
+              }}
+            >
+              <EditIcon sx={{ fontSize: 20 }} />
+            </IconButton>
+          </Box>
+          {/* Chips de modificadores removidos para evitar variação de altura e espaços visuais */}
+        </CardContent>
+      </Card>
+    </Box>
+  );
+}
+
+import {
   Box,
   Button,
   Card,
@@ -29,14 +218,9 @@ import {
   Add as AddIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,
-  DragIndicator as DragIcon,
-  Restaurant as RestaurantIcon,
-  LocalDrink as DrinkIcon,
-  Fastfood as FastfoodIcon,
-  Photo as PhotoIcon
+  DragIndicator as DragIcon
 } from '@mui/icons-material';
-import { apiGet, apiPost, apiPatch, uploadImage } from '../api';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { apiGet, apiPost, apiPatch, uploadImage, CategoriesAPI } from '../api';
 
 interface Product {
   id: string;
@@ -77,8 +261,9 @@ export default function ProductBuilder() {
   const [currentProduct, setCurrentProduct] = useState<Product | null>(null);
   const [tabValue, setTabValue] = useState(0);
   const [selectedModifiers, setSelectedModifiers] = useState<string[]>([]);
-  const [includedProducts, setIncludedProducts] = useState<Array<{ productId: string; quantity: number }>>([]);
   const [imagePreview, setImagePreview] = useState('');
+  const [openCategoryDialog, setOpenCategoryDialog] = useState(false);
+  const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
 
   useEffect(() => {
     loadData();
@@ -87,15 +272,94 @@ export default function ProductBuilder() {
   async function loadData() {
     try {
       const [prodRes, catRes, modRes] = await Promise.all([
-        apiGet<{ items: Product[] }>('/v1/admin/products'),
-        apiGet<Category[]>('/v1/admin/categories'),
-        apiGet<{ items: ModifierGroup[] }>('/v1/admin/modifiers')
+        apiGet<any>('/v1/admin/products'),
+        apiGet<any>('/v1/admin/categories'),
+        apiGet<any>('/v1/admin/modifiers')
       ]);
-      setProducts(prodRes.items || []);
-      setCategories(catRes || []);
-      setModifierGroups(modRes.items || []);
+      const productsRaw = Array.isArray(prodRes) ? prodRes : (prodRes?.items || []);
+      const productsData = productsRaw.map((product: any, index: number) => ({
+        ...product,
+        id: product.id || product._id || `product-${index}`
+      }));
+      setProducts(productsData);
+
+      const categoriesRaw = Array.isArray(catRes) ? catRes : (catRes?.items || []);
+      const mappedCategories = categoriesRaw
+        .map((c: any) => ({ id: c.id || c._id, name: c.name, order: Number(c.order ?? 0), isActive: c.isActive ?? true }))
+        .sort((a: Category, b: Category) => (a.order || 0) - (b.order || 0));
+      setCategories(mappedCategories);
+
+      const modifiersRaw = Array.isArray(modRes) ? modRes : (modRes?.items || []);
+      const mappedModifiers: ModifierGroup[] = modifiersRaw.map((g: any, idx: number) => ({
+        id: g.id || g._id || `mod-${idx}`,
+        name: g.name,
+        type: g.type || 'extra',
+        options: (g.options || []).map((opt: any, i: number) => ({
+          id: opt.id || `opt-${i}`,
+          label: opt.label ?? opt.name ?? '',
+          priceDelta: Number(opt.priceDelta ?? 0),
+        }))
+      }));
+      setModifierGroups(mappedModifiers);
     } catch (e) {
       console.error(e);
+    }
+  }
+
+  // Sensores para detectar arrastar com mouse e toque
+  const sensors = useSensors(
+    useSensor(PointerSensor)
+  );
+
+  // Função para lidar com o fim do arrastar (reordena dentro da mesma categoria)
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    const activeProduct = products.find(p => p.id === active.id);
+    const overProduct = products.find(p => p.id === over.id);
+    if (!activeProduct || !overProduct) return;
+
+    // Apenas reordenar se ambos forem da mesma categoria
+    if ((activeProduct.categoryId || '') !== (overProduct.categoryId || '')) return;
+
+    const categoryId = activeProduct.categoryId || '';
+    const categoryProducts = products
+      .filter(p => (p.categoryId || '') === categoryId)
+      .sort((a, b) => (a.order || 0) - (b.order || 0));
+
+    const oldIndex = categoryProducts.findIndex(item => item.id === active.id);
+    const newIndex = categoryProducts.findIndex(item => item.id === over.id);
+    if (oldIndex < 0 || newIndex < 0) return;
+
+    const reordered = arrayMove(categoryProducts, oldIndex, newIndex)
+      .map((item, idx) => ({ ...item, order: idx }));
+
+    setProducts(prev => {
+      const otherProducts = prev.filter(p => (p.categoryId || '') !== categoryId);
+      return [...otherProducts, ...reordered];
+    });
+  }
+
+  // Reordenar categorias (drag-and-drop dos chips) e persistir ordem
+  async function handleCategoryDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = categories.findIndex((c) => c.id === String(active.id));
+    const newIndex = categories.findIndex((c) => c.id === String(over.id));
+    if (oldIndex < 0 || newIndex < 0) return;
+
+    const reordered = arrayMove(categories, oldIndex, newIndex).map((c, idx) => ({ ...c, order: idx + 1 }));
+    setCategories(reordered);
+
+    // Persistir nova ordem no backend para refletir no menu digital
+    try {
+      for (const cat of reordered) {
+        await CategoriesAPI.update(cat.id, { order: cat.order });
+      }
+    } catch (e) {
+      console.error('Falha ao salvar ordem das categorias:', e);
     }
   }
 
@@ -103,7 +367,6 @@ export default function ProductBuilder() {
     if (product) {
       setCurrentProduct(product);
       setSelectedModifiers(product.composition?.modifierGroupIds || []);
-      setIncludedProducts(product.composition?.includedItems || []);
       setImagePreview(product.imageUrl || '');
     } else {
       setCurrentProduct({
@@ -117,7 +380,6 @@ export default function ProductBuilder() {
         composition: { pricingStrategy: 'base_plus_modifiers' }
       });
       setSelectedModifiers([]);
-      setIncludedProducts([]);
       setImagePreview('');
     }
     setOpenDialog(true);
@@ -130,9 +392,8 @@ export default function ProductBuilder() {
       const payload = {
         ...currentProduct,
         composition: {
-          pricingStrategy: includedProducts.length > 0 ? 'combo_fixed_with_modifiers' : 'base_plus_modifiers',
-          modifierGroupIds: selectedModifiers,
-          includedItems: includedProducts
+          pricingStrategy: 'base_plus_modifiers',
+          modifierGroupIds: selectedModifiers
         }
       };
 
@@ -155,8 +416,10 @@ export default function ProductBuilder() {
       const base64 = (reader.result as string).split(',')[1];
       try {
         const { imageUrl } = await uploadImage(base64);
-        setImagePreview(imageUrl);
-        setCurrentProduct(prev => prev ? { ...prev, imageUrl } : null);
+        // Garantir que a URL da imagem seja relativa para funcionar com o proxy
+        const relativeImageUrl = imageUrl.startsWith('http') ? imageUrl : imageUrl;
+        setImagePreview(relativeImageUrl);
+        setCurrentProduct(prev => prev ? { ...prev, imageUrl: relativeImageUrl } : null);
       } catch (e) {
         console.error(e);
       }
@@ -164,29 +427,63 @@ export default function ProductBuilder() {
     reader.readAsDataURL(file);
   }
 
-  function handleDragEnd(result: any) {
-    if (!result.destination) return;
-    
-    const items = Array.from(filteredProducts);
-    const [reordered] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reordered);
-    
-    const reordered_with_order = items.map((item, idx) => ({ ...item, order: idx }));
-    setProducts(prev => prev.map(p => {
-      const found = reordered_with_order.find(r => r.id === p.id);
-      return found || p;
-    }));
+  async function handleSaveCategory() {
+    if (!currentCategory) return;
+
+    try {
+      if (currentCategory.id) {
+        await CategoriesAPI.update(currentCategory.id, currentCategory);
+      } else {
+        await CategoriesAPI.create(currentCategory);
+      }
+      
+      // Recarregar categorias
+      const updatedCategories = await apiGet<Category[]>('/v1/admin/categories');
+      setCategories(updatedCategories || []);
+      
+      setOpenCategoryDialog(false);
+      setCurrentCategory(null);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  function handleOpenCategoryDialog(category?: Category) {
+    if (category) {
+      setCurrentCategory(category);
+    } else {
+      setCurrentCategory({
+        id: '',
+        name: '',
+        isActive: true
+      });
+    }
+    setOpenCategoryDialog(true);
+  }
+
+  function handleCloseCategoryDialog() {
+    setOpenCategoryDialog(false);
+    setCurrentCategory(null);
   }
 
   const filteredProducts = products
     .filter(p => selectedCategory === 'all' || p.categoryId === selectedCategory)
     .sort((a, b) => (a.order || 0) - (b.order || 0));
 
+  // Agrupar produtos por categoria para exibição visual
+  const displayCategories = (selectedCategory === 'all'
+    ? [...categories].sort((a, b) => (a.order || 0) - (b.order || 0))
+    : categories.filter(c => c.id === selectedCategory))
+    .map(c => ({
+      ...c,
+      products: products.filter(p => (p.categoryId || '') === c.id).sort((a, b) => (a.order || 0) - (b.order || 0))
+    }));
+
   return (
     <Box p={3}>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
         <Typography variant="h4" fontWeight="bold">
-          🍔 Gestor de Produtos
+          Gestor de Produtos
         </Typography>
         <Button
           variant="contained"
@@ -202,114 +499,116 @@ export default function ProductBuilder() {
         </Button>
       </Box>
 
+      {/* Seção de Categorias */}
       <Paper sx={{ mb: 3, p: 2, borderRadius: 3 }}>
-        <Tabs
-          value={selectedCategory}
-          onChange={(_, val) => setSelectedCategory(val)}
-          variant="scrollable"
-          scrollButtons="auto"
-        >
-          <Tab label="📋 Todos" value="all" />
-          {categories.map(cat => (
-            <Tab key={cat.id} label={cat.name} value={cat.id} />
-          ))}
-        </Tabs>
+        <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+          <Typography variant="h6" fontWeight="bold">
+            Categorias
+          </Typography>
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={() => {
+              setCurrentCategory({
+                id: '',
+                name: '',
+                isActive: true
+              });
+              setOpenCategoryDialog(true);
+            }}
+            sx={{ 
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              borderRadius: 2,
+              px: 2
+            }}
+          >
+            Nova Categoria
+          </Button>
+        </Box>
+        <DndContext sensors={sensors} onDragEnd={handleCategoryDragEnd}>
+          <SortableContext items={categories.map((c) => c.id)} strategy={horizontalListSortingStrategy}>
+            <Box display="flex" flexWrap="wrap" gap={1}>
+              {categories.map((cat) => (
+                <SortableCategoryChip key={cat.id} id={cat.id}>
+                  <Chip
+                    label={cat.name}
+                    color={selectedCategory === cat.id ? 'primary' : 'default'}
+                    onClick={() => setSelectedCategory(cat.id)}
+                    sx={{ mb: 1, cursor: 'grab' }}
+                  />
+                </SortableCategoryChip>
+              ))}
+              <Chip
+                label="Todos"
+                color={selectedCategory === 'all' ? 'primary' : 'default'}
+                onClick={() => setSelectedCategory('all')}
+                sx={{ mb: 1 }}
+              />
+            </Box>
+          </SortableContext>
+        </DndContext>
       </Paper>
 
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="products">
-          {(provided) => (
-            <Box display="flex" flexWrap="wrap" gap={2} {...provided.droppableProps} ref={provided.innerRef}>
-              {filteredProducts.map((product, index) => (
-                <Draggable key={product.id} draggableId={product.id} index={index}>
-                  {(provided, snapshot) => (
-                    <Box
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      sx={{ width: { xs: '100%', sm: 'calc(50% - 8px)', md: 'calc(33.333% - 11px)', lg: 'calc(25% - 12px)' } }}
-                    >
-                      <Card 
-                        sx={{ 
-                          borderRadius: 3,
-                          position: 'relative',
-                          transform: snapshot.isDragging ? 'rotate(5deg)' : 'none',
-                          boxShadow: snapshot.isDragging ? 6 : 2,
-                          transition: 'all 0.2s'
-                        }}
-                      >
-                        <Box {...provided.dragHandleProps} sx={{ position: 'absolute', top: 8, left: 8, cursor: 'grab', zIndex: 1 }}>
-                          <DragIcon sx={{ color: 'grey.400' }} />
-                        </Box>
-
-                        {product.imageUrl ? (
-                          <Box
-                            sx={{
-                              height: 180,
-                              backgroundImage: `url(${product.imageUrl})`,
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center',
-                              position: 'relative'
-                            }}
-                          >
-                            {!product.isActive && (
-                              <Chip label="Inativo" size="small" color="error" sx={{ position: 'absolute', top: 8, right: 8 }} />
-                            )}
-                          </Box>
-                        ) : (
-                          <Box sx={{ height: 180, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <FastfoodIcon sx={{ fontSize: 60, color: 'white', opacity: 0.5 }} />
-                          </Box>
-                        )}
-
-                        <CardContent>
-                          <Typography variant="h6" fontWeight="bold" gutterBottom>
-                            {product.name}
-                          </Typography>
-                          {product.description && (
-                            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                              {product.description.length > 60 ? product.description.substring(0, 60) + '...' : product.description}
-                            </Typography>
-                          )}
-                          <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
-                            <Typography variant="h6" color="primary" fontWeight="bold">
-                              €{product.price?.toFixed(2) || '0.00'}
-                            </Typography>
-                            <IconButton size="small" onClick={() => handleOpenDialog(product)} color="primary">
-                              <EditIcon />
-                            </IconButton>
-                          </Box>
-                          {product.composition?.modifierGroupIds && product.composition.modifierGroupIds.length > 0 && (
-                            <Box mt={1}>
-                              {product.composition.modifierGroupIds.map(id => {
-                                const mod = modifierGroups.find(m => m.id === id);
-                                return mod ? <Chip key={id} label={mod.name} size="small" sx={{ mr: 0.5, mb: 0.5 }} /> : null;
-                              })}
-                            </Box>
-                          )}
-                        </CardContent>
-                      </Card>
-                    </Box>
+      {/* Seção de Produtos agrupados por categoria */}
+      <Paper sx={{ mb: 3, p: 2, borderRadius: 3 }}>
+        <Typography variant="h6" fontWeight="bold" mb={2}>
+          Produtos por Categoria
+        </Typography>
+        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+          {displayCategories.map((cat) => (
+            <Box key={cat.id} sx={{ mb: 3 }}>
+              <Box display="flex" alignItems="center" justifyContent="space-between" mb={1}>
+                <Typography variant="subtitle1" fontWeight="bold">{cat.name}</Typography>
+                <Divider sx={{ flexGrow: 1, ml: 2 }} />
+              </Box>
+              <SortableContext items={cat.products.map(p => p.id)} strategy={verticalListSortingStrategy}>
+                <Box display="flex" flexWrap="wrap" gap={2} sx={{ p: 2 }}>
+                  {cat.products.length === 0 ? (
+                    <Typography variant="body2" color="text.secondary">Sem produtos nesta categoria</Typography>
+                  ) : (
+                    cat.products.map((product, index) => {
+                      const productId = product.id || `product-${index}`;
+                      return (
+                        <SortableItem key={productId} id={productId}>
+                          <ProductCard 
+                            product={product} 
+                            index={index} 
+                            modifierGroups={modifierGroups} 
+                            handleOpenDialog={handleOpenDialog} 
+                          />
+                        </SortableItem>
+                      );
+                    })
                   )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
+                </Box>
+              </SortableContext>
             </Box>
-          )}
-        </Droppable>
-      </DragDropContext>
+          ))}
+        </DndContext>
+      </Paper>
 
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)} maxWidth="md" fullWidth>
-        <DialogTitle>
-          <Box display="flex" alignItems="center" gap={1}>
-            <FastfoodIcon />
+      {/* Seção de Modificadores removida visualmente conforme solicitado */}
+
+      <Dialog 
+        open={openDialog} 
+        onClose={() => setOpenDialog(false)} 
+        maxWidth="md" 
+        fullWidth
+        PaperProps={{ sx: { borderRadius: 2 } }}
+      >
+        <DialogTitle sx={{ pb: 1 }}>
             {currentProduct?.id ? 'Editar Produto' : 'Novo Produto'}
-          </Box>
         </DialogTitle>
-        <DialogContent>
-          <Tabs value={tabValue} onChange={(_, v) => setTabValue(v)} sx={{ mb: 2, mt: 1 }}>
-            <Tab label="📝 Básico" />
-            <Tab label="🎨 Modificadores" />
-            <Tab label="🍽️ Combo" />
+        <DialogContent sx={{ pb: 1 }}>
+          <Tabs
+            value={tabValue}
+            onChange={(_, val) => setTabValue(val)}
+            variant="scrollable"
+            scrollButtons="auto"
+            sx={{ mb: 2 }}
+          >
+            <Tab label="Detalhes" value={0} />
+            <Tab label="Modificadores" value={1} />
           </Tabs>
 
           {tabValue === 0 && (
@@ -326,28 +625,29 @@ export default function ProductBuilder() {
                   <label htmlFor="image-upload">
                     <Box
                       sx={{
-                        width: 200,
-                        height: 200,
+                        width: 150,
+                        height: 150,
                         border: '2px dashed #ddd',
-                        borderRadius: 3,
+                        borderRadius: 2,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         cursor: 'pointer',
-                        backgroundImage: imagePreview ? `url(${imagePreview})` : 'none',
+                        backgroundImage: imagePreview ? `url(${imagePreview.startsWith('http') ? imagePreview : `http://localhost:3000${imagePreview}`})` : 'none',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         '&:hover': { borderColor: 'primary.main' }
                       }}
                     >
-                      {!imagePreview && <PhotoIcon sx={{ fontSize: 60, color: 'grey.400' }} />}
+                      {/* Ícone removido para manter visual sóbrio */}
                     </Box>
                   </label>
                 </Box>
-                <Box flex={2} display="flex" flexDirection="column" gap={2}>
+                <Box flex={2} display="flex" flexDirection="column" gap={1.5}>
                   <TextField
                     label="Nome do Produto"
                     fullWidth
+                    size="small"
                     value={currentProduct?.name || ''}
                     onChange={(e) => setCurrentProduct(prev => prev ? { ...prev, name: e.target.value } : null)}
                   />
@@ -355,7 +655,8 @@ export default function ProductBuilder() {
                     label="Descrição"
                     fullWidth
                     multiline
-                    rows={3}
+                    rows={2}
+                    size="small"
                     value={currentProduct?.description || ''}
                     onChange={(e) => setCurrentProduct(prev => prev ? { ...prev, description: e.target.value } : null)}
                   />
@@ -363,6 +664,7 @@ export default function ProductBuilder() {
                     label="Preço (€)"
                     type="number"
                     fullWidth
+                    size="small"
                     value={currentProduct?.price || 0}
                     onChange={(e) => setCurrentProduct(prev => prev ? { ...prev, price: Number(e.target.value) } : null)}
                   />
@@ -371,6 +673,7 @@ export default function ProductBuilder() {
                       <Switch
                         checked={currentProduct?.isActive || false}
                         onChange={(e) => setCurrentProduct(prev => prev ? { ...prev, isActive: e.target.checked } : null)}
+                        size="small"
                       />
                     }
                     label="Produto Ativo"
@@ -382,14 +685,17 @@ export default function ProductBuilder() {
 
           {tabValue === 1 && (
             <Box>
-              <Typography variant="subtitle1" fontWeight="bold" mb={2}>
-                Selecione os modificadores disponíveis:
+              <Typography variant="subtitle2" fontWeight="bold" mb={1.5}>
+                Modificadores disponíveis:
               </Typography>
-              <List>
+              <Typography variant="body2" color="text.secondary" mb={1.5}>
+                Selecione os modificadores para este produto
+              </Typography>
+              <List dense sx={{ maxHeight: 200, overflow: 'auto' }}>
                 {modifierGroups.map(group => (
                   <ListItem
                     key={group.id}
-                    button
+                    component="div"
                     onClick={() => {
                       if (selectedModifiers.includes(group.id)) {
                         setSelectedModifiers(prev => prev.filter(id => id !== group.id));
@@ -400,96 +706,73 @@ export default function ProductBuilder() {
                     sx={{
                       border: '1px solid',
                       borderColor: selectedModifiers.includes(group.id) ? 'primary.main' : 'divider',
-                      borderRadius: 2,
-                      mb: 1,
-                      bgcolor: selectedModifiers.includes(group.id) ? 'primary.50' : 'transparent'
+                      borderRadius: 1,
+                      mb: 0.5,
+                      bgcolor: selectedModifiers.includes(group.id) ? 'primary.50' : 'transparent',
+                      py: 0.5
                     }}
                   >
                     <ListItemText
                       primary={group.name}
-                      secondary={`${group.options.length} opções • Tipo: ${group.type === 'extra' ? 'Extra' : 'Variante'}`}
+                      secondary={`${group.options.length} opções`}
+                      primaryTypographyProps={{ fontSize: '0.9rem' }}
+                      secondaryTypographyProps={{ fontSize: '0.8rem' }}
                     />
                     <ListItemSecondaryAction>
-                      {selectedModifiers.includes(group.id) && <Chip label="✓" color="primary" size="small" />}
+                      {selectedModifiers.includes(group.id) && <Chip label="✓" color="primary" size="small" sx={{ fontSize: '0.7rem', height: 18 }} />}
                     </ListItemSecondaryAction>
                   </ListItem>
                 ))}
               </List>
             </Box>
           )}
-
-          {tabValue === 2 && (
-            <Box>
-              <Typography variant="subtitle1" fontWeight="bold" mb={2}>
-                Incluir produtos no combo:
-              </Typography>
-              <Typography variant="body2" color="text.secondary" mb={2}>
-                Ex: Menu Big Mac = Big Mac + Batatas + Bebida
-              </Typography>
-              <List>
-                {products.filter(p => p.id !== currentProduct?.id).map(product => {
-                  const included = includedProducts.find(i => i.productId === product.id);
-                  return (
-                    <ListItem
-                      key={product.id}
-                      sx={{
-                        border: '1px solid',
-                        borderColor: included ? 'success.main' : 'divider',
-                        borderRadius: 2,
-                        mb: 1,
-                        bgcolor: included ? 'success.50' : 'transparent'
-                      }}
-                    >
-                      <Avatar src={product.imageUrl} sx={{ mr: 2 }}>
-                        <FastfoodIcon />
-                      </Avatar>
-                      <ListItemText
-                        primary={product.name}
-                        secondary={`€${product.price?.toFixed(2)}`}
-                      />
-                      <Box display="flex" gap={1} alignItems="center">
-                        {included ? (
-                          <>
-                            <TextField
-                              type="number"
-                              size="small"
-                              value={included.quantity}
-                              onChange={(e) => {
-                                const qty = Number(e.target.value);
-                                setIncludedProducts(prev =>
-                                  prev.map(i => i.productId === product.id ? { ...i, quantity: qty } : i)
-                                );
-                              }}
-                              sx={{ width: 80 }}
-                            />
-                            <IconButton
-                              size="small"
-                              color="error"
-                              onClick={() => setIncludedProducts(prev => prev.filter(i => i.productId !== product.id))}
-                            >
-                              <DeleteIcon />
-                            </IconButton>
-                          </>
-                        ) : (
-                          <Button
-                            size="small"
-                            variant="outlined"
-                            onClick={() => setIncludedProducts(prev => [...prev, { productId: product.id, quantity: 1 }])}
-                          >
-                            Adicionar
-                          </Button>
-                        )}
-                      </Box>
-                    </ListItem>
-                  );
-                })}
-              </List>
-            </Box>
-          )}
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpenDialog(false)}>Cancelar</Button>
-          <Button variant="contained" onClick={handleSave}>
+        <DialogActions sx={{ px: 3, pb: 2 }}>
+          <Button onClick={() => setOpenDialog(false)} size="small">
+            Cancelar
+                          </Button>
+          <Button variant="contained" onClick={handleSave} size="small">
+            Guardar
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Diálogo para criar/editar categorias */}
+      <Dialog 
+        open={openCategoryDialog} 
+        onClose={handleCloseCategoryDialog} 
+        maxWidth="sm" 
+        fullWidth
+        PaperProps={{ sx: { borderRadius: 2 } }}
+      >
+        <DialogTitle sx={{ pb: 1 }}>
+          {currentCategory?.id ? 'Editar Categoria' : 'Nova Categoria'}
+        </DialogTitle>
+        <DialogContent sx={{ pb: 1 }}>
+          <Box display="flex" flexDirection="column" gap={2} mt={1}>
+            <TextField
+              label="Nome da Categoria"
+              fullWidth
+              value={currentCategory?.name || ''}
+              onChange={(e) => setCurrentCategory(prev => prev ? { ...prev, name: e.target.value } : null)}
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={currentCategory?.isActive || false}
+                  onChange={(e) => setCurrentCategory(prev => prev ? { ...prev, isActive: e.target.checked } : null)}
+                  size="small"
+                />
+              }
+              label="Categoria Ativa"
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 2 }}>
+          <Button onClick={handleCloseCategoryDialog} size="small">
+            Cancelar
+          </Button>
+          <Button variant="contained" onClick={handleSaveCategory} size="small">
             Guardar
           </Button>
         </DialogActions>

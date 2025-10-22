@@ -2,7 +2,7 @@ import React, { createContext, useContext, useMemo, useState } from 'react'
 import type { OrderItemInput, OrderCreateInput } from './api'
 import { checkoutOrder } from './api'
 
-type CartItem = OrderItemInput
+type CartItem = OrderItemInput & { name?: string; modifierNames?: string[]; variantNames?: string[] }
 type CartContextType = {
   items: CartItem[]
   addItem: (item: CartItem) => void
@@ -22,9 +22,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     removeItem: (idx) => setItems((prev) => prev.filter((_, i) => i !== idx)),
     clear: () => setItems([]),
     submit: async (payload) => {
-      const order: OrderCreateInput = { items, ...payload }
-      await checkoutOrder(order)
+      const normalizedItems = items.map(({ productId, quantity, modifiers, variants, notes }) => ({ productId, quantity, modifiers, variants, notes }))
+      const order: OrderCreateInput = { items: normalizedItems, ...payload }
+      const result = await checkoutOrder(order)
       setItems([])
+      return result
     },
   }), [items])
 

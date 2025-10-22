@@ -1,7 +1,7 @@
 // Simple admin API utility using fetch
 // Handles base URL, auth headers, and JSON helpers
 
-const API_BASE = import.meta.env.VITE_API_URL || '';
+const API_BASE = '';
 
 function getAuthToken() {
   // Prefer JWT if present; fallback to ADMIN_TOKEN for legacy
@@ -60,9 +60,13 @@ export async function apiPatch<T>(path: string, body: unknown): Promise<T> {
 }
 
 export async function apiDelete(path: string): Promise<void> {
+  const { jwt, legacy } = getAuthToken();
+  const headers: Record<string, string> = {};
+  if (jwt) headers['Authorization'] = `Bearer ${jwt}`;
+  if (legacy) headers['x-admin-token'] = legacy;
   const res = await fetch(`${API_BASE}${path}`, {
     method: 'DELETE',
-    headers: buildHeaders(),
+    headers,
   });
   if (!res.ok) throw new Error(`DELETE ${path} failed: ${res.status}`);
 }
@@ -76,6 +80,22 @@ export async function uploadImage(imageBase64: string): Promise<{ imageUrl: stri
   });
   if (!res.ok) throw new Error(`Upload image failed: ${res.status}`);
   return res.json();
+}
+
+// Helper: fetch SVG text for table QR
+export async function getTableQR(id: string): Promise<string> {
+  const { jwt, legacy } = getAuthToken();
+  const headers: Record<string, string> = {};
+  if (jwt) headers['Authorization'] = `Bearer ${jwt}`;
+  if (legacy) headers['x-admin-token'] = legacy;
+  const res = await fetch(`${API_BASE}/v1/admin/tables/${id}/qrcode`, { headers });
+  if (!res.ok) throw new Error(`GET /v1/admin/tables/${id}/qrcode failed: ${res.status}`);
+  return res.text();
+}
+
+// Helper: fetch URL JSON for table QR
+export async function getTableQRUrl(id: string): Promise<{ url: string }>{
+  return apiGet<{ url: string }>(`/v1/admin/tables/${id}/qrcode/url`);
 }
 
 // Categories
@@ -100,4 +120,6 @@ export const TablesAPI = {
   create: (payload: any) => apiPost<any>(`/v1/admin/tables`, payload),
   update: (id: string, payload: any) => apiPatch<any>(`/v1/admin/tables/${id}`, payload),
   remove: (id: string) => apiDelete(`/v1/admin/tables/${id}`),
+  qrcode: (id: string) => getTableQR(id),
+  qrcodeUrl: (id: string) => getTableQRUrl(id),
 };

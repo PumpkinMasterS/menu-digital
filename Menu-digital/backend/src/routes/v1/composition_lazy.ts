@@ -3,6 +3,9 @@ import { z } from 'zod';
 import { getCollection } from '../../lib/db';
 import { ObjectId } from 'mongodb';
 
+// Always use MongoDB Atlas; dev fallbacks removed
+const devMode = false;
+
 const linkGroupsSchema = z
   .object({
     groupIds: z.array(z.string().min(1)).min(0),
@@ -106,11 +109,11 @@ export const compositionRoutes: FastifyPluginAsync = async (app) => {
 
       return reply.send({
         product: {
-          id: product.id ?? product._id?.toString(),
-          name: product.name,
-          description: product.description,
-          imageUrl: product.imageUrl,
-          price: product.price,
+          id: (product as any).id ?? (product as any)._id?.toString(),
+          name: (product as any).name,
+          description: (product as any).description,
+          imageUrl: (product as any).imageUrl,
+          price: (product as any).price,
         },
         modifierGroups,
         variantGroups,

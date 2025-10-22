@@ -21,7 +21,7 @@ async function testCompleteFlow() {
     });
     
     if (!loginRes.ok) {
-      console.log('❌ Login falhou. Verifique DEV_LOGIN_EMAIL e DEV_LOGIN_PASSWORD no .env');
+      console.log('❌ Login falhou. Verifique credenciais de admin e JWT_SECRET no .env');
       return;
     }
     

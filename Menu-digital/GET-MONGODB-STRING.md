@@ -124,9 +124,9 @@ Para ver a string do MCP, procure nas configurações do Cursor em:
 Veja este vídeo tutorial (3 minutos):
 https://www.youtube.com/watch?v=rPqRyYJmx2g
 
-Ou use MongoDB local:
+Use MongoDB Atlas:
 ```env
-MONGODB_URI=mongodb://localhost:27017/menu_digital
+MONGODB_URI=mongodb+srv://SEU_USERNAME:SUA_PASSWORD@cluster.mongodb.net/menu_digital?retryWrites=true&w=majority
 ```
 
 

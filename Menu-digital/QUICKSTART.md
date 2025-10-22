@@ -11,13 +11,10 @@ node setup-env.js
 
 Ou crie manualmente `backend/.env` com:
 ```env
-MONGODB_URI=mongodb://localhost:27017/menu_digital
+MONGODB_URI=mongodb+srv://SEU_USERNAME:SUA_PASSWORD@cluster.mongodb.net/menu_digital?retryWrites=true&w=majority
 PORT=3000
 JWT_SECRET=menu_digital_secret_key_2024
 BASE_URL=http://localhost:5175
-DEV_LOGIN_EMAIL=admin@menu.com
-DEV_LOGIN_PASSWORD=admin123
-DEV_LOGIN_ROLES=admin,staff
 ```
 
 ### 2️⃣ Iniciar Backend (2 minutos)

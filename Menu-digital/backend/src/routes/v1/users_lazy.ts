@@ -1,17 +1,17 @@
-import type { FastifyPluginAsync } from 'fastify';
+import { FastifyPluginAsync } from 'fastify';
 import { z } from 'zod';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const userCreateSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(8),
-  roles: z.array(z.enum(['admin', 'staff'])).default(['staff']),
+  password: z.string().min(6),
+  roles: z.array(z.string()).default(['admin']),
 });
 
 const userLoginSchema = z.object({
   email: z.string().email(),
-  password: z.string(),
+  password: z.string().min(6),
 });
 
 const usersRoutes: FastifyPluginAsync = async (app) => {
@@ -43,36 +43,26 @@ const usersRoutes: FastifyPluginAsync = async (app) => {
 
   // Login
   app.post('/v1/auth/login', async (req, reply) => {
-    const body = userLoginSchema.parse(req.body);
+    try {
+      const parsed = userLoginSchema.safeParse(req.body);
+      if (!parsed.success) return reply.status(400).send({ error: 'Invalid input', details: parsed.error.flatten() });
+      const body = parsed.data;
 
-    // DEV fallback: allow login using env credentials without DB
-    const devEmail = process.env.DEV_LOGIN_EMAIL;
-    const devPassword = process.env.DEV_LOGIN_PASSWORD;
-    const devRolesEnv = process.env.DEV_LOGIN_ROLES; // comma-separated
-    // Debug minimal info to diagnose DEV fallback matching
-    app.log.info(
-      {
-        bodyEmail: body.email,
-        bodyPasswordLen: body.password?.length ?? 0,
-        devEmail,
-        devPasswordLen: devPassword?.length ?? 0,
-      },
-      'Auth login DEV check'
-    );
-    if (devEmail && devPassword && body.email === devEmail && body.password === devPassword) {
-      const roles = devRolesEnv ? devRolesEnv.split(',').map((r) => r.trim()).filter(Boolean) : ['admin'];
-      const token = jwt.sign({ id: 'dev-user', roles }, process.env.JWT_SECRET || 'secret', { expiresIn: '1h' });
+      // Removed DEV fallback: always authenticate against DB users
+      const users = getUsersCollection();
+      if (!users) return reply.status(503).send({ error: 'Database unavailable' });
+      const user = await users.findOne({ email: body.email });
+      if (!user || typeof (user as any).passwordHash !== 'string') {
+        return reply.status(401).send({ error: 'Invalid credentials' });
+      }
+      const match = await bcrypt.compare(body.password, (user as any).passwordHash);
+      if (!match) return reply.status(401).send({ error: 'Invalid credentials' });
+      const token = jwt.sign({ id: (user as any)._id, roles: (user as any).roles }, process.env.JWT_SECRET || 'secret', { expiresIn: '1h' });
       return { token };
+    } catch (err: any) {
+      app.log.error(err);
+      return reply.status(500).send({ error: 'Auth error' });
     }
-
-    // Default: check DB user
-    const users = getUsersCollection();
-    const user = users ? await users.findOne({ email: body.email }) : null;
-    if (!user || !(await bcrypt.compare(body.password, user.passwordHash))) {
-      return reply.status(401).send({ error: 'Invalid credentials' });
-    }
-    const token = jwt.sign({ id: user._id, roles: user.roles }, process.env.JWT_SECRET || 'secret', { expiresIn: '1h' });
-    return { token };
   });
 
 };

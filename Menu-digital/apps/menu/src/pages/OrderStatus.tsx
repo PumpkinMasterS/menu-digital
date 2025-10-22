@@ -1,37 +1,86 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import {
+  Box,
+  Button,
+  Card,
+  Chip,
+  CircularProgress,
+  Container,
+  Stack,
+  Typography,
+} from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import { Restaurant as RestaurantIcon } from '@mui/icons-material'
+import { CardMedia } from '@mui/material'
+import { getPublicBranding, type PublicBranding } from '../api'
 
-type OrderStatus = 'pending' | 'in_progress' | 'ready' | 'delivered' | 'cancelled'
+// Tipos de status suportados no backend/frontend
+export type OrderStatus = 'pending' | 'in_progress' | 'ready' | 'delivered' | 'cancelled'
+
+interface OrderItem {
+  quantity: number
+  name?: string
+  productId?: string
+  total?: number
+}
 
 interface Order {
   id: string
   status: OrderStatus
   tableId?: string
-  items: any[]
+  items: OrderItem[]
   total?: number
   createdAt: string
 }
 
-const statusConfig = {
-  pending: { label: 'Pendente', color: '#ffc107', icon: '⏳', description: 'Seu pedido foi recebido e está aguardando preparo.' },
-  in_progress: { label: 'Em preparo', color: '#0dcaf0', icon: '👨‍🍳', description: 'Seu pedido está sendo preparado.' },
-  ready: { label: 'Pronto', color: '#198754', icon: '✅', description: 'Seu pedido está pronto!' },
-  delivered: { label: 'Entregue', color: '#6c757d', icon: '🎉', description: 'Seu pedido foi entregue. Bom apetite!' },
-  cancelled: { label: 'Cancelado', color: '#dc3545', icon: '❌', description: 'Seu pedido foi cancelado.' },
-}
-
 export default function OrderStatus() {
+  const theme = useTheme()
   const { id } = useParams()
   const navigate = useNavigate()
   const [order, setOrder] = useState<Order | null>(null)
   const [loading, setLoading] = useState(true)
+
+  const statusUI = {
+    pending: {
+      label: 'Pedido recebido',
+      color: theme.palette.warning.main,
+      icon: '⏳',
+      description: 'Seu pedido foi recebido e está sendo preparado. Aguarde sentado.',
+    },
+    in_progress: {
+      label: 'Em preparo',
+      color: theme.palette.info.main,
+      icon: '👨‍🍳',
+      description: 'Seu pedido está sendo preparado.',
+    },
+    ready: {
+      label: 'Pronto',
+      color: theme.palette.success.main,
+      icon: '✅',
+      description: 'Seu pedido está pronto!'
+    },
+    delivered: {
+      label: 'Entregue',
+      color: theme.palette.text.secondary,
+      icon: '🎉',
+      description: 'Seu pedido foi entregue. Bom apetite!'
+    },
+    cancelled: {
+      label: 'Cancelado',
+      color: theme.palette.error.main,
+      icon: '❌',
+      description: 'Seu pedido foi cancelado.'
+    },
+  } as const
 
   async function fetchOrder() {
     if (!id) return
     try {
       const res = await fetch(`/v1/public/orders/${id}`)
       if (!res.ok) throw new Error('Order not found')
-      const data = await res.json()
+      const data = (await res.json()) as Order
       setOrder(data)
     } catch (e) {
       console.error(e)
@@ -46,141 +95,177 @@ export default function OrderStatus() {
     return () => clearInterval(interval)
   }, [id])
 
+  const formatCurrency = (n?: number) =>
+    typeof n === 'number' ? n.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR' }) : ''
+
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const [branding, setBranding] = useState<PublicBranding | null>(null)
+
+  useEffect(() => {
+    getPublicBranding().then(setBranding).catch(() => {})
+  }, [])
+
+
+
+  const Header = () => (
+    <Box sx={{ position: 'relative', px: 2, pt: 2, pb: 1 }}>
+      <Container maxWidth="md" sx={{ px: 0 }}>
+        <Box sx={{ position: 'relative', height: isSmDown ? 160 : 200, borderRadius: 3, overflow: 'hidden', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}>
+          <Box
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: branding?.coverImageUrl
+                ? `url(${branding.coverImageUrl})`
+                : `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          />
+          {branding?.coverImageUrl && (
+            <Box sx={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(0,0,0,0.35), rgba(0,0,0,0.25))' }} />
+          )}
+
+          <button
+            onClick={() => navigate('/')}
+            style={{
+              position: 'absolute',
+              top: 10,
+              left: 10,
+              background: 'rgba(255,255,255,0.85)',
+              border: 'none',
+              color: '#111',
+              padding: '8px 12px',
+              borderRadius: 8,
+              cursor: 'pointer',
+              fontWeight: 600
+            }}
+          >
+            ← Voltar ao menu
+          </button>
+
+          {/* Mesa oculta conforme requisito do cliente */}
+
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: (isSmDown || branding?.mobileCenterLogo) ? '50%' : 24,
+              transform: (isSmDown || branding?.mobileCenterLogo) ? 'translate(-50%, -55%)' : 'translate(0, -55%)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 2,
+            }}
+          >
+            <Card sx={{ width: isSmDown ? 72 : 88, height: isSmDown ? 72 : 88, borderRadius: 3, boxShadow: '0 6px 16px rgba(0,0,0,0.25)', overflow: 'hidden' }}>
+              {branding?.logoImageUrl ? (
+                <CardMedia component="img" src={branding.logoImageUrl} alt="Logo" sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              ) : (
+                <Box sx={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center', bgcolor: '#fff' }}>
+                  <RestaurantIcon sx={{ fontSize: isSmDown ? 40 : 48, color: theme.palette.primary.main }} />
+                </Box>
+              )}
+            </Card>
+            <Box sx={{ textAlign: (isSmDown || branding?.mobileCenterLogo) ? 'center' : 'left' }}>
+              <Typography
+                variant={isSmDown ? 'h6' : 'h5'}
+                component="h1"
+                sx={{
+                  fontWeight: 800,
+                  color: '#fff',
+                  textShadow: branding?.coverImageUrl ? '0 2px 8px rgba(0,0,0,0.35)' : 'none',
+                  fontFamily: theme.typography.fontFamily,
+                }}
+              >
+                {branding?.displayName || 'Menu Digital'}
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
+
+  );
+
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'sans-serif' }}>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: 48, marginBottom: 16 }}>⏳</div>
-          <p>Carregando...</p>
-        </div>
-      </div>
+      <Box sx={{ minHeight: '100vh', display: 'grid', placeItems: 'center' }} aria-busy="true">
+        <Header />
+        <Stack spacing={2} alignItems="center">
+          <CircularProgress color="primary" aria-label="A carregar o pedido" />
+          <Typography variant="body2" color="text.secondary">Carregando...</Typography>
+        </Stack>
+      </Box>
     )
   }
 
   if (!order) {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'sans-serif' }}>
-        <div style={{ textAlign: 'center', maxWidth: 400, padding: 24 }}>
-          <div style={{ fontSize: 64, marginBottom: 16 }}>😕</div>
-          <h2 style={{ margin: '0 0 16px' }}>Pedido não encontrado</h2>
-          <button
-            onClick={() => navigate('/')}
-            style={{ 
-              background: '#2d6a4f', 
-              color: '#fff', 
-              border: 'none', 
-              padding: '12px 24px', 
-              borderRadius: 8,
-              cursor: 'pointer',
-              fontSize: 16,
-              fontWeight: 'bold'
-            }}
-          >
-            Voltar ao Menu
-          </button>
-        </div>
-      </div>
+      <Box minHeight="100vh" display="grid" placeItems="center">
+        <Header />
+        <Container maxWidth="sm">
+          <Card sx={{ p: 3, textAlign: 'center' }}>
+            <Typography variant="h5" gutterBottom>Pedido não encontrado</Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Verifique o link ou faça um novo pedido.
+            </Typography>
+            <Button variant="contained" color="primary" onClick={() => navigate('/')}>Voltar ao Menu</Button>
+          </Card>
+        </Container>
+      </Box>
     )
   }
 
-  const config = statusConfig[order.status]
-  const progress = order.status === 'pending' ? 25 : order.status === 'in_progress' ? 50 : order.status === 'ready' ? 75 : 100
+  const cfg = statusUI[order.status]
 
   return (
-    <div style={{ minHeight: '100vh', fontFamily: 'sans-serif', background: '#f8f9fa' }}>
-      <header style={{ 
-        background: 'linear-gradient(135deg, #2d6a4f 0%, #40916c 100%)', 
-        color: '#fff', 
-        padding: '24px 16px',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
-      }}>
-        <div style={{ maxWidth: 600, margin: '0 auto' }}>
-          <h1 style={{ margin: 0, fontSize: 28 }}>Acompanhe seu Pedido</h1>
-          <p style={{ margin: '4px 0 0', opacity: 0.9 }}>Pedido #{order.id.slice(0, 8)}</p>
-        </div>
-      </header>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+      <Header />
+      <Container maxWidth="md" sx={{ py: 2 }}>
+        {/* Status */}
+        <Card sx={{ p: 3, mb: 2, textAlign: 'center' }} role="status" aria-live="polite">
+          <Box sx={{ fontSize: 64, mb: 1 }} aria-hidden>{cfg.icon}</Box>
+          <Stack direction="row" spacing={1} alignItems="center" justifyContent="center" sx={{ mb: 1 }}>
+            <Chip label={cfg.label} sx={{ bgcolor: cfg.color, color: '#fff', fontWeight: 700 }} />
+          </Stack>
+          <Typography id="order-desc" variant="body1" color="text.secondary" sx={{ mb: 2, fontWeight: order.status === 'pending' ? 700 : undefined }}>{cfg.description}</Typography>
 
-      <div style={{ maxWidth: 600, margin: '0 auto', padding: 16 }}>
-        <div style={{ 
-          background: '#fff', 
-          borderRadius: 12, 
-          padding: 24,
-          marginBottom: 16,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-          textAlign: 'center'
-        }}>
-          <div style={{ fontSize: 64, marginBottom: 16 }}>{config.icon}</div>
-          <h2 style={{ margin: '0 0 8px', color: config.color }}>{config.label}</h2>
-          <p style={{ margin: '0 0 24px', color: '#666' }}>{config.description}</p>
-          
-          <div style={{ 
-            background: '#e9ecef', 
-            borderRadius: 8, 
-            height: 12, 
-            overflow: 'hidden',
-            marginBottom: 8
-          }}>
-            <div style={{ 
-              background: config.color, 
-              height: '100%', 
-              width: `${progress}%`,
-              transition: 'width 0.5s'
-            }} />
-          </div>
-          <div style={{ fontSize: 12, color: '#999' }}>{progress}% concluído</div>
-        </div>
 
-        <div style={{ 
-          background: '#fff', 
-          borderRadius: 12, 
-          padding: 16,
-          marginBottom: 16,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-        }}>
-          <h3 style={{ margin: '0 0 12px', fontSize: 18 }}>Detalhes do Pedido</h3>
+        </Card>
+
+        {/* Detalhes */}
+        <Card sx={{ p: 2, mb: 2 }} aria-labelledby="details-title">
+          <Typography id="details-title" variant="h6" sx={{ mb: 1 }}>Detalhes do Pedido</Typography>
+
           {order.tableId && (
-            <div style={{ marginBottom: 8, color: '#666' }}>
-              <strong>Mesa:</strong> {order.tableId}
-            </div>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+              {/* Mesa oculta conforme requisito do cliente */}
+            </Typography>
           )}
-          <div style={{ marginBottom: 8, color: '#666' }}>
-            <strong>Realizado:</strong> {new Date(order.createdAt).toLocaleString('pt-PT')}
-          </div>
-          
-          <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid #eee' }}>
-            <h4 style={{ margin: '0 0 12px', fontSize: 16 }}>Itens:</h4>
-            {order.items.map((item, idx) => (
-              <div key={idx} style={{ marginBottom: 8, fontSize: 14 }}>
-                {item.quantity}× {item.name || item.productId}
-              </div>
-            ))}
-          </div>
-          
-          {order.total && (
-            <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid #eee', fontSize: 18, fontWeight: 'bold' }}>
-              Total: {order.total.toFixed(2)}
-            </div>
-          )}
-        </div>
 
-        <button
-          onClick={() => navigate('/')}
-          style={{ 
-            width: '100%',
-            background: '#2d6a4f', 
-            color: '#fff', 
-            border: 'none', 
-            padding: '16px', 
-            borderRadius: 8,
-            cursor: 'pointer',
-            fontSize: 16,
-            fontWeight: 'bold'
-          }}
-        >
-          Fazer Novo Pedido
-        </button>
-      </div>
-    </div>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+            <strong>Realizado:</strong> {new Date(order.createdAt).toLocaleString('pt-PT')}
+          </Typography>
+
+          <Box sx={{ mt: 1, pt: 1, borderTop: '1px solid', borderColor: 'divider' }}>
+            <Typography variant="subtitle2" sx={{ mb: 1 }}>Itens:</Typography>
+            {order.items.map((item, idx) => (
+              <Typography key={idx} variant="body2" sx={{ mb: 0.5 }}>
+                {item.quantity}× {item.name || item.productId}
+              </Typography>
+            ))}
+          </Box>
+
+          {typeof order.total === 'number' && (
+            <Typography variant="h6" sx={{ mt: 2, pt: 1, borderTop: '1px solid', borderColor: 'divider', fontWeight: 800 }}>
+              Total: {formatCurrency(order.total)}
+            </Typography>
+          )}
+        </Card>
+
+        <Button fullWidth size="large" variant="contained" color="primary" onClick={() => navigate('/')}>Fazer Novo Pedido</Button>
+      </Container>
+    </Box>
   )
 }
 

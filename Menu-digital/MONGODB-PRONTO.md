@@ -88,9 +88,6 @@ MONGODB_URI=mongodb+srv://SEU_USER:SUA_SENHA@cluster.xxxxx.mongodb.net/menu_digi
 PORT=3000
 JWT_SECRET=menu_digital_secret_key_2024_change_in_production
 BASE_URL=http://localhost:5175
-DEV_LOGIN_EMAIL=admin@menu.com
-DEV_LOGIN_PASSWORD=admin123
-DEV_LOGIN_ROLES=admin,staff
 ```
 
 ### 3️⃣ Iniciar o Backend

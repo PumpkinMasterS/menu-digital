@@ -65,9 +65,6 @@ MONGODB_URI=mongodb+srv://SEU_USERNAME:SUA_PASSWORD@cluster.mongodb.net/menu_dig
 PORT=3000
 JWT_SECRET=menu_digital_secret_key_2024_change_in_production
 BASE_URL=http://localhost:5175
-DEV_LOGIN_EMAIL=admin@menu.com
-DEV_LOGIN_PASSWORD=admin123
-DEV_LOGIN_ROLES=admin,staff
 ```
 
 **IMPORTANTE:** Substitua `SEU_USERNAME` e `SUA_PASSWORD` pelos seus dados reais do MongoDB Atlas!

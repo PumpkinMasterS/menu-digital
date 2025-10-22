@@ -17,18 +17,17 @@ async function buildServer() {
     root: path.join(__dirname, '../public'),
     prefix: '/public/',
   });
-  // Register MongoDB only if DEV login is not explicitly enabled
-  if (!process.env.DEV_LOGIN_EMAIL) {
+  // Registar MongoDB quando existir URI; caso contrário, falha controlada
+  const hasUri = !!process.env.MONGODB_URI;
+  if (hasUri) {
     try {
       await server.register(require('@fastify/mongodb'), {
-        url: process.env.MONGODB_URI || 'mongodb://localhost:27017/menu_digital',
+        url: process.env.MONGODB_URI,
         forceClose: true,
       });
     } catch (err) {
-      server.log.warn('MongoDB connection failed; continuing without DB for DEV login.');
+      server.log.warn('MongoDB connection failed; continuing without DB.');
     }
-  } else {
-    server.log.warn('DEV login enabled; skipping MongoDB plugin registration.');
   }
 
   // Health
@@ -40,9 +39,6 @@ async function buildServer() {
     // Protect admin routes within the same encapsulation/context
     const { default: jwtAuthPlugin } = await import('./plugins/jwt_auth');
     await app.register(jwtAuthPlugin);
-    // Also support legacy admin token authentication
-    const { default: adminAuthPlugin } = await import('./plugins/admin_auth');
-    await app.register(adminAuthPlugin);
     // Register v1 routes (lazy MongoDB connection)
     const { default: categoriesRoutes } = await import('./routes/v1/categories_lazy');
     await app.register(categoriesRoutes);

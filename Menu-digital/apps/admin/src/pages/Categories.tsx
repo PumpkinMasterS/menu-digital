@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, FormControlLabel } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, FormControlLabel, IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { CategoriesAPI } from '../api';
 
 interface Category {
@@ -49,6 +50,21 @@ export default function Categories() {
     setCurrent(null);
   };
 
+  const handleDelete = async (cat: Category) => {
+    const id = (cat as any).id || cat._id;
+    if (!id) {
+      alert('ID da categoria não encontrado');
+      return;
+    }
+    if (!confirm('Tem certeza que deseja remover esta categoria?')) return;
+    try {
+      await CategoriesAPI.remove(id);
+      await fetchCategories();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const handleChange = (field: keyof Category, value: any) => {
     setCurrent((prev) => (prev ? { ...prev, [field]: value } : prev));
   };
@@ -89,10 +105,13 @@ export default function Categories() {
     {
       field: 'actions',
       headerName: 'Ações',
-      width: 160,
+      width: 200,
       renderCell: (params) => (
         <Box display="flex" gap={1}>
           <Button size="small" variant="outlined" onClick={() => handleOpen(params.row)}>Editar</Button>
+          <IconButton size="small" color="error" onClick={() => handleDelete(params.row)}>
+            <DeleteIcon fontSize="small" />
+          </IconButton>
         </Box>
       ),
     },

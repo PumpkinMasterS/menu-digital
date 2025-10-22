@@ -5,7 +5,7 @@ Prerequisitos
 
 Configuração
 - Copie `.env.example` para `.env` e ajuste:
-  - `MONGODB_URI=mongodb://localhost:27017/menu_digital`
+  - `MONGODB_URI=mongodb+srv://SEU_USERNAME:SUA_PASSWORD@cluster.mongodb.net/menu_digital?retryWrites=true&w=majority`
   - `PORT=3000`
 
 Scripts

@@ -1,0 +1,28 @@
+# Node
+node_modules/
+dist/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Env
+*.env
+backend/.env
+apps/**/.env
+frontend/.env
+
+# Vercel
+.vercel/
+
+# Build outputs
+**/dist/
+**/build/
+
+# Secrets & tokens
+**/tmp-token.txt
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -104,21 +104,13 @@ export const paymentsIfthenpayRoutes: FastifyPluginAsync = async (app) => {
     try {
       const mbwayKey = process.env.IFTHENPAY_MBWAY_KEY;
       const backofficeKey = process.env.IFTHENPAY_BACKOFFICE_KEY;
+      const simulate = !mbwayKey || !backofficeKey;
 
-      if (!mbwayKey || !backofficeKey) {
-        return reply.status(500).send({ 
-          error: 'MB WAY not configured',
-          message: 'Configure IFTHENPAY_MBWAY_KEY and IFTHENPAY_BACKOFFICE_KEY in .env'
-        });
-      }
-
-      // Chamar API do ifthenpay para iniciar pagamento MB WAY
+      // Gerar sempre um requestId para correlacionar
       const requestId = `${orderId}-${Date.now()}`;
       
-      // Simular chamada API (substitua pela chamada real)
-      // const response = await fetch('https://ifthenpay.com/api/mbway/init', { ... });
-      
-      // Por agora, guardar como pending
+      // Se estiver configurado, aqui chamaríamos a API real do ifthenpay.
+      // Para testes sem componente, vamos sempre criar o registo de pagamento como 'pending'.
       const paymentsCol = await getCollection('payments');
       const payment = {
         orderId,
@@ -130,6 +122,7 @@ export const paymentsIfthenpayRoutes: FastifyPluginAsync = async (app) => {
         customerEmail,
         createdAt: new Date().toISOString(),
         expiresAt: new Date(Date.now() + 15 * 60 * 1000).toISOString(), // 15 minutos
+        ...(simulate ? { simulation: true } : {}),
       };
       await paymentsCol.insertOne(payment);
 
@@ -141,9 +134,14 @@ export const paymentsIfthenpayRoutes: FastifyPluginAsync = async (app) => {
         amount: amount.toFixed(2),
         status: 'pending',
         expiresAt: payment.expiresAt,
+        ...(simulate ? { simulation: true, message: 'MB WAY em modo simulado (chaves não configuradas)' } : {}),
         instructions: {
-          pt: `Foi enviada uma notificação para o número ${phoneNumber}. Confirme o pagamento na app MB WAY`,
-          en: `A notification was sent to ${phoneNumber}. Confirm the payment in MB WAY app`
+          pt: simulate
+            ? 'Pedido registado em modo simulado. Confirme manualmente no balcão.'
+            : `Foi enviada uma notificação para o número ${phoneNumber}. Confirme o pagamento na app MB WAY`,
+          en: simulate
+            ? 'Payment request stored in simulation mode. Confirm manually at the counter.'
+            : `A notification was sent to ${phoneNumber}. Confirm the payment in MB WAY app`
         }
       });
 

@@ -39,8 +39,29 @@ export default function Modifiers() {
 
   const fetchGroups = async () => {
     try {
-      const data = await apiGet<{ items: ModifierGroup[] }>('/v1/admin/modifiers');
-      setGroups(data.items || []);
+      const data = await apiGet<any>('/v1/admin/modifiers');
+      const raw = Array.isArray(data) ? data : (data?.items || []);
+      const mapped: ModifierGroup[] = raw.map((g: any) => ({
+        id: g.id || g._id || '',
+        name: g.name,
+        description: g.description,
+        type: g.type || 'extra',
+        isActive: g.isActive ?? true,
+        selection: {
+          type: (g.maxSelections === 1 ? 'single' : 'multiple'),
+          required: g.isRequired ?? false,
+          min: 0,
+          max: g.maxSelections ?? 0,
+        },
+        options: (g.options || []).map((opt: any, idx: number) => ({
+          id: opt.id || `opt-${idx}`,
+          label: opt.label ?? opt.name ?? '',
+          priceDelta: Number(opt.priceDelta ?? 0),
+          isDefault: opt.isDefault ?? false,
+          isAvailable: opt.isAvailable ?? true,
+        })),
+      }));
+      setGroups(mapped);
     } catch (e) {
       console.error(e);
     }
@@ -74,10 +95,22 @@ export default function Modifiers() {
     if (!current) return;
     try {
       const id = current.id || current._id;
+      const payload = {
+        name: current.name,
+        description: current.description,
+        isActive: current.isActive,
+        isRequired: current.selection?.required ?? false,
+        maxSelections: current.selection?.type === 'single' ? 1 : Number(current.selection?.max ?? 0),
+        options: current.options.map((opt) => ({
+          name: opt.label,
+          priceDelta: Number(opt.priceDelta ?? 0),
+          isAvailable: opt.isAvailable ?? true,
+        })),
+      };
       if (id) {
-        await apiPatch(`/v1/admin/modifiers/${id}`, current);
+        await apiPatch(`/v1/admin/modifiers/${id}`, payload);
       } else {
-        await apiPost('/v1/admin/modifiers', current);
+        await apiPost('/v1/admin/modifiers', payload);
       }
       await fetchGroups();
       handleClose();

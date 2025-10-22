@@ -3,6 +3,80 @@ import { z } from 'zod';
 import { getCollection } from '../../lib/db';
 import { ObjectId } from 'mongodb';
 
+// DEV mode detection and in-memory store for modifiers when DB is unavailable
+const devMode = !!process.env.DEV_LOGIN_EMAIL || !process.env.MONGODB_URI;
+type DevModifierOption = {
+  name: string;
+  priceDelta: number;
+  isAvailable: boolean;
+};
+
+type DevModifierGroup = {
+  id: string;
+  name: string;
+  description?: string;
+  order?: number;
+  options: DevModifierOption[];
+  maxSelections: number;
+  isRequired: boolean;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+const DEV_MODIFIER_GROUPS: DevModifierGroup[] = [
+  {
+    id: 'mod-1',
+    name: 'Opcionais de Hambúrguer',
+    description: 'Adicionais para o seu hambúrguer',
+    order: 1,
+    options: [
+      { name: 'Queijo Cheddar', priceDelta: 1.5, isAvailable: true },
+      { name: 'Bacon', priceDelta: 2, isAvailable: true },
+      { name: 'Cebola Caramelizada', priceDelta: 1, isAvailable: true },
+      { name: 'Picles', priceDelta: 0.5, isAvailable: true }
+    ],
+    maxSelections: 3,
+    isRequired: false,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    id: 'mod-2',
+    name: 'Acompanhamentos',
+    description: 'Escolha seu acompanhamento',
+    order: 2,
+    options: [
+      { name: 'Batatas Fritas', priceDelta: 0, isAvailable: true },
+      { name: 'Onion Rings', priceDelta: 1.5, isAvailable: true },
+      { name: 'Salada', priceDelta: 0, isAvailable: true }
+    ],
+    maxSelections: 1,
+    isRequired: true,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    id: 'mod-3',
+    name: 'Molhos Extras',
+    description: 'Adicione molhos extras',
+    order: 3,
+    options: [
+      { name: 'Molho Barbecue', priceDelta: 0.5, isAvailable: true },
+      { name: 'Molho Especial', priceDelta: 0.5, isAvailable: true },
+      { name: 'Maionese', priceDelta: 0, isAvailable: true },
+      { name: 'Ketchup', priceDelta: 0, isAvailable: true }
+    ],
+    maxSelections: 2,
+    isRequired: false,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  }
+];
+
 const modifierOptionSchema = z
   .object({
     name: z.string().min(1),
@@ -17,7 +91,8 @@ const modifierGroupCreateSchema = z
     description: z.string().optional(),
     order: z.number().int().optional(),
     options: z.array(modifierOptionSchema).default([]),
-    maxSelections: z.number().int().positive().optional().default(1),
+    // Permitir zero para seleção ilimitada (0 = sem limite)
+    maxSelections: z.number().int().nonnegative().optional().default(1),
     isRequired: z.boolean().optional().default(false),
     isActive: z.boolean().optional().default(true),
   })
@@ -29,6 +104,11 @@ export const modifiersRoutes: FastifyPluginAsync = async (app) => {
   // Public: list active modifier groups
   app.get('/v1/public/modifiers', async (_req, reply) => {
     try {
+      if (devMode) {
+        const activeModifiers = DEV_MODIFIER_GROUPS.filter(mod => mod.isActive);
+        return reply.send(activeModifiers);
+      }
+      
       const collection = await getCollection('modifier_groups');
       const items = await collection
         .find({ isActive: true })
@@ -56,6 +136,10 @@ export const modifiersRoutes: FastifyPluginAsync = async (app) => {
   // Admin: list all modifier groups
   app.get('/v1/admin/modifiers', async (_req, reply) => {
     try {
+      if (devMode) {
+        return reply.send(DEV_MODIFIER_GROUPS);
+      }
+      
       const collection = await getCollection('modifier_groups');
       const items = await collection.find({}).sort({ order: 1, name: 1 }).toArray();
       const mapped = items.map((doc: any) => ({
@@ -80,8 +164,15 @@ export const modifiersRoutes: FastifyPluginAsync = async (app) => {
   // Public: get single modifier group by id (only active)
   app.get('/v1/public/modifiers/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('modifier_groups');
       const { id } = req.params as { id: string };
+      
+      if (devMode) {
+        const modifier = DEV_MODIFIER_GROUPS.find(mod => (mod.id === id) && mod.isActive);
+        if (!modifier) return reply.status(404).send({ error: 'Modifier group not found' });
+        return reply.send(modifier);
+      }
+      
+      const collection = await getCollection('modifier_groups');
       const doc = await collection.findOne({ $or: [{ id }, { _id: new ObjectId(id) }], isActive: true });
       if (!doc) return reply.status(404).send({ error: 'Modifier group not found' });
       return reply.send({
@@ -105,9 +196,23 @@ export const modifiersRoutes: FastifyPluginAsync = async (app) => {
   // Admin: create modifier group
   app.post('/v1/admin/modifiers', async (req, reply) => {
     try {
-      const collection = await getCollection('modifier_groups');
       const parse = modifierGroupCreateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
+      
+      if (devMode) {
+        const now = new Date().toISOString();
+        const id = `mod-${Date.now()}`;
+        const newModifier: DevModifierGroup = {
+          id,
+          ...parse.data,
+          createdAt: now,
+          updatedAt: now
+        };
+        DEV_MODIFIER_GROUPS.push(newModifier);
+        return reply.status(201).send(newModifier);
+      }
+      
+      const collection = await getCollection('modifier_groups');
       const now = new Date().toISOString();
       const id = new ObjectId().toHexString();
       const doc = { id, ...parse.data, createdAt: now, updatedAt: now };
@@ -122,10 +227,20 @@ export const modifiersRoutes: FastifyPluginAsync = async (app) => {
   // Admin: update modifier group
   app.patch('/v1/admin/modifiers/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('modifier_groups');
       const { id } = req.params as { id: string };
       const parse = modifierGroupUpdateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
+      
+      if (devMode) {
+        const idx = DEV_MODIFIER_GROUPS.findIndex(mod => mod.id === id);
+        if (idx === -1) return reply.status(404).send({ error: 'Modifier group not found' });
+        const now = new Date().toISOString();
+        const updated = { ...DEV_MODIFIER_GROUPS[idx], ...parse.data, updatedAt: now };
+        DEV_MODIFIER_GROUPS[idx] = updated;
+        return reply.send(updated);
+      }
+      
+      const collection = await getCollection('modifier_groups');
       const now = new Date().toISOString();
       const res = await collection.updateOne(
         { $or: [{ id }, { _id: new ObjectId(id) }] },
@@ -154,8 +269,17 @@ export const modifiersRoutes: FastifyPluginAsync = async (app) => {
   // Admin: delete modifier group (soft delete)
   app.delete('/v1/admin/modifiers/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('modifier_groups');
       const { id } = req.params as { id: string };
+      
+      if (devMode) {
+        const idx = DEV_MODIFIER_GROUPS.findIndex(mod => mod.id === id);
+        if (idx === -1) return reply.status(404).send({ error: 'Modifier group not found' });
+        DEV_MODIFIER_GROUPS[idx].isActive = false;
+        DEV_MODIFIER_GROUPS[idx].updatedAt = new Date().toISOString();
+        return reply.status(204).send();
+      }
+      
+      const collection = await getCollection('modifier_groups');
       const now = new Date().toISOString();
       const res = await collection.updateOne(
         { $or: [{ id }, { _id: new ObjectId(id) }] },

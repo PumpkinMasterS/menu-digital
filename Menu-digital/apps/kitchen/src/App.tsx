@@ -8,10 +8,10 @@ export default function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route element={<ProtectedRoute />}> 
-        <Route path="/kitchen" element={<KitchenDashboard />} />
-        <Route path="/" element={<Navigate to="/kitchen" replace />} />
+        <Route path="/pedidos" element={<KitchenDashboard />} />
+        <Route path="/" element={<Navigate to="/pedidos" replace />} />
       </Route>
-      <Route path="*" element={<Navigate to="/kitchen" replace />} />
+      <Route path="*" element={<Navigate to="/pedidos" replace />} />
     </Routes>
   )
 }
