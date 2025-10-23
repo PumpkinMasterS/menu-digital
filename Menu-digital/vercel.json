@@ -1,0 +1,19 @@
+{
+  "rewrites": [
+    { "source": "/v1/public/payments/ifthenpay/callback", "has": [ { "type": "query", "key": "healthcheck" } ], "destination": "/api/ifthenpay-healthcheck" },
+    { "source": "/v1/public/payments/ifthenpay/callback", "destination": "https://backend-production-348d.up.railway.app/v1/public/payments/ifthenpay/callback" },
+    { "source": "/v1/(.*)", "destination": "https://backend-production-348d.up.railway.app/v1/$1" },
+    { "source": "/public/(.*)", "destination": "https://backend-production-348d.up.railway.app/public/$1" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "no-referrer" }
+      ]
+    }
+  ]
+}
