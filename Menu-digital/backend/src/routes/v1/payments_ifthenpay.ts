@@ -195,6 +195,12 @@ export const paymentsIfthenpayRoutes: FastifyPluginAsync = async (app) => {
 
   // Callback do ifthenpay
   app.get('/v1/public/payments/ifthenpay/callback', async (req, reply) => {
+    // Healthcheck rápido: permite validar integração sem exigir Key
+    const q: any = (req as any).query || {};
+    if (q.healthcheck) {
+      return reply.send({ ok: true });
+    }
+
     const parsed = callbackSchema.safeParse(req.query);
     if (!parsed.success) {
       app.log.warn(req.query, 'Invalid callback data');
