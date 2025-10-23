@@ -20,7 +20,10 @@ const jwtAuthPlugin: FastifyPluginAsync = async (app) => {
       }
 
       const token = authHeader.split(' ')[1];
-      const jwtSecret = process.env.JWT_SECRET || 'secret';
+      const jwtSecret = process.env.JWT_SECRET;
+      if (!jwtSecret) {
+        return reply.status(500).send({ error: 'Server misconfigured: missing JWT_SECRET' });
+      }
 
       try {
         const decoded = jwt.verify(token, jwtSecret) as JWTPayload;

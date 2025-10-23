@@ -1,4 +1,4 @@
-import { MongoClient, Db } from 'mongodb';
+import { MongoClient, Db, Document } from 'mongodb';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -40,17 +40,15 @@ export async function close(): Promise<void> {
   }
 }
 
-export async function getCollection<T = unknown>(name: string) {
+export async function getCollection<T extends Document = any>(name: string) {
   const database = await getDb();
   const collection = database.collection<T>(name);
   if (name === 'orders' && !ordersIndexesEnsured) {
     try {
       // Índices para melhorar listagens por status e ordenação por createdAt
-      await (collection as any).createIndexes([
-        { key: { status: 1, createdAt: -1 }, name: 'idx_status_createdAt' },
-        { key: { createdAt: -1 }, name: 'idx_createdAt_desc' },
-        { key: { status: 1 }, name: 'idx_status' },
-      ]);
+      await (collection as any).createIndex({ status: 1, createdAt: -1 }, { name: 'idx_status_createdAt' });
+      await (collection as any).createIndex({ createdAt: -1 }, { name: 'idx_createdAt_desc' });
+      await (collection as any).createIndex({ status: 1 }, { name: 'idx_status' });
       ordersIndexesEnsured = true;
     } catch (e) {
       // falha silenciosa em criação de índices para não bloquear fluxo

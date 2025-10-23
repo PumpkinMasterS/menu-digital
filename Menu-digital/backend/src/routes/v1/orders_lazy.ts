@@ -147,10 +147,10 @@ async function initializeChangeStream() {
   }
 }
 
-const ordersRoutes = async (app) => {
+const ordersRoutes: FastifyPluginAsync = async (app) => {
   await initializeChangeStream();
   // Public: criar pedido
-  app.post('/v1/public/orders', async (req, reply) => {
+  app.post('/v1/public/orders', async (req: any, reply: any) => {
     try {
       const parse = orderCreateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
@@ -214,7 +214,7 @@ const ordersRoutes = async (app) => {
   });
 
   // Public: obter pedido por id (formato reduzido para o app de menu)
-  app.get('/v1/public/orders/:id', async (req, reply) => {
+  app.get('/v1/public/orders/:id', async (req: any, reply: any) => {
     try {
       const { id } = req.params as { id: string };
       const ordersCol = await getCollection('orders');
@@ -245,22 +245,24 @@ const ordersRoutes = async (app) => {
   });
 
   // Admin: listar pedidos com paginação e filtro por status
-  app.get('/v1/admin/orders', async (req, reply) => {
+  app.get('/v1/admin/orders', async (req: any, reply: any) => {
     try {
       const querySchema = z
         .object({
           page: z.coerce.number().int().positive().optional().default(1),
           limit: z.coerce.number().int().positive().max(200).optional().default(50),
           status: z.enum(['pending', 'accepted', 'in_progress', 'ready', 'delivered', 'cancelled']).optional(),
+          onlyPaid: z.coerce.boolean().optional().default(false),
         })
         .strict();
       const parsed = querySchema.safeParse(req.query);
       if (!parsed.success) return reply.status(400).send({ error: 'Invalid query', details: parsed.error.flatten() });
-      const { page, limit, status } = parsed.data;
+      const { page, limit, status, onlyPaid } = parsed.data;
 
       const ordersCol = await getCollection('orders');
       const filter: any = {};
       if (status) filter.status = status;
+      if (onlyPaid) filter.paymentStatus = 'paid';
       const cursor = ordersCol.find(filter).sort({ createdAt: -1 }).skip((page - 1) * limit).limit(limit);
       const items = await cursor.toArray();
       const total = await ordersCol.countDocuments(filter);
@@ -275,6 +277,7 @@ const ordersRoutes = async (app) => {
           items: o.items || [],
           notes: o.notes,
           nif: o.nif,
+          paymentStatus: o.paymentStatus,
           createdAt: o.createdAt,
           updatedAt: o.updatedAt,
         })),
@@ -289,7 +292,7 @@ const ordersRoutes = async (app) => {
   });
 
   // Admin: obter pedido
-  app.get('/v1/admin/orders/:id', async (req, reply) => {
+  app.get('/v1/admin/orders/:id', async (req: any, reply: any) => {
     try {
       const { id } = req.params as { id: string };
       const ordersCol = await getCollection('orders');
@@ -304,7 +307,7 @@ const ordersRoutes = async (app) => {
   });
 
   // Admin: atualizar pedido
-  app.patch('/v1/admin/orders/:id', async (req, reply) => {
+  app.patch('/v1/admin/orders/:id', async (req: any, reply: any) => {
     try {
       const { id } = req.params as { id: string };
       const parse = orderUpdateSchema.safeParse(req.body);
@@ -327,7 +330,7 @@ const ordersRoutes = async (app) => {
   });
 
   // Admin: cancelar (soft delete)
-  app.delete('/v1/admin/orders/:id', async (req, reply) => {
+  app.delete('/v1/admin/orders/:id', async (req: any, reply: any) => {
     try {
       const { id } = req.params as { id: string };
       const ordersCol = await getCollection('orders');
@@ -346,7 +349,7 @@ const ordersRoutes = async (app) => {
   });
 
   // Admin: SSE stream for order changes
-  app.get('/v1/admin/orders/stream', async (req, reply) => {
+  app.get('/v1/admin/orders/stream', async (req: any, reply: any) => {
     // Definir headers diretamente no socket para garantir MIME correto
     try {
       reply.raw.setHeader('Content-Type', 'text/event-stream');
@@ -365,7 +368,14 @@ const ordersRoutes = async (app) => {
 
     const listener = (change: any) => {
       try {
-        reply.raw.write(`data: ${JSON.stringify(change)}\n\n`);
+        if (change?.operationType === 'delete') {
+          reply.raw.write(`data: ${JSON.stringify(change)}\n\n`);
+          return;
+        }
+        const doc = change?.fullDocument;
+        if (doc && doc.paymentStatus === 'paid') {
+          reply.raw.write(`data: ${JSON.stringify(change)}\n\n`);
+        }
       } catch {}
     };
 

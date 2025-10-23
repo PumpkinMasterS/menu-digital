@@ -9,11 +9,19 @@ import { getCollection } from '../backend/src/lib/db'
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     // Validar Anti-Phishing
-    const anti = process.env.IFTHENPAY_ANTI_PHISHING_KEY
-    const key = (req.query.Key as string) || ''
-    if (anti && key !== anti) {
-      return res.status(403).send('Forbidden')
-    }
+    -    const anti = process.env.IFTHENPAY_ANTI_PHISHING_KEY
+    -    const key = (req.query.Key as string) || ''
+    -    if (anti && key !== anti) {
+    -      return res.status(403).send('Forbidden')
+    -    }
+    +    const anti = process.env.IFTHENPAY_ANTI_PHISHING_KEY
+    +    const key = (req.query.Key as string) || ''
+    +    if (!anti) {
+    +      return res.status(500).send('Server misconfigured')
+    +    }
+    +    if (key !== anti) {
+    +      return res.status(403).send('Forbidden')
+    +    }
 
     // MB WAY: RequestId e Estado ("000" = pago)
     const requestId = (req.query.RequestId as string) || ''

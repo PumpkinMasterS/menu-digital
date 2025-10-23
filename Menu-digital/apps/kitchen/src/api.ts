@@ -45,7 +45,10 @@ function buildHeaders(extra?: Record<string, string>) {
 }
 
 export async function listOrders(filter?: OrderStatus | 'all') {
-  const qs = filter && filter !== 'all' ? `?status=${filter}` : ''
+  const params: string[] = []
+  if (filter && filter !== 'all') params.push(`status=${encodeURIComponent(filter)}`)
+  params.push('onlyPaid=true')
+  const qs = params.length ? `?${params.join('&')}` : ''
   const res = await fetch(`/v1/admin/orders${qs}`, { headers: buildHeaders() })
   if (!res.ok) throw new Error(`${res.status}`)
   return res.json()

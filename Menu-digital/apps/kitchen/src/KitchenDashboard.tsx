@@ -344,6 +344,7 @@ export default function KitchenDashboard() {
             } else if (change.operationType === 'update') {
               const key = change.documentKey?._id || change.documentKey?.id
               const updatedFields = change.updateDescription?.updatedFields || {}
+              const fullDoc = change.fullDocument || null
               
               let orderExists = false
               updatedOrders = prev.map((o) => {
@@ -360,11 +361,21 @@ export default function KitchenDashboard() {
                 stopRingingIfNone()
               }
 
-              if (!orderExists && updatedFields.status) {
-                 const shouldDisplay = filter === 'all' || updatedFields.status === filter || (filter === 'in_progress' && updatedFields.status === 'preparing')
-                 if (shouldDisplay) {
-                    refresh()
-                 }
+              // Se NÃO existe ainda na lista, mas agora está pago e é de hoje, adiciona
+              if (!orderExists && fullDoc && isFromToday(fullDoc.createdAt)) {
+                const matchesFilter = filter === 'all' || fullDoc.status === filter || (filter === 'in_progress' && fullDoc.status === 'preparing')
+                if (matchesFilter) {
+                  const newKey = fullDoc.id || fullDoc._id
+                  if (!prevIdsRef.current.has(newKey)) {
+                    if (fullDoc.status === 'pending') {
+                      beep()
+                      ringingIdsRef.current.add(String(newKey))
+                      startRinging()
+                    }
+                    prevIdsRef.current.add(newKey)
+                    updatedOrders = [fullDoc, ...updatedOrders]
+                  }
+                }
               }
               
               updatedOrders = updatedOrders.filter(o => {
