@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/public/(.*)",  "destination": "https://backend-production-348d.up.railway.app/public/$1" },
+    { "source": "/v1/(.*)",      "destination": "https://backend-production-348d.up.railway.app/v1/$1" },
+
+    { "source": "/menu",               "destination": "https://backend-production-348d.up.railway.app/public/menu/index.html" },
+    { "source": "/menu/assets/(.*)",   "destination": "https://backend-production-348d.up.railway.app/public/menu/assets/$1" },
+
+    { "source": "/admin",              "destination": "https://backend-production-348d.up.railway.app/public/admin/index.html" },
+    { "source": "/admin/assets/(.*)",  "destination": "https://backend-production-348d.up.railway.app/public/admin/assets/$1" },
+
+    { "source": "/kitchen",             "destination": "https://backend-production-348d.up.railway.app/public/kitchen/index.html" },
+    { "source": "/kitchen/assets/(.*)", "destination": "https://backend-production-348d.up.railway.app/public/kitchen/assets/$1" }
+  ],
+  "redirects": [
+    { "source": "/menu/(.*)",    "destination": "/menu",    "permanent": false },
+    { "source": "/admin/(.*)",   "destination": "/admin",   "permanent": false },
+    { "source": "/kitchen/(.*)", "destination": "/kitchen", "permanent": false }
+  ]
+}
