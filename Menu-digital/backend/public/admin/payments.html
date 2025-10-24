@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Status de Pagamento | Admin</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; background: #0b1020; color: #e6e9f0; }
+    h1 { font-size: 22px; margin: 0 0 16px; }
+    .card { background: #141a2f; border: 1px solid #243055; border-radius: 10px; padding: 16px; max-width: 720px; }
+    label { display: block; font-size: 13px; color: #9fb4ff; margin-bottom: 6px; }
+    input { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #33457a; background: #101633; color: #e6e9f0; }
+    button { margin-top: 10px; background: #3b82f6; color: white; border: 0; border-radius: 8px; padding: 10px 14px; cursor: pointer; }
+    button:hover { background: #2563eb; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .kv { display: grid; grid-template-columns: 160px 1fr; gap: 8px; align-items: center; }
+    .muted { color: #92a2cc; font-size: 12px; }
+    .tag { display: inline-block; padding: 4px 8px; border-radius: 999px; font-size: 12px; }
+    .tag.pending { background: #f59e0b22; color: #f59e0b; border: 1px solid #f59e0b55; }
+    .tag.completed { background: #10b98122; color: #10b981; border: 1px solid #10b98155; }
+    .tag.failed { background: #ef444422; color: #ef4444; border: 1px solid #ef444455; }
+    pre { background: #0d1226; border: 1px solid #1f2949; padding: 12px; border-radius: 8px; overflow: auto; }
+    .row { margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Status de Pagamento</h1>
+  <div class="card">
+    <label for="orderId">Order ID</label>
+    <input id="orderId" placeholder="Ex.: ord-123456789" />
+    <button id="btn">Consultar</button>
+
+    <div id="result" class="row" hidden>
+      <div class="grid">
+        <div class="kv"><div>Método</div><div id="method"></div></div>
+        <div class="kv"><div>Status</div><div id="status"></div></div>
+        <div class="kv"><div>Valor</div><div id="amount"></div></div>
+        <div class="kv"><div>Criado em</div><div id="createdAt"></div></div>
+        <div class="kv"><div>Pago em</div><div id="paidAt"></div></div>
+        <div class="kv"><div>Expira em</div><div id="expiresAt"></div></div>
+      </div>
+
+      <div id="methodExtra" class="row"></div>
+
+      <details class="row">
+        <summary class="muted">Ver JSON completo</summary>
+        <pre id="json"></pre>
+      </details>
+    </div>
+
+    <div id="error" class="row muted" hidden></div>
+  </div>
+
+  <script>
+    const el = {
+      orderId: document.getElementById('orderId'),
+      btn: document.getElementById('btn'),
+      result: document.getElementById('result'),
+      method: document.getElementById('method'),
+      status: document.getElementById('status'),
+      amount: document.getElementById('amount'),
+      createdAt: document.getElementById('createdAt'),
+      paidAt: document.getElementById('paidAt'),
+      expiresAt: document.getElementById('expiresAt'),
+      methodExtra: document.getElementById('methodExtra'),
+      json: document.getElementById('json'),
+      error: document.getElementById('error'),
+    };
+
+    const fmtDate = (s) => s ? new Date(s).toLocaleString() : '-';
+
+    function tag(status) {
+      const span = document.createElement('span');
+      span.className = `tag ${String(status).toLowerCase()}`;
+      span.textContent = status;
+      return span;
+    }
+
+    async function fetchStatus() {
+      const id = el.orderId.value.trim();
+      el.error.hidden = true;
+      el.result.hidden = true;
+      el.methodExtra.innerHTML = '';
+      if (!id) {
+        el.error.hidden = false;
+        el.error.textContent = 'Informe um Order ID.';
+        return;
+      }
+      try {
+        const res = await fetch(`/v1/public/payments/${encodeURIComponent(id)}/status`);
+        if (!res.ok) {
+          const txt = await res.text();
+          throw new Error(`${res.status} ${res.statusText} — ${txt}`);
+        }
+        const data = await res.json();
+        el.result.hidden = false;
+
+        el.method.textContent = data.method;
+        el.status.innerHTML = '';
+        el.status.appendChild(tag(data.status));
+        el.amount.textContent = Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(data.amount || 0);
+        el.createdAt.textContent = fmtDate(data.createdAt);
+        el.paidAt.textContent = fmtDate(data.paidAt);
+        el.expiresAt.textContent = fmtDate(data.expiresAt);
+
+        if (data.method === 'mbway') {
+          el.methodExtra.innerHTML = `
+            <div class="grid">
+              <div class="kv"><div>Telemóvel</div><div>${data.phoneNumber || '-'}</div></div>
+              <div class="kv"><div>RequestId</div><div>${data.requestId || '-'}</div></div>
+            </div>`;
+        }
+
+        el.json.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        el.error.hidden = false;
+        el.error.textContent = `Erro: ${err.message}`;
+      }
+    }
+
+    el.btn.addEventListener('click', fetchStatus);
+    el.orderId.addEventListener('keydown', (e) => { if (e.key === 'Enter') fetchStatus(); });
+  </script>
+</body>
+</html>

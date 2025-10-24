@@ -1,0 +1,26 @@
+{
+  "step1_create_order": {
+    "url": "https://menu-digital-production.up.railway.app/v1/public/orders",
+    "method": "POST",
+    "body": {
+      "items": [
+        {
+          "productId": "68f9565344181e74d8ce5b49",
+          "quantity": 1,
+          "notes": "TESTE PAGAMENTO"
+        }
+      ],
+      "notes": "Pedido de teste para validar MB WAY"
+    }
+  },
+  "step2_create_mbway_payment": {
+    "url": "https://menu-digital-production.up.railway.app/v1/public/payments/mbway",
+    "method": "POST",
+    "body": {
+      "orderId": "ORDER_ID_FROM_STEP1",
+      "amount": 0.10,
+      "phoneNumber": "962751338"
+    }
+  }
+}
+

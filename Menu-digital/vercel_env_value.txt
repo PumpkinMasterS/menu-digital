@@ -1,0 +1,1 @@
+mongodb+srv://whiswher_db_user:KgvXln6lckWmgGgB@digitalmenu.gapfz.mongodb.net/menu_digital?retryWrites=true&w=majority&authSource=admin

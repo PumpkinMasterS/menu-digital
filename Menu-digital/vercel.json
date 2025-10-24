@@ -1,8 +1,11 @@
 {
   "rewrites": [
     { "source": "/v1/public/payments/ifthenpay/callback", "has": [ { "type": "query", "key": "healthcheck" } ], "destination": "/api/ifthenpay-healthcheck" },
+    { "source": "/public/health", "destination": "https://backend-production-348d.up.railway.app/health" },
     { "source": "/v1/public/payments/ifthenpay/callback", "destination": "https://backend-production-348d.up.railway.app/v1/public/payments/ifthenpay/callback" },
     { "source": "/v1/(.*)", "destination": "https://backend-production-348d.up.railway.app/v1/$1" },
+    { "source": "/health", "destination": "https://backend-production-348d.up.railway.app/health" },
+    { "source": "/api/ifthenpay-callback", "destination": "https://backend-production-348d.up.railway.app/v1/public/payments/ifthenpay/callback" },
     { "source": "/public/(.*)", "destination": "https://backend-production-348d.up.railway.app/public/$1" }
   ],
   "headers": [
