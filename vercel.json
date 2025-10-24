@@ -1,13 +1,16 @@
 {
   "version": 2,
   "rewrites": [
-    {
-      "source": "/public/(.*)",
-      "destination": "https://backend-production-348d.up.railway.app/public/$1"
-    },
-    {
-      "source": "/v1/(.*)",
-      "destination": "https://backend-production-348d.up.railway.app/v1/$1"
-    }
+    { "source": "/public/(.*)",  "destination": "https://backend-production-348d.up.railway.app/public/$1" },
+    { "source": "/v1/(.*)",      "destination": "https://backend-production-348d.up.railway.app/v1/$1" },
+
+    { "source": "/menu",         "destination": "https://backend-production-348d.up.railway.app/public/menu/" },
+    { "source": "/menu/(.*)",    "destination": "https://backend-production-348d.up.railway.app/public/menu/$1" },
+
+    { "source": "/admin",        "destination": "https://backend-production-348d.up.railway.app/public/admin/" },
+    { "source": "/admin/(.*)",   "destination": "https://backend-production-348d.up.railway.app/public/admin/$1" },
+
+    { "source": "/kitchen",      "destination": "https://backend-production-348d.up.railway.app/public/kitchen/" },
+    { "source": "/kitchen/(.*)", "destination": "https://backend-production-348d.up.railway.app/public/kitchen/$1" }
   ]
 }
