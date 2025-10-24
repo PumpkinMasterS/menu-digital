@@ -6,14 +6,14 @@
 
     { "source": "/menu",               "destination": "https://backend-production-348d.up.railway.app/public/menu/index.html" },
     { "source": "/menu/assets/:path*", "destination": "https://backend-production-348d.up.railway.app/public/menu/assets/:path*" },
-    { "source": "/menu/:path*",        "destination": "https://backend-production-348d.up.railway.app/public/menu/index.html" },
+    { "source": "/menu/:path*",        "destination": "/api/fallback-menu" },
 
     { "source": "/admin",               "destination": "https://backend-production-348d.up.railway.app/public/admin/index.html" },
     { "source": "/admin/assets/:path*", "destination": "https://backend-production-348d.up.railway.app/public/admin/assets/:path*" },
-    { "source": "/admin/:path*",        "destination": "https://backend-production-348d.up.railway.app/public/admin/index.html" },
+    { "source": "/admin/:path*",        "destination": "/api/fallback-admin" },
 
     { "source": "/kitchen",               "destination": "https://backend-production-348d.up.railway.app/public/kitchen/index.html" },
     { "source": "/kitchen/assets/:path*", "destination": "https://backend-production-348d.up.railway.app/public/kitchen/assets/:path*" },
-    { "source": "/kitchen/:path*",        "destination": "https://backend-production-348d.up.railway.app/public/kitchen/index.html" }
+    { "source": "/kitchen/:path*",        "destination": "/api/fallback-kitchen" }
   ]
 }
