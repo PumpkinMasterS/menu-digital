@@ -1,0 +1,49 @@
+# General
+.DS_Store
+Thumbs.db
+*.log
+logs/
+*.tmp
+.tmp/
+*.swp
+
+# Node
+node_modules/
+.npm/
+.npmrc
+npm-debug.log*
+
+# Yarn / PNPM
+.yarn/
+.pnp.*
+yarn-error.log
+
+# TypeScript / Build outputs
+*.tsbuildinfo
+dist/
+build/
+.out/
+.next/
+.vite/
+.vercel/
+
+# Env / Secrets
+.env
+.env.*
+.vercel_env*
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Coverage
+coverage/
+
+# OS
+Desktop.ini
+$RECYCLE.BIN/
+
+# Misc
+*.orig
+.git-merge-*
