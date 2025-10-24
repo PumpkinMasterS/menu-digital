@@ -1,5 +1,4 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getCollection } from '../backend/src/lib/db';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
@@ -7,6 +6,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.query && typeof req.query.healthcheck !== 'undefined') {
       return res.status(200).json({ ok: true });
     }
+
+    // Importar DB apenas quando necessário para evitar falhas no healthcheck
+    const { getCollection } = await import('../backend/dist/lib/db.js');
 
     const anti = process.env.IFTHENPAY_ANTI_PHISHING_KEY || '';
     const key = (req.query?.Key as string) || '';
