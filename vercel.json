@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/public/(.*)",
+      "destination": "https://backend-production-348d.up.railway.app/public/$1"
+    },
+    {
+      "source": "/v1/(.*)",
+      "destination": "https://backend-production-348d.up.railway.app/v1/$1"
+    }
+  ]
+}
