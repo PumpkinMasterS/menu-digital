@@ -14,8 +14,8 @@
     { "source": "/kitchen/assets/(.*)", "destination": "https://backend-production-348d.up.railway.app/public/kitchen/assets/$1" }
   ],
   "redirects": [
-    { "source": "/menu/(.*)",    "destination": "/menu",    "permanent": false },
-    { "source": "/admin/(.*)",   "destination": "/admin",   "permanent": false },
-    { "source": "/kitchen/(.*)", "destination": "/kitchen", "permanent": false }
+    { "source": "/menu/:path*",    "destination": "/menu",    "permanent": false },
+    { "source": "/admin/:path*",   "destination": "/admin",   "permanent": false },
+    { "source": "/kitchen/:path*", "destination": "/kitchen", "permanent": false }
   ]
 }
