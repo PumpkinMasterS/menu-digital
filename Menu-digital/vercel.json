@@ -35,5 +35,6 @@
         { "key": "Referrer-Policy", "value": "no-referrer" }
       ]
     }
-  ]
+  ],
+  "trailingSlash": false
 }
