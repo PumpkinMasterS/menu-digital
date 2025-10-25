@@ -29,7 +29,7 @@ export const modifiersRoutes: FastifyPluginAsync = async (app) => {
   // Public: list active modifier groups
   app.get('/v1/public/modifiers', async (_req, reply) => {
     try {
-      const collection = await getCollection('modifier_groups');
+      const collection = await getCollection<any>('modifier_groups');
       const items = await collection
         .find({ isActive: true })
         .sort({ order: 1, name: 1 })
@@ -56,7 +56,7 @@ export const modifiersRoutes: FastifyPluginAsync = async (app) => {
   // Admin: list all modifier groups
   app.get('/v1/admin/modifiers', async (_req, reply) => {
     try {
-      const collection = await getCollection('modifier_groups');
+      const collection = await getCollection<any>('modifier_groups');
       const items = await collection.find({}).sort({ order: 1, name: 1 }).toArray();
       const mapped = items.map((doc: any) => ({
         id: doc.id ?? doc._id?.toString(),
@@ -80,7 +80,7 @@ export const modifiersRoutes: FastifyPluginAsync = async (app) => {
   // Public: get single modifier group by id (only active)
   app.get('/v1/public/modifiers/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('modifier_groups');
+      const collection = await getCollection<any>('modifier_groups');
       const { id } = req.params as { id: string };
       const doc = await collection.findOne({ $or: [{ id }, { _id: new ObjectId(id) }], isActive: true });
       if (!doc) return reply.status(404).send({ error: 'Modifier group not found' });
@@ -105,7 +105,7 @@ export const modifiersRoutes: FastifyPluginAsync = async (app) => {
   // Admin: create modifier group
   app.post('/v1/admin/modifiers', async (req, reply) => {
     try {
-      const collection = await getCollection('modifier_groups');
+      const collection = await getCollection<any>('modifier_groups');
       const parse = modifierGroupCreateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
       const now = new Date().toISOString();
@@ -122,7 +122,7 @@ export const modifiersRoutes: FastifyPluginAsync = async (app) => {
   // Admin: update modifier group
   app.patch('/v1/admin/modifiers/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('modifier_groups');
+      const collection = await getCollection<any>('modifier_groups');
       const { id } = req.params as { id: string };
       const parse = modifierGroupUpdateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
@@ -154,7 +154,7 @@ export const modifiersRoutes: FastifyPluginAsync = async (app) => {
   // Admin: delete modifier group (soft delete)
   app.delete('/v1/admin/modifiers/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('modifier_groups');
+      const collection = await getCollection<any>('modifier_groups');
       const { id } = req.params as { id: string };
       const now = new Date().toISOString();
       const res = await collection.updateOne(

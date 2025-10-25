@@ -52,29 +52,27 @@ async function buildServer() {
         root: path_1.default.join(__dirname, '../public'),
         prefix: '/public/',
     });
-    // Register MongoDB only if DEV login is not explicitly enabled
-    if (!process.env.DEV_LOGIN_EMAIL) {
-        try {
-            await server.register(require('@fastify/mongodb'), {
-                url: process.env.MONGODB_URI || 'mongodb://localhost:27017/menu_digital',
-                forceClose: true,
-            });
-        }
-        catch (err) {
-            server.log.warn('MongoDB connection failed; continuing without DB for DEV login.');
-        }
-    }
-    else {
-        server.log.warn('DEV login enabled; skipping MongoDB plugin registration.');
-    }
+    // Register MongoDB plugin (required; fail startup if unavailable)
+    await server.register(require('@fastify/mongodb'), {
+        url: process.env.MONGODB_URI,
+        forceClose: true,
+        // Explicitly prefer IPv4 to avoid TLS handshake issues in some environments
+        autoSelectFamily: false,
+        // Keep selection timeout aligned with plugin's reduced default
+        serverSelectionTimeoutMS: 7500,
+    });
     // Health
     server.get('/health', async () => ({ status: 'ok' }));
     // v1 routes placeholder
     server.register(async (app) => {
         app.get('/v1', async () => ({ version: 'v1' }));
+        app.get('/v1/', async () => ({ version: 'v1' }));
         // Protect admin routes within the same encapsulation/context
         const { default: jwtAuthPlugin } = await Promise.resolve().then(() => __importStar(require('./plugins/jwt_auth')));
         await app.register(jwtAuthPlugin);
+        // Also support legacy admin token authentication
+        const { default: adminAuthPlugin } = await Promise.resolve().then(() => __importStar(require('./plugins/admin_auth')));
+        await app.register(adminAuthPlugin);
         // Register v1 routes (lazy MongoDB connection)
         const { default: categoriesRoutes } = await Promise.resolve().then(() => __importStar(require('./routes/v1/categories_lazy')));
         await app.register(categoriesRoutes);
@@ -94,13 +92,15 @@ async function buildServer() {
         await app.register(settingsRoutes);
         const { default: tablesRoutes } = await Promise.resolve().then(() => __importStar(require('./routes/v1/tables_lazy')));
         await app.register(tablesRoutes);
+        const { paymentsIfthenpayRoutes } = await Promise.resolve().then(() => __importStar(require('./routes/v1/payments_ifthenpay')));
+        await app.register(paymentsIfthenpayRoutes);
     });
     return server;
 }
 const port = Number(process.env.PORT || 3000);
 buildServer()
     .then((server) => server.listen({ port, host: '0.0.0.0' }).then(() => {
-    server.log.info(`API listening on http://localhost:${port}`);
+    server.log.info(`API listening at http://localhost:${port}`);
 }))
     .catch((err) => {
     // Use console.error here because server may not be built

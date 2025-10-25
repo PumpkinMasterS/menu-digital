@@ -27,7 +27,7 @@ export const variantsRoutes: FastifyPluginAsync = async (app) => {
   // Public: list active variant groups
   app.get('/v1/public/variants', async (_req, reply) => {
     try {
-      const collection = await getCollection('variant_groups');
+      const collection = await getCollection<any>('variant_groups');
       const items = await collection
         .find({ isActive: true })
         .sort({ order: 1, name: 1 })
@@ -52,7 +52,7 @@ export const variantsRoutes: FastifyPluginAsync = async (app) => {
   // Admin: list all variant groups
   app.get('/v1/admin/variants', async (_req, reply) => {
     try {
-      const collection = await getCollection('variant_groups');
+      const collection = await getCollection<any>('variant_groups');
       const items = await collection.find({}).sort({ order: 1, name: 1 }).toArray();
       const mapped = items.map((doc: any) => ({
         id: doc.id ?? doc._id?.toString(),
@@ -74,7 +74,7 @@ export const variantsRoutes: FastifyPluginAsync = async (app) => {
   // Public: get single variant group by id (only active)
   app.get('/v1/public/variants/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('variant_groups');
+      const collection = await getCollection<any>('variant_groups');
       const { id } = req.params as { id: string };
       const doc = await collection.findOne({ $or: [{ id }, { _id: new ObjectId(id) }], isActive: true });
       if (!doc) return reply.status(404).send({ error: 'Variant group not found' });
@@ -97,7 +97,7 @@ export const variantsRoutes: FastifyPluginAsync = async (app) => {
   // Admin: create variant group
   app.post('/v1/admin/variants', async (req, reply) => {
     try {
-      const collection = await getCollection('variant_groups');
+      const collection = await getCollection<any>('variant_groups');
       const parse = variantGroupCreateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
       const now = new Date().toISOString();
@@ -114,7 +114,7 @@ export const variantsRoutes: FastifyPluginAsync = async (app) => {
   // Admin: update variant group
   app.patch('/v1/admin/variants/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('variant_groups');
+      const collection = await getCollection<any>('variant_groups');
       const { id } = req.params as { id: string };
       const parse = variantGroupUpdateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
@@ -144,7 +144,7 @@ export const variantsRoutes: FastifyPluginAsync = async (app) => {
   // Admin: delete variant group (soft delete)
   app.delete('/v1/admin/variants/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('variant_groups');
+      const collection = await getCollection<any>('variant_groups');
       const { id } = req.params as { id: string };
       const now = new Date().toISOString();
       const res = await collection.updateOne(

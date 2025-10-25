@@ -52,9 +52,9 @@ const orderUpdateSchema = z
   .partial();
 
 async function calculateTotals(items: Array<z.infer<typeof orderItemSchema>>) {
-  const productsCol = await getCollection('products');
-  const modifierGroupsCol = await getCollection('modifier_groups');
-  const variantGroupsCol = await getCollection('variant_groups');
+  const productsCol = await getCollection<any>('products');
+  const modifierGroupsCol = await getCollection<any>('modifier_groups');
+  const variantGroupsCol = await getCollection<any>('variant_groups');
 
   let subtotal = 0;
   const detailedItems = [] as any[];
@@ -116,7 +116,7 @@ async function calculateTotals(items: Array<z.infer<typeof orderItemSchema>>) {
   return { subtotal, tax, total, items: detailedItems };
 }
 
-const ordersRoutes = async (app) => {
+const ordersRoutes: FastifyPluginAsync = async (app) => {
   // Public: criar pedido
   app.post('/v1/public/orders', async (req, reply) => {
     try {
@@ -130,8 +130,8 @@ const ordersRoutes = async (app) => {
       let insertedDoc;
       // try {
       //   await session.withTransaction(async () => {
-          const productsCol = await getCollection('products');
-          const ordersCol = await getCollection('orders');
+          const productsCol = await getCollection<any>('products');
+          const ordersCol = await getCollection<any>('orders');
 
           for (const ditem of totals.items) {
             const pid = ditem.product.id;
@@ -156,7 +156,7 @@ const ordersRoutes = async (app) => {
           }
           const now = new Date().toISOString();
           const id = new ObjectId().toHexString();
-          const countersCol = await getCollection('counters');
+          const countersCol = await getCollection<any>('counters');
           const today = new Date().toISOString().split('T')[0];
           const counterId = `orderNumber-${today}`;
           const counter = await countersCol.findOneAndUpdate(
@@ -220,7 +220,7 @@ const orderNumber = counterDoc.seq;
       if (!parsed.success) return reply.status(400).send({ error: 'Invalid query', details: parsed.error.flatten() });
       const { page, limit, status } = parsed.data;
 
-      const ordersCol = await getCollection('orders');
+      const ordersCol = await getCollection<any>('orders');
       const filter: any = {};
       if (status) filter.status = status;
       const cursor = ordersCol.find(filter).sort({ createdAt: -1 }).skip((page - 1) * limit).limit(limit);
@@ -251,7 +251,7 @@ const orderNumber = counterDoc.seq;
   app.get('/v1/admin/orders/:id', async (req, reply) => {
     try {
       const { id } = req.params as { id: string };
-      const ordersCol = await getCollection('orders');
+      const ordersCol = await getCollection<any>('orders');
       const doc = await ordersCol.findOne({ $or: [{ id }, { _id: new ObjectId(id) }] });
       if (!doc) return reply.status(404).send({ error: 'Order not found' });
       return reply.send(doc);
@@ -267,7 +267,7 @@ const orderNumber = counterDoc.seq;
       const { id } = req.params as { id: string };
       const parse = orderUpdateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
-      const ordersCol = await getCollection('orders');
+      const ordersCol = await getCollection<any>('orders');
       const now = new Date().toISOString();
       const res = await ordersCol.updateOne(
         { $or: [{ id }, { _id: new ObjectId(id) }] },
@@ -286,7 +286,7 @@ const orderNumber = counterDoc.seq;
   app.delete('/v1/admin/orders/:id', async (req, reply) => {
     try {
       const { id } = req.params as { id: string };
-      const ordersCol = await getCollection('orders');
+      const ordersCol = await getCollection<any>('orders');
       const now = new Date().toISOString();
       const res = await ordersCol.updateOne(
         { $or: [{ id }, { _id: new ObjectId(id) }] },
@@ -306,7 +306,7 @@ const orderNumber = counterDoc.seq;
     reply.header('Cache-Control', 'no-cache');
     reply.header('Connection', 'keep-alive');
 
-    const ordersCol = await getCollection('orders');
+    const ordersCol = await getCollection<any>('orders');
     const changeStream = ordersCol.watch([], { fullDocument: 'updateLookup' });
 
     changeStream.on('change', (change) => {

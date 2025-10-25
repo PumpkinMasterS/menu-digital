@@ -1,4 +1,4 @@
-import { MongoClient, Db } from 'mongodb';
+import { MongoClient, Db, Document } from 'mongodb';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -40,7 +40,7 @@ export async function close(): Promise<void> {
   }
 }
 
-export async function getCollection<T = unknown>(name: string) {
+export async function getCollection<T extends Document = any>(name: string) {
   const database = await getDb();
   const collection = database.collection<T>(name);
   if (name === 'orders' && !ordersIndexesEnsured) {

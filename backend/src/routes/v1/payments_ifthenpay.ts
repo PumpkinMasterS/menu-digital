@@ -57,7 +57,7 @@ export const paymentsIfthenpayRoutes: FastifyPluginAsync = async (app) => {
       const reference = generateMultibancoReference(orderId, amount);
 
       // Guardar na base de dados
-      const paymentsCol = await getCollection('payments');
+      const paymentsCol = await getCollection<any>('payments');
       const payment = {
         orderId,
         method: 'multibanco',
@@ -119,7 +119,7 @@ export const paymentsIfthenpayRoutes: FastifyPluginAsync = async (app) => {
       // const response = await fetch('https://ifthenpay.com/api/mbway/init', { ... });
       
       // Por agora, guardar como pending
-      const paymentsCol = await getCollection('payments');
+      const paymentsCol = await getCollection<any>('payments');
       const payment = {
         orderId,
         method: 'mbway',
@@ -157,7 +157,7 @@ export const paymentsIfthenpayRoutes: FastifyPluginAsync = async (app) => {
   app.get('/v1/public/payments/ifthenpay/callback', async (req, reply) => {
     const parsed = callbackSchema.safeParse(req.query);
     if (!parsed.success) {
-      app.log.warn('Invalid callback data', req.query);
+      app.log.warn({ query: req.query }, 'Invalid callback data');
       return reply.status(400).send('Invalid callback');
     }
 
@@ -166,13 +166,13 @@ export const paymentsIfthenpayRoutes: FastifyPluginAsync = async (app) => {
     // Validar Anti-Phishing Key
     const antiPhishingKey = process.env.IFTHENPAY_ANTI_PHISHING_KEY;
     if (antiPhishingKey && data.Key !== antiPhishingKey) {
-      app.log.warn('Invalid anti-phishing key', { received: data.Key });
+      app.log.warn({ received: data.Key }, 'Invalid anti-phishing key');
       return reply.status(403).send('Forbidden');
     }
 
     try {
-      const paymentsCol = await getCollection('payments');
-      const ordersCol = await getCollection('orders');
+      const paymentsCol = await getCollection<any>('payments');
+      const ordersCol = await getCollection<any>('orders');
 
       // Multibanco callback
       if (data.Referencia && data.Valor) {
@@ -209,7 +209,7 @@ export const paymentsIfthenpayRoutes: FastifyPluginAsync = async (app) => {
             }
           );
 
-          app.log.info('Payment confirmed via Multibanco', { orderId: (payment as any).orderId, reference });
+          app.log.info({ orderId: (payment as any).orderId, reference }, 'Payment confirmed via Multibanco');
         }
       }
 
@@ -246,18 +246,18 @@ export const paymentsIfthenpayRoutes: FastifyPluginAsync = async (app) => {
             );
           }
 
-          app.log.info('Payment status via MB WAY', { 
+          app.log.info({ 
             orderId: (payment as any).orderId, 
             status,
             requestId: data.RequestId 
-          });
+          }, 'Payment status via MB WAY');
         }
       }
 
       return reply.send('OK');
 
     } catch (err) {
-      app.log.error('Error processing callback', err);
+      app.log.error({ err }, 'Error processing callback');
       return reply.status(500).send('Error');
     }
   });
@@ -267,7 +267,7 @@ export const paymentsIfthenpayRoutes: FastifyPluginAsync = async (app) => {
     const { orderId } = req.params as { orderId: string };
 
     try {
-      const paymentsCol = await getCollection('payments');
+      const paymentsCol = await getCollection<any>('payments');
       const payment = await paymentsCol.findOne({ orderId });
 
       if (!payment) {

@@ -18,7 +18,7 @@ export const categoriesRoutes: FastifyPluginAsync = async (app) => {
   // Public: list active categories
   app.get('/v1/public/categories', async (_req, reply) => {
     try {
-      const collection = await getCollection('categories');
+      const collection = await getCollection<any>('categories');
       const items = await collection
         .find({ isActive: true })
         .sort({ order: 1, name: 1 })
@@ -44,7 +44,7 @@ export const categoriesRoutes: FastifyPluginAsync = async (app) => {
   // Admin: list all categories
   app.get('/v1/admin/categories', async (_req, reply) => {
     try {
-      const collection = await getCollection('categories');
+      const collection = await getCollection<any>('categories');
       const items = await collection.find({}).sort({ order: 1, name: 1 }).toArray();
       const mapped = items.map((doc: any) => ({
         id: doc.id ?? doc._id?.toString(),
@@ -67,7 +67,7 @@ export const categoriesRoutes: FastifyPluginAsync = async (app) => {
   // Public: get single category by id (only active)
   app.get('/v1/public/categories/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('categories');
+      const collection = await getCollection<any>('categories');
       const { id } = req.params as { id: string };
       const doc = await collection.findOne({ $or: [{ id }, { _id: new ObjectId(id) }], isActive: true });
       if (!doc) return reply.status(404).send({ error: 'Category not found' });
@@ -91,7 +91,7 @@ export const categoriesRoutes: FastifyPluginAsync = async (app) => {
   // Admin: create category
   app.post('/v1/admin/categories', async (req, reply) => {
     try {
-      const collection = await getCollection('categories');
+      const collection = await getCollection<any>('categories');
       const parse = categoryCreateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
       const now = new Date().toISOString();
@@ -108,7 +108,7 @@ export const categoriesRoutes: FastifyPluginAsync = async (app) => {
   // Admin: update category
   app.patch('/v1/admin/categories/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('categories');
+      const collection = await getCollection<any>('categories');
       const { id } = req.params as { id: string };
       const parse = categoryUpdateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
@@ -139,7 +139,7 @@ export const categoriesRoutes: FastifyPluginAsync = async (app) => {
   // Admin: delete category (soft delete)
   app.delete('/v1/admin/categories/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('categories');
+      const collection = await getCollection<any>('categories');
       const { id } = req.params as { id: string };
       const now = new Date().toISOString();
       const res = await collection.updateOne(

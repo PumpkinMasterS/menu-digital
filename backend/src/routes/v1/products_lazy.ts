@@ -6,24 +6,6 @@ import fs from 'fs/promises';
 import path from 'path';
 import { randomUUID } from 'crypto';
 
-// DEV mode detection and in-memory store for products when DB is unavailable
-const devMode = !!process.env.DEV_LOGIN_EMAIL || !process.env.MONGODB_URI;
-type DevProduct = {
-  id: string;
-  name: string;
-  description?: string;
-  order?: number;
-  categoryId?: string;
-  imageUrl?: string;
-  price?: number;
-  composition?: any;
-  station?: string;
-  stockQuantity?: number;
-  isActive: boolean;
-  createdAt: string;
-  updatedAt: string;
-};
-const DEV_PRODUCTS: DevProduct[] = [];
 
 function sortItems<T extends Record<string, any>>(items: T[], sort: string, dir: 'asc' | 'desc') {
   const factor = dir === 'asc' ? 1 : -1;
@@ -98,7 +80,7 @@ export const productsRoutes: FastifyPluginAsync = async (app) => {
     if (!parsed.success) return reply.status(400).send({ error: 'Invalid query', details: parsed.error.flatten() });
     const { categoryId, page, limit, sort, dir } = parsed.data;
     try {
-      const collection = await getCollection('products');
+      const collection = await getCollection<any>('products');
       
       const filter: Record<string, unknown> = { isActive: true };
       if (categoryId) filter.categoryId = categoryId;
@@ -127,28 +109,8 @@ export const productsRoutes: FastifyPluginAsync = async (app) => {
       }));
       return reply.send({ items: mapped, page, limit, total });
     } catch (err: any) {
-      app.log.warn({ err }, 'Public products GET fallback without DB');
-      // DEV-friendly fallback using in-memory store
-      const filtered = DEV_PRODUCTS.filter((p) => p.isActive && (!categoryId || p.categoryId === categoryId));
-      const sorted = sortItems(filtered, sort, dir);
-      const { items, total } = paginate(sorted, page, limit);
-      const mapped = items.map((doc) => ({
-        id: doc.id,
-        name: doc.name,
-        description: doc.description,
-        order: doc.order,
-        categoryId: doc.categoryId,
-        imageUrl: doc.imageUrl,
-        price: doc.price,
-        composition: doc.composition,
-        station: doc.station,
-        stockQuantity: doc.stockQuantity,
-        isAvailable: doc.stockQuantity == null || doc.stockQuantity === -1 || (doc.stockQuantity ?? 0) > 0,
-        isActive: doc.isActive,
-        createdAt: doc.createdAt,
-        updatedAt: doc.updatedAt,
-      }));
-      return reply.send({ items: mapped, page, limit, total });
+      app.log.error({ err }, 'Public products GET failed due to DB');
+      return reply.status(503).send({ error: 'Database unavailable' });
     }
   });
 
@@ -168,7 +130,7 @@ export const productsRoutes: FastifyPluginAsync = async (app) => {
     if (!parsed.success) return reply.status(400).send({ error: 'Invalid query', details: parsed.error.flatten() });
     const { page, limit, sort, dir, isActive, categoryId } = parsed.data;
     try {
-      const collection = await getCollection('products');
+      const collection = await getCollection<any>('products');
 
       const filter: Record<string, unknown> = {};
       if (typeof isActive !== 'undefined') filter.isActive = isActive === 'true';
@@ -198,37 +160,15 @@ export const productsRoutes: FastifyPluginAsync = async (app) => {
       }));
       return reply.send({ items: mapped, page, limit, total });
     } catch (err: any) {
-      app.log.warn({ err }, 'Admin products GET fallback without DB');
-      // DEV-friendly fallback using in-memory store
-      let filtered = DEV_PRODUCTS.slice();
-      if (typeof isActive !== 'undefined') filtered = filtered.filter((p) => p.isActive === (isActive === 'true'));
-      if (categoryId) filtered = filtered.filter((p) => p.categoryId === categoryId);
-      const sorted = sortItems(filtered, sort, dir);
-      const { items, total } = paginate(sorted, page, limit);
-      const mapped = items.map((doc) => ({
-        id: doc.id,
-        name: doc.name,
-        description: doc.description,
-        order: doc.order,
-        categoryId: doc.categoryId,
-        imageUrl: doc.imageUrl,
-        price: doc.price,
-        composition: doc.composition,
-        station: doc.station,
-        stockQuantity: doc.stockQuantity,
-        isAvailable: doc.stockQuantity == null || doc.stockQuantity === -1 || (doc.stockQuantity ?? 0) > 0,
-        isActive: doc.isActive,
-        createdAt: doc.createdAt,
-        updatedAt: doc.updatedAt,
-      }));
-      return reply.send({ items: mapped, page, limit, total });
+      app.log.error({ err }, 'Admin products GET failed due to DB');
+      return reply.status(503).send({ error: 'Database unavailable' });
     }
   });
 
   // Public: get single product by id (only active)
   app.get('/v1/public/products/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('products');
+      const collection = await getCollection<any>('products');
       const { id } = req.params as { id: string };
       const doc = await collection.findOne({ $or: [{ id }, { _id: new ObjectId(id) }], isActive: true });
       if (!doc) return reply.status(404).send({ error: 'Product not found' });
@@ -258,7 +198,7 @@ export const productsRoutes: FastifyPluginAsync = async (app) => {
   // Admin: create product
   app.post('/v1/admin/products', async (req, reply) => {
     try {
-      const collection = await getCollection('products');
+      const collection = await getCollection<any>('products');
       const parse = productCreateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
       const now = new Date().toISOString();
@@ -267,24 +207,15 @@ export const productsRoutes: FastifyPluginAsync = async (app) => {
       await collection.insertOne(doc);
       return reply.status(201).send(doc);
     } catch (err: any) {
-      if (devMode) {
-        const parse = productCreateSchema.safeParse(req.body);
-        if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
-        const now = new Date().toISOString();
-        const id = new ObjectId().toHexString();
-        const doc: DevProduct = { id, ...parse.data, createdAt: now, updatedAt: now } as DevProduct;
-        DEV_PRODUCTS.push(doc);
-        return reply.status(201).send(doc);
-      }
       app.log.error(err);
-      return reply.status(500).send({ error: 'Database error' });
+      return reply.status(503).send({ error: 'Database unavailable' });
     }
   });
 
   // Admin: update product
   app.patch('/v1/admin/products/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('products');
+      const collection = await getCollection<any>('products');
       const { id } = req.params as { id: string };
       const parse = productUpdateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
@@ -313,41 +244,15 @@ export const productsRoutes: FastifyPluginAsync = async (app) => {
         updatedAt: updated?.updatedAt,
       });
     } catch (err: any) {
-      if (devMode) {
-        const { id } = req.params as { id: string };
-        const parse = productUpdateSchema.safeParse(req.body);
-        if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
-        const idx = DEV_PRODUCTS.findIndex((p) => p.id === id || (p as any)._id === id);
-        if (idx === -1) return reply.status(404).send({ error: 'Product not found' });
-        const now = new Date().toISOString();
-        const updated = { ...DEV_PRODUCTS[idx], ...parse.data, updatedAt: now } as DevProduct;
-        DEV_PRODUCTS[idx] = updated;
-        return reply.send({
-          id: updated.id,
-          name: updated.name,
-          description: updated.description,
-          order: updated.order,
-          categoryId: updated.categoryId,
-          imageUrl: updated.imageUrl,
-          price: updated.price,
-          composition: updated.composition,
-          station: updated.station,
-          stockQuantity: updated.stockQuantity,
-          isAvailable: updated.stockQuantity == null || updated.stockQuantity === -1 || (updated.stockQuantity ?? 0) > 0,
-          isActive: updated.isActive,
-          createdAt: updated.createdAt,
-          updatedAt: updated.updatedAt,
-        });
-      }
       app.log.error(err);
-      return reply.status(500).send({ error: 'Database error' });
+      return reply.status(503).send({ error: 'Database unavailable' });
     }
   });
 
   // Admin: delete product (soft delete)
   app.delete('/v1/admin/products/:id', async (req, reply) => {
     try {
-      const collection = await getCollection('products');
+      const collection = await getCollection<any>('products');
       const { id } = req.params as { id: string };
       const now = new Date().toISOString();
       const res = await collection.updateOne(
@@ -357,16 +262,8 @@ export const productsRoutes: FastifyPluginAsync = async (app) => {
       if (res.matchedCount === 0) return reply.status(404).send({ error: 'Product not found' });
       return reply.status(204).send();
     } catch (err: any) {
-      if (devMode) {
-        const { id } = req.params as { id: string };
-        const idx = DEV_PRODUCTS.findIndex((p) => p.id === id || (p as any)._id === id);
-        if (idx === -1) return reply.status(404).send({ error: 'Product not found' });
-        DEV_PRODUCTS[idx].isActive = false;
-        DEV_PRODUCTS[idx].updatedAt = new Date().toISOString();
-        return reply.status(204).send();
-      }
       app.log.error(err);
-      return reply.status(500).send({ error: 'Database error' });
+      return reply.status(503).send({ error: 'Database unavailable' });
     }
   });
 

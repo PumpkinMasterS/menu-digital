@@ -23,6 +23,7 @@ const orderCreateSchema = zod_1.z
     tableId: zod_1.z.string().optional(),
     items: zod_1.z.array(orderItemSchema).min(1),
     notes: zod_1.z.string().optional(),
+    nif: zod_1.z.string().optional(),
     payment: zod_1.z
         .object({
         method: zod_1.z.enum(['cash', 'card']).optional(),
@@ -160,6 +161,7 @@ const ordersRoutes = async (app) => {
                 items: totals.items,
                 totals: { subtotal: totals.subtotal, tax: totals.tax, total: totals.total },
                 notes: parse.data.notes,
+                nif: parse.data.nif,
                 payment: parse.data.payment ?? { status: 'pending' },
                 isActive: true,
                 createdAt: now,

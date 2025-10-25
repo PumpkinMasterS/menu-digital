@@ -45,18 +45,10 @@ const usersRoutes = async (app) => {
     // Login
     app.post('/v1/auth/login', async (req, reply) => {
         const body = userLoginSchema.parse(req.body);
-        // DEV fallback: allow login using env credentials without DB
-        const devEmail = process.env.DEV_LOGIN_EMAIL;
-        const devPassword = process.env.DEV_LOGIN_PASSWORD;
-        const devRolesEnv = process.env.DEV_LOGIN_ROLES; // comma-separated
-        if (devEmail && devPassword && body.email === devEmail && body.password === devPassword) {
-            const roles = devRolesEnv ? devRolesEnv.split(',').map((r) => r.trim()).filter(Boolean) : ['admin'];
-            const token = jsonwebtoken_1.default.sign({ id: 'dev-user', roles }, process.env.JWT_SECRET || 'secret', { expiresIn: '1h' });
-            return { token };
-        }
-        // Default: check DB user
         const users = getUsersCollection();
-        const user = users ? await users.findOne({ email: body.email }) : null;
+        if (!users)
+            return reply.status(503).send({ error: 'Database unavailable' });
+        const user = await users.findOne({ email: body.email });
         if (!user || !(await bcrypt_1.default.compare(body.password, user.passwordHash))) {
             return reply.status(401).send({ error: 'Invalid credentials' });
         }

@@ -22,7 +22,7 @@ const tablesRoutes: FastifyPluginAsync = async (app) => {
   // Admin: listar mesas
   app.get('/v1/admin/tables', async (req, reply) => {
     try {
-      const tablesCol = await getCollection('tables');
+      const tablesCol = await getCollection<any>('tables');
       const items = await tablesCol.find({}).toArray();
       return reply.send({ items });
     } catch (err: any) {
@@ -37,7 +37,7 @@ const tablesRoutes: FastifyPluginAsync = async (app) => {
       const parse = tableCreateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
 
-      const tablesCol = await getCollection('tables');
+      const tablesCol = await getCollection<any>('tables');
       const now = new Date().toISOString();
       const id = new ObjectId().toHexString();
       const doc = {
@@ -61,7 +61,7 @@ const tablesRoutes: FastifyPluginAsync = async (app) => {
       const parse = tableUpdateSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
 
-      const tablesCol = await getCollection('tables');
+      const tablesCol = await getCollection<any>('tables');
       const now = new Date().toISOString();
       const updated = await tablesCol.findOneAndUpdate(
         { id },
@@ -80,7 +80,7 @@ const tablesRoutes: FastifyPluginAsync = async (app) => {
   app.delete('/v1/admin/tables/:id', async (req, reply) => {
     try {
       const { id } = req.params as { id: string };
-      const tablesCol = await getCollection('tables');
+      const tablesCol = await getCollection<any>('tables');
       const deleted = await tablesCol.deleteOne({ id });
       if (deleted.deletedCount === 0) return reply.status(404).send({ error: 'Table not found' });
       return reply.status(204).send();
@@ -94,7 +94,7 @@ const tablesRoutes: FastifyPluginAsync = async (app) => {
   app.get('/v1/admin/tables/:id/qrcode', async (req, reply) => {
     try {
       const { id } = req.params as { id: string };
-      const tablesCol = await getCollection('tables');
+      const tablesCol = await getCollection<any>('tables');
       const table = await tablesCol.findOne({ id });
       if (!table) return reply.status(404).send({ error: 'Table not found' });
 
@@ -102,7 +102,7 @@ const tablesRoutes: FastifyPluginAsync = async (app) => {
       const url = `${baseUrl}/menu?table=${table.code}`;
 
       const svg = await new Promise<string>((resolve, reject) => {
-        QRCode.toString(url, { type: 'svg' }, (err, data) => {
+        QRCode.toString(url, { type: 'svg' }, (err: any, data: any) => {
           if (err) reject(err);
           else resolve(data);
         });

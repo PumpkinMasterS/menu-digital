@@ -13,6 +13,10 @@ const jwtAuthPlugin = async (app) => {
             // Skip auth for login endpoint
             if (url === '/v1/auth/login')
                 return;
+            // If an admin token header is present, let other auth plugins handle it
+            const adminHeaderToken = req.headers['x-admin-token'];
+            if (adminHeaderToken)
+                return;
             // Get token from Authorization header or query parameter
             let token;
             const authHeader = req.headers.authorization;

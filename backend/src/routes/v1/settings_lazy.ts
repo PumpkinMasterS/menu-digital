@@ -6,13 +6,12 @@ const settings: FastifyPluginAsync = async (app): Promise<void> => {
   // Lazy DB access inside handlers to avoid plugin startup timeout when DB is down
   app.get('/v1/admin/settings', async (_req, reply) => {
     try {
-      const settingsCol = await getCollection('settings');
+      const settingsCol = await getCollection<any>('settings');
       const doc = await settingsCol.findOne({ _id: 'global' });
       return reply.send(doc || { busyMode: false, delayMinutes: 0 });
     } catch (err: any) {
-      app.log.warn({ err }, 'Settings GET fallback without DB');
-      // Fallback defaults when DB is unavailable
-      return reply.send({ busyMode: false, delayMinutes: 0 });
+      app.log.error({ err }, 'Settings GET failed due to DB');
+      return reply.status(503).send({ error: 'Database unavailable' });
     }
   });
 
@@ -28,7 +27,7 @@ const settings: FastifyPluginAsync = async (app): Promise<void> => {
     if (!parsed.success) return reply.status(400).send({ error: 'Invalid input', details: parsed.error.flatten() });
 
     try {
-      const settingsCol = await getCollection('settings');
+      const settingsCol = await getCollection<any>('settings');
       const update = { $set: parsed.data };
       await settingsCol.updateOne({ _id: 'global' }, update, { upsert: true });
       const updated = await settingsCol.findOne({ _id: 'global' });

@@ -15,7 +15,7 @@ const categoryCreateSchema = z.object({
 const categoryUpdateSchema = categoryCreateSchema.partial();
 
 export const categoriesRoutes: FastifyPluginAsync = async (app) => {
-  const collection = await getCollection('categories');
+  const collection = await getCollection<any>('categories');
 
   // Public: list active categories
   app.get('/v1/public/categories', async (_req, reply) => {

@@ -23,7 +23,7 @@ export const compositionRoutes: FastifyPluginAsync = async (app) => {
       const parse = linkGroupsSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
 
-      const products = await getCollection('products');
+      const products = await getCollection<any>('products');
       const now = new Date().toISOString();
       const res = await products.updateOne(
         { $or: [{ id }, { _id: new ObjectId(id) }] },
@@ -45,7 +45,7 @@ export const compositionRoutes: FastifyPluginAsync = async (app) => {
       const parse = linkGroupsSchema.safeParse(req.body);
       if (!parse.success) return reply.status(400).send({ error: 'Invalid body', details: parse.error.flatten() });
 
-      const products = await getCollection('products');
+      const products = await getCollection<any>('products');
       const now = new Date().toISOString();
       const res = await products.updateOne(
         { $or: [{ id }, { _id: new ObjectId(id) }] },
@@ -64,15 +64,15 @@ export const compositionRoutes: FastifyPluginAsync = async (app) => {
   app.get('/v1/public/products/:id/composition', async (req, reply) => {
     try {
       const { id } = req.params as { id: string };
-      const products = await getCollection('products');
+      const products = await getCollection<any>('products');
       const product = await products.findOne({ $or: [{ id }, { _id: new ObjectId(id) }], isActive: true });
       if (!product) return reply.status(404).send({ error: 'Product not found' });
 
       const modifierIds: string[] = product?.composition?.modifierGroupIds ?? [];
       const variantIds: string[] = product?.composition?.variantGroupIds ?? [];
 
-      const modifierGroupsCol = await getCollection('modifier_groups');
-      const variantGroupsCol = await getCollection('variant_groups');
+      const modifierGroupsCol = await getCollection<any>('modifier_groups');
+      const variantGroupsCol = await getCollection<any>('variant_groups');
 
       const modifierGroups = await modifierGroupsCol
         .find({

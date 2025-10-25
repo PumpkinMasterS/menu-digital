@@ -11,9 +11,8 @@ const settings = async (app) => {
             return reply.send(doc || { busyMode: false, delayMinutes: 0 });
         }
         catch (err) {
-            app.log.warn({ err }, 'Settings GET fallback without DB');
-            // Fallback defaults when DB is unavailable
-            return reply.send({ busyMode: false, delayMinutes: 0 });
+            app.log.error({ err }, 'Settings GET failed due to DB');
+            return reply.status(503).send({ error: 'Database unavailable' });
         }
     });
     app.patch('/v1/admin/settings', async (req, reply) => {
