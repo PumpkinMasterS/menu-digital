@@ -17,19 +17,15 @@ async function buildServer() {
     root: path.join(__dirname, '../public'),
     prefix: '/public/',
   });
-  // Register MongoDB only if DEV login is not explicitly enabled
-  if (!process.env.DEV_LOGIN_EMAIL) {
-    try {
-      await server.register(require('@fastify/mongodb'), {
-        url: process.env.MONGODB_URI || 'mongodb://localhost:27017/menu_digital',
-        forceClose: true,
-      });
-    } catch (err) {
-      server.log.warn('MongoDB connection failed; continuing without DB for DEV login.');
-    }
-  } else {
-    server.log.warn('DEV login enabled; skipping MongoDB plugin registration.');
-  }
+  // Register MongoDB plugin (required; fail startup if unavailable)
+  await server.register(require('@fastify/mongodb'), {
+    url: process.env.MONGODB_URI,
+    forceClose: true,
+    // Explicitly prefer IPv4 to avoid TLS handshake issues in some environments
+    autoSelectFamily: false,
+    // Keep selection timeout aligned with plugin's reduced default
+    serverSelectionTimeoutMS: 7500,
+  });
 
   // Health
   server.get('/health', async () => ({ status: 'ok' }));
@@ -37,6 +33,7 @@ async function buildServer() {
   // v1 routes placeholder
   server.register(async (app) => {
     app.get('/v1', async () => ({ version: 'v1' }));
+    app.get('/v1/', async () => ({ version: 'v1' }));
     // Protect admin routes within the same encapsulation/context
     const { default: jwtAuthPlugin } = await import('./plugins/jwt_auth');
     await app.register(jwtAuthPlugin);
