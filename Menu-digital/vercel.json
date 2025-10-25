@@ -6,10 +6,23 @@
     { "source": "/v1/public/payments/ifthenpay/callback", "has": [ { "type": "query", "key": "healthcheck" } ], "destination": "/api/ifthenpay-healthcheck" },
     { "source": "/public/health", "destination": "https://backend-production-348d.up.railway.app/health" },
     { "source": "/v1/public/payments/ifthenpay/callback", "destination": "https://backend-production-348d.up.railway.app/v1/public/payments/ifthenpay/callback" },
+    { "source": "/v1", "destination": "https://backend-production-348d.up.railway.app/v1" },
     { "source": "/v1/(.*)", "destination": "https://backend-production-348d.up.railway.app/v1/$1" },
     { "source": "/health", "destination": "https://backend-production-348d.up.railway.app/health" },
     { "source": "/api/ifthenpay-callback", "destination": "https://backend-production-348d.up.railway.app/v1/public/payments/ifthenpay/callback" },
-    { "source": "/public/(.*)", "destination": "https://backend-production-348d.up.railway.app/public/$1" }
+    { "source": "/public/(.*)", "destination": "https://backend-production-348d.up.railway.app/public/$1" },
+
+    { "source": "/menu/(.*\\..*)", "destination": "https://backend-production-348d.up.railway.app/public/menu/$1" },
+    { "source": "/menu", "destination": "https://backend-production-348d.up.railway.app/public/menu/index.html" },
+    { "source": "/menu/(.*)", "destination": "https://backend-production-348d.up.railway.app/public/menu/index.html" },
+
+    { "source": "/admin/(.*\\..*)", "destination": "https://backend-production-348d.up.railway.app/public/admin/$1" },
+    { "source": "/admin", "destination": "https://backend-production-348d.up.railway.app/public/admin/index.html" },
+    { "source": "/admin/(.*)", "destination": "https://backend-production-348d.up.railway.app/public/admin/index.html" },
+
+    { "source": "/kitchen/(.*\\..*)", "destination": "https://backend-production-348d.up.railway.app/public/kitchen/$1" },
+    { "source": "/kitchen", "destination": "https://backend-production-348d.up.railway.app/public/kitchen/index.html" },
+    { "source": "/kitchen/(.*)", "destination": "https://backend-production-348d.up.railway.app/public/kitchen/index.html" }
   ],
   "headers": [
     {
